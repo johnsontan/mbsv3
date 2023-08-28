@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'jsignature',
+    'administration',
+    'customer',
+    'employee',
+    'pos'
 ]
 
 MIDDLEWARE = [
@@ -75,8 +80,12 @@ WSGI_APPLICATION = 'mbs.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mbsv3',
+        'USER': 'root',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',  # Or your database host
+        'PORT': '3306',       # Or your database port
     }
 }
 
@@ -110,6 +119,11 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+STATIC_URL = '/STATIC/'
+
+JSIGNATURE_WIDTH = 500
+JSIGNATURE_HEIGHT = 500
 
 
 # Static files (CSS, JavaScript, Images)
