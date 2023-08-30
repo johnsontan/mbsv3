@@ -1,6 +1,6 @@
 from django.db import models
 from administration.models import Accounts
-from customer.models import CustomerProfile, VoucherHistory, CreditHistory
+from customer.models import CustomerProfile, PackageHistory, CreditHistory
 
 # Create your models here.
 
@@ -28,12 +28,12 @@ class SalesTransaction(models.Model):
     id = models.BigAutoField(primary_key=True)
     grand_total = models.FloatField(default=0.0)
     payment_type = models.CharField(choices=Payment_Choice, max_length=200)
-    personal_remarks = models.TextField()
-    customer_remarks = models.TextField()
+    personal_remarks = models.TextField(null=True, blank=True)
+    customer_remarks = models.TextField(null=True, blank=True)
     customer = models.ForeignKey(CustomerProfile ,on_delete=models.CASCADE, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(Accounts, on_delete=models.DO_NOTHING)
-    voucher_history = models.ForeignKey(VoucherHistory, on_delete=models.DO_NOTHING, null=True, blank=True)
+    package_history = models.ForeignKey(PackageHistory, on_delete=models.DO_NOTHING, null=True, blank=True)
     credit_history = models.ForeignKey(CreditHistory, on_delete=models.DO_NOTHING, null=True, blank=True)
 
 class SaleServices(models.Model):
@@ -50,6 +50,7 @@ class SaleServices(models.Model):
     department = models.CharField(choices=Department_choice, max_length=200)
     service_name = models.CharField(max_length=220)
     service_price = models.FloatField(default=0.0)
+    sales_transaction = models.ForeignKey(SalesTransaction, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
 class ServiceImages(models.Model):
