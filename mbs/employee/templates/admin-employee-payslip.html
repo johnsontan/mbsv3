@@ -1,0 +1,78 @@
+{% extends 'base.html'%}
+
+{% block title %}MBS|employee payslip{%endblock%}
+
+
+{% block content %}
+{% load static %}
+<main class="page-content">
+    {% load widget_tweaks %}
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card">
+                <div class="card-header py-3 bg-transparent">
+                    <h5 class="mb-0">Melon -- Insert employee payslip</h5>
+                </div>
+                <div class="card-body">
+                    <div class="border p-3 rounded">
+                        <form class="row g-3" method="post">
+                            {% csrf_token %}
+                            <div class="col-12">
+                                <label class="form-label">Employee</label>
+                                {{form.user}}
+                                <span class="text-danger">{{ form.user.errors }}</span>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">{{form.payment_type.label}}</label>
+                                {{form.payment_type|add_class:"form-control"}}
+                                <span class="text-danger">{{ form.payment_type.errors }}</span>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">{{form.period_start_date.label}}</label>
+                                {{form.period_start_date|add_class:"form-control"}}
+                                <span class="text-danger">{{ form.period_start_date.errors }}</span>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">{{form.period_end_date.label}}</label>
+                                {{form.period_end_date|add_class:"form-control"}}
+                                <span class="text-danger">{{ form.period_end_date.errors }}</span>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">{{form.salary_total.label}}</label>
+                                {{form.salary_total|add_class:"form-control"}}
+                                <span class="text-danger">{{ form.salary_total.errors }}</span>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">{{form.basic_total.label}}</label>
+                                {{form.basic_total|add_class:"form-control"}}
+                                <span class="text-danger">{{ form.basic_total.errors }}</span>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">{{form.overtime_total.label}}</label>
+                                {{form.overtime_total|add_class:"form-control"}}
+                                <span class="text-danger">{{ form.overtime_total.errors }}</span>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">{{form.commission_total.label}}</label>
+                                {{form.commission_total|add_class:"form-control"}}
+                                <span class="text-danger">{{ form.commission_total.errors }}</span>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label text-info">{{form.deduction_total.label}}</label>
+                                {{form.deduction_total|add_class:"form-control"}}
+                                <span class="text-danger">{{ form.deduction_total.errors }}</span>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary px-4 w-100">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--end row-->
+
+</main>
+
+{% endblock %}

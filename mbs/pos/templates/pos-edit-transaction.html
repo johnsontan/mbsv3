@@ -1,7 +1,245 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
 
 {% block title %} Melon edit transaction {% endblock %}
 
 {% block content %}
+
+<main class="page-content">
+    <div>
+        <div class="flex d-flex justify-content-between mb-3">
+            <h5>Edit transaction</h5>
+            <a onclick="goBack()" class="btn btn-sm btn-info text-light">Go Back</a>
+        </div>
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {# SaleServices Formset #}
+            {{ sale_service_formset.management_form }}
+            <div id="services-container" class="border border-success p-2 rounded border-3">
+                <span>Services</span>
+                <hr>
+                {% for service_form in sale_service_formset %}
+                <div class="service-form">
+                    <div class="row">
+                        {{ service_form.id|add_class:"hidden" }}
+
+                        <div class="col">
+                            <label for="{{service_form.department.label}}"
+                                class="form-label">{{service_form.department.label}}</label>
+                            {{service_form.department|add_class:"form-control"}}
+                            <span class="fs-6 text-danger">{{service_form.department.errors}}</span>
+                        </div>
+
+                        <div class="col">
+                            <label for="{{service_form.service_name.label}}"
+                                class="form-label">{{service_form.service_name.label}}</label>
+                            {{service_form.service_name|add_class:"form-control"}}
+                            <span class="fs-6 text-danger">{{service_form.service_name.errors}}</span>
+                        </div>
+
+                        <div class="col">
+                            <label for="{{service_form.service_price.label}}"
+                                class="form-label">{{service_form.service_price.label}}</label>
+                            {{service_form.service_price|add_class:"form-control service-price"}}
+                            <span class="fs-6 text-danger">{{service_form.service_price.errors}}</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-row-reverse mt-2">
+                        <span class="mx-1">Tick the box to delete</span>{{ service_form.DELETE|add_class:"service-delete-field" }}
+                       
+                    </div>
+
+                    <hr>
+                </div>
+                {% endfor %}
+            </div>
+            <button type="button" id="add-service-btn" class="btn my-3 btn-info text-light">Add another service</button>
+            <button type="button" onclick="calculate_total()" id="calculate_grand_total"
+                class="btn mx-2 btn-info text-light">Calculate grand total</button>
+
+            {# SalesTransaction Form #}
+            <div>
+                <div class="row">
+                    <div class="col">
+                        <label for="{{form.grand_total.label}}" class="form-label">Grand total:</label>
+                        {{ form.grand_total|add_class:"form-control"|append_attr:"readonly"}}
+                        <span class="fs-6 text-danger">{{form.grand_total.errors}}</span>
+                    </div>
+                    <div class="col">
+                        <label for="{{form.payment_type.label}}" class="form-label">Payment type:</label>
+                        {{ form.payment_type|add_class:"form-control" }}
+                        <span class="fs-6 text-danger">{{form.payment_type.errors}}</span>
+                    </div>
+                </div>
+
+                <label for="{{form.user.label}}" class="form-label">Employee:</label>
+                {{form.user|add_class:"form-control"}}
+                <span class="fs-6 text-danger">{{form.user.errors}}</span>
+
+                <label for="customer" class="form-label">Customer: (can leave blank)</label>
+                {{form.customer|add_class:"form-control"}}
+                <span class="fs-6 text-danger">{{form.customer.errors}}</span>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="{{form.package_history.label}}"
+                            class="form-label">{{form.package_history.label}}:</label>
+                        {{form.package_history|add_class:"form-control"}}
+                        <span class="fs-6 text-danger">{{form.package_history.errors}}</span>
+                    </div>
+                    <div class="col">
+                        <label for="{{form.credit_history.label}}"
+                            class="form-label">{{form.credit_history.label}}:</label>
+                        {{form.credit_history|add_class:"form-control"}}
+                        <span class="fs-6 text-danger">{{form.credit_history.errors}}</span>
+                    </div>
+                </div>
+
+                <label for="{{form.personal_remarks.label}}" class="form-label">Personal remarks:</label>
+                {{form.personal_remarks|add_class:"form-control"|attr:"rows:3"}}
+                <span class="text-danger fs-6">{{form.personal_remarks.errors}}</span>
+                <label for="{{form.customer_remarks.label}}" class="form-label">Customer remarks:</label>
+                {{form.customer_remarks|add_class:"form-control"|attr:"rows:3"}}
+                <span class="text-danger fs-6">{{form.customer_remarks.errors}}</span>
+            </div>
+
+            <button type="submit" class="btn-primary btn my-3 w-100">Transact</button>
+        </form>
+
+
+
+    </div>
+
+</main>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // live_datetime.js
+    function updateLiveDateTime() {
+        const datetimeElement = document.getElementById('live-datetime');
+        const now = new Date();
+        const formattedDateTime = now.toLocaleString(); // Adjust formatting as needed
+        datetimeElement.textContent = formattedDateTime;
+    }
+
+    // Update every second
+    setInterval(updateLiveDateTime, 1000);
+
+
+    $(document).ready(function () {
+        // Add SaleService Form
+        $('#add-service-btn').click(function () {
+            const serviceForms = $('.service-form');
+            const totalServiceForms = serviceForms.length;
+            const emptyServiceFormTemplate = $(serviceForms[0]).clone().wrap('<div>').parent().html();
+            const newServiceForm = $(emptyServiceFormTemplate.replace(/__prefix__/g, totalServiceForms));
+
+            // Clear any values from the cloned form
+            newServiceForm.find('input:text, input:password, input:file, select, textarea').val('');
+            newServiceForm.find('input[type="number"]').val(0);
+            newServiceForm.find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
+
+            $('#services-container').append(newServiceForm);
+
+            // Update TOTAL_FORMS for SaleServices
+            $("input[name='saleservices_set-TOTAL_FORMS']").val(totalServiceForms + 1);
+        });
+
+        //Hide sale service
+        $(document).on('change', '.service-delete-field', function() {
+            var serviceDiv = $(this).closest('.service-form');
+            if ($(this).is(':checked')) {
+                serviceDiv.hide();
+            } else {
+                serviceDiv.show();
+            }
+        });
+
+        //Delete SaleService Form
+        $('#services-container').on('click', '.btn-delete-service', function () {
+            let serviceForm = $(this).closest('.service-form');
+            
+            // Check the DELETE checkbox for the form
+            let deleteCheckbox = serviceForm.find('.service-delete-field');
+            deleteCheckbox.prop('checked', true);
+            
+            // Remove the form from the frontend
+            serviceForm.remove();
+            
+            // Optionally update TOTAL_FORMS for SaleServices
+            let totalForms = parseInt($("input[name='saleservices_set-TOTAL_FORMS']").val());
+            $("input[name='saleservices_set-TOTAL_FORMS']").val(totalForms - 1);
+        });
+
+
+        // Initial setup
+        toggleFields();
+
+        // When payment type changes
+        $('#id_payment_type').change(function () {
+            toggleFields();
+        });
+
+        function toggleFields() {
+            var paymentType = $('#id_payment_type').val();
+
+            // Enable or disable package history based on payment type
+            if (paymentType === 'package') {
+                $('#id_package_history').prop('disabled', false);
+            } else {
+                $('#id_package_history').prop('disabled', true);
+            }
+
+            // Enable or disable credit history based on payment type
+            if (paymentType === 'credit sales') {
+                $('#id_credit_history').prop('disabled', false);
+            } else {
+                $('#id_credit_history').prop('disabled', true);
+            }
+        }
+
+
+    });
+
+    function calculate_total() {
+        const serviceForms = document.querySelectorAll('.service-form');  // Select all the service forms
+        const grandTotalField = document.getElementById('id_grand_total');
+
+        let total = 0;
+
+        serviceForms.forEach(form => {
+            const deleteCheckbox = form.querySelector('.service-delete-field');
+            if (!deleteCheckbox.checked) {  // Ensure the form isn't marked for deletion
+                const priceField = form.querySelector('.service-price');
+                if (!priceField.disabled) {
+                    const value = parseFloat(priceField.value);
+                    if (!isNaN(value)) {
+                        total += value;
+                    }
+                }
+            }
+        });
+
+        // Update the grand total field
+        grandTotalField.value = total.toFixed(2);
+    }
+
+
+
+
+</script>
+
+{% endblock %}
+
+{% block extra_javascript %}
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 
 {% endblock %}

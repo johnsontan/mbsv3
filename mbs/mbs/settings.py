@@ -43,7 +43,11 @@ INSTALLED_APPS = [
     'customer',
     'employee',
     'pos',
+    'homepage',
     'widget_tweaks',
+    'crispy_forms',
+    'crispy_bootstrap5',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -114,6 +118,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
+AUTHENTICATION_BACKENDS = ['administration.backend.EmailBackend']
+
+AUTH_USER_MODEL = 'administration.Accounts'
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -130,12 +138,23 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media/')
 
 JSIGNATURE_WIDTH = 500
 JSIGNATURE_HEIGHT = 500
+JSIGNATURE_COLOR='red'
 
+RECAPTCHA_PUBLIC_KEY = '6LfuR48oAAAAAIXpvummft_V_7M_NwivBNVrG1PU'
+RECAPTCHA_PRIVATE_KEY = '6LfuR48oAAAAAKLLNoiAJu7vQ_TJVssljV9jq5lY'
+
+#EMAIL CONFIG
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = 'melonbeautysalonsg@gmail.com'
+EMAIL_HOST_PASSWORD = 'ehecvplkrvwnqled'
+
+TIME_ZONE = 'Asia/Singapore'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

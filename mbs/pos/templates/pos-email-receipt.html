@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt</title>
+    <style>
+        hr.hrclass {
+            background-color: grey;
+            width: 70%;
+            height: 10px;
+            border-top: 1px solid black
+        }
+        hr.hrendclass {
+            background-color: purple;
+            width: 90%;
+            height: 10px;
+            border-top: 1px dotted black
+        }
+    </style>
+</head>
+
+<body style="font-family: Arial, sans-serif; font-size: 16px; line-height: 1.5; margin: 0; padding: 0;">
+
+    <main style="margin: 0 auto; padding: 0; box-sizing: border-box;">
+
+        <div
+            style="border: 1px solid rgba(0,0,0,.125); border-radius: .25rem; margin: 0; padding: 0; box-sizing: border-box;">
+            <div style="padding: 1.5rem 1.5rem 1.5rem 1.5rem; box-sizing: border-box;">
+                <div
+                    style="width: 100%; padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto; box-sizing: border-box;">
+                    <p style="font-size: 30px; margin: 3rem 0; box-sizing: border-box;">Melon Beauty salon thank you for your support!</p>
+                    <div
+                        style="display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px; box-sizing: border-box;">
+                        <ul style="padding-left: 0; list-style: none; box-sizing: border-box;">
+                            <li style="color: #000; box-sizing: border-box;">Name: {{saleTransaction.customer.name}}
+                            </li>
+                            <li style="color: #6c757d; margin-top: .25rem; box-sizing: border-box;"><span
+                                    style="color: #000;">Receipt ID:</span> #MBS_{{saleTransaction.id}}</li>
+                            <li style="color: #000; margin-top: .25rem; box-sizing: border-box;">Transact date:
+                                {{saleTransaction.created_at|date:"d-m-Y"}}</li>
+                        </ul>
+                    </div>
+
+                    <div
+                        style="display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px; box-sizing: border-box;">
+                        <div
+                            style="flex: 0 0 83.333333%; max-width: 83.333333%; position: relative; width: 100%; padding-right: 15px; padding-left: 15px; box-sizing: border-box;">
+                            <p style="margin-top: 0; margin-bottom: 1rem; box-sizing: border-box;">Description
+                            </p>
+                        </div>
+                        <div
+                            style="flex: 0 0 16.666667%; max-width: 16.666667%; position: relative; width: 100%; padding-right: 15px; padding-left: 15px; box-sizing: border-box;">
+                            <p style="text-align: right; margin-top: 0; margin-bottom: 1rem; box-sizing: border-box;">
+                                Amount in SGD ($)</p>
+                        </div>
+                    </div>
+
+                    {% if saleServices %}
+                    {%for ss in saleServices %}
+                    <div
+                        style="display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px; box-sizing: border-box;">
+                        <div
+                            style="flex: 0 0 83.333333%; max-width: 83.333333%; position: relative; width: 100%; padding-right: 15px; padding-left: 15px; box-sizing: border-box;">
+                            <p style="margin-top: 0; margin-bottom: 1rem; box-sizing: border-box;">{{ss.service_name}}
+                            </p>
+                        </div>
+                        <div
+                            style="flex: 0 0 16.666667%; max-width: 16.666667%; position: relative; width: 100%; padding-right: 15px; padding-left: 15px; box-sizing: border-box;">
+                            <p style="text-align: right; margin-top: 0; margin-bottom: 1rem; box-sizing: border-box;">
+                                ${{ss.service_price}}</p>
+                        </div>
+                    </div>
+                    {%endfor%}
+                    {% endif %}
+
+                    <div
+                        style="display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px; color: #000; box-sizing: border-box;">
+                        <div
+                            style="flex: 0 0 100%; max-width: 100%; position: relative; width: 100%; padding-right: 15px; padding-left: 15px; box-sizing: border-box;">
+                            <p
+                                style="text-align: right; margin-top: 0; margin-bottom: 1rem; font-weight: 700; box-sizing: border-box;">
+                                Total: ${{saleTransaction.grand_total}}</p>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 90px; box-sizing: border-box;">
+                        <a href="melonbeautysalon.com"
+                            style="color: #0d6efd; text-decoration: underline; background-color: transparent;">Melon
+                            beauty salon</a>
+                        <p style="margin-top: 0; margin-bottom: 1rem; box-sizing: border-box;">This is a
+                            computer-generated receipt.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</body>
+
+</html>

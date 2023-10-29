@@ -1,0 +1,97 @@
+{% extends 'employee-base.html' %}
+
+{% block title %}MBS | Employee Overview{% endblock %}
+
+{% block content %}
+<main class="page-content">
+    <div class="mt-3">
+        <p class="fw-bold">{{request.user}}'s leave overview</p>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><span class="fw-semibold">Annual leave:</span> {{employeeLeaveProfile.annual_leave}}</li>
+                <li class="list-group-item"><span class="fw-semibold">Childcare leave:</span> {{employeeLeaveProfile.childcare_leave}}</li>
+                <li class="list-group-item"><span class="fw-semibold">Maternity leave:</span> {{employeeLeaveProfile.maternity_leave}}</li>
+                <li class="list-group-item"><span class="fw-semibold">Paternity leave:</span> {{employeeLeaveProfile.paternity_leave}}</li>
+                <li class="list-group-item"><span class="fw-semibold">Sick leave:</span> {{employeeLeaveProfile.sick_leave}}</li>
+                <li class="list-group-item"><span class="fw-semibold">Unpaid leave:</span> {{employeeLeaveProfile.unpaid_leave}}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table align-middle mb-0" id="example2">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="col">#ID</th>
+                            <th class="col">Employee</th>
+                            <th class="col">Leave type</th>
+                            <th class="col">Status</th>
+                            <th class="col">Start date</th>
+                            <th class="col">End date</th>
+                            <th class="col">Quantity</th>
+                            <th class="col">Created at</th>
+                            <th class="col">Entry</th>
+                            <th class="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if AllLeaveRequest %}
+                            {% for pr in AllLeaveRequest %}
+                            <tr>
+                                <th>{{pr.id }}</th>
+                                <th>{{pr.employeeLeave }}</th>
+                                <th>{{pr.leave_type}}</th>
+                                <th>{{pr.status }}</th>
+                                <th>{{pr.start_date }}</th>
+                                <th>{{pr.end_date }}</th>
+                                <th>{{pr.qty }}</th>
+                                <th>{{pr.created_at|date:"d-m-Y / H:i:s" }}</th>
+                                <th>{{pr.entry}}</th>
+                                <th>
+                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop{{pr.id}}">
+                                    view more
+                                    </button>
+                                </th>
+                                <!-- Modal -->
+                                <div class="modal fade" id="staticBackdrop{{pr.id}}" data-bs-backdrop="static"
+                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-wrap" id="staticBackdropLabel{{pr.id}}">ID:{{pr.id}} notes/pictures</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="text-wrap" >{{pr.notes}}</p>
+                                            <hr>
+                                            <div>
+                                                {% if pr.picture %}
+                                                    <img src="{{pr.picture.url}}" alt="Picture" style="width: 300px; height: auto;">
+                                                {%endif%}
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

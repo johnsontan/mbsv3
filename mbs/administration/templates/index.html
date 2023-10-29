@@ -1,151 +1,173 @@
 {% extends 'base.html' %}
 
 {% block title %} Melon admin panel {%endblock%}
-
+{% load static %}
+{% load widget_tweaks %}
 {% block content %}
 <main class="page-content">
-              
-    <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-4">
-      <div class="col">
-        <div class="card overflow-hidden radius-10">
-            <div class="card-body">
-             <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
-              <div class="w-50">
-                <p>Today revenue</p>
-                <h4 class="">8,542</h4>
-              </div>
+
+  <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-4">
+    <div class="col">
+      <div class="card overflow-hidden radius-10">
+        <div class="card-body">
+          <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
+            <div class="w-50">
+              <p>Today revenue</p>
+              <h4 class="">
+                {% if revenue %}
+                ${{revenue}}
+                {% else %}
+                $0.00
+                {% endif %}
+              </h4>
             </div>
           </div>
         </div>
-       </div>
+      </div>
+    </div>
 
-       <div class="col">
-        <div class="card overflow-hidden radius-10">
-            <div class="card-body">
-             <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
-              <div class="w-50">
-                <p>Today transactions</p>
-                <h4 class="">12.5M</h4>
-              </div>
+    <div class="col">
+      <div class="card overflow-hidden radius-10">
+        <div class="card-body">
+          <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
+            <div class="w-50">
+              <p>Today transactions</p>
+              <h4 class="">
+                {% if transactionCount %}
+                {{transactionCount}}
+                {% else %}
+                0
+                {% endif %}
+              </h4>
             </div>
           </div>
         </div>
-       </div>
+      </div>
+    </div>
 
-       <div class="col">
-        <div class="card overflow-hidden radius-10">
-            <div class="card-body">
-             <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
-              <div class="w-50">
-                <p>Total customers</p>
-                <h4 class="">$64.5K</h4>
-              </div>
+    <div class="col">
+      <div class="card overflow-hidden radius-10">
+        <div class="card-body">
+          <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
+            <div class="w-50">
+              <p>Total customers</p>
+              <h4 class="">
+                {% if customersCount %}
+                {{customersCount}}
+                {% else %}
+                0
+                {% endif %}
+              </h4>
             </div>
           </div>
         </div>
-       </div>
+      </div>
+    </div>
 
-       <div class="col">
-        <div class="card overflow-hidden radius-10">
-            <div class="card-body">
-             <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
-              <div class="w-50">
-                <p>New feedbacks</p>
-                <h4 class="">25.8K</h4>
-              </div>
-
+    <div class="col">
+      <div class="card overflow-hidden radius-10">
+        <div class="card-body">
+          <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
+            <div class="w-50">
+              <p>New feedbacks</p>
+              <h4 class="">
+                {% if feedbackCount %}
+                {{feedbackCount}}
+                {% else %}
+                0
+                {% endif %}
+              </h4>
             </div>
+
           </div>
         </div>
-       </div>
+      </div>
+    </div>
 
-    </div><!--end row-->
+  </div><!--end row-->
 
- <div class="row">
-    <div class="col-12 col-lg-12 col-xl-8 d-flex">
+  <div class="row">
+    <div class="col-12 col-lg-12 d-flex">
       <div class="card radius-10 w-100">
         <div class="card-body">
           <div class="d-flex align-items-center">
             <h6 class="mb-0">Recent transactions</h6>
 
-           </div>
-           <div class="table-responsive mt-2">
-            <table class="table align-middle mb-0">
-              <thead class="table-light">
-                <tr>
-                  <th>#ID</th>
-                  <th>Services</th>
-                  <th>Department</th>
-                  <th>Grand total</th>
-                  <th>Customer</th>
-                  <th>Employee</th>
-                  <th>Date</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>#89742</td>
-                  <td>Services</td>
-                  <td>HAIR</td>
-                  <td>$214</td>
-                  <td>customer</td>
-                  <td>employee</td>
-                  <td>date</td>
-                  <td>
-                    <div class="d-flex align-items-center gap-3 fs-6">
-                      <a data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-eye-fill"></i></a>
-                      <a data-bs-toggle="modal" data-bs-target="#staticBackdrop1"><i class="bi bi-pencil-fill"></i></a>
-                      
-                    </div>
-                  </td>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table align-middle mb-0" id="example">
+                  <thead class="table-light">
+                    <tr>
+                      <th class="col">#ID</th>
+                      <th class="col">Grand total</th>
+                      <th class="col">Payment type</th>
+                      <th class="col">Customer</th>
+                      <th class="col">Date/Time</th>
+                      <th class="col">Employee</th>
+                      <th class="col">Actions</th>
 
-                    <!-- Modal view transaction -->
-                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if salesTransactions %}
+                    {% for st in salesTransactions %}
+                    <tr>
+                      <th>{{st.id }}</th>
+                      <th>{{st.grand_total }}</th>
+                      <th>{{st.payment_type}}</th>
+                      <th>{{st.customer }}</th>
+                      <th>{{st.created_at|date:"d-m-Y / H:i:s" }}</th>
+                      <th>{{st.user }}</th>
+                      <th>
+                        <a href="{% url 'adminViewTransactionDetails' pk=st.id %}" class="btn btn-sm btn-primary">View
+                          more</a>
+                        {% if st.created_at.date == today or st.created_at.date == yesterday %}
+                        <a href="{% url 'adminEditTransaction' pk=st.id %}" class="btn btn-sm btn-warning">Edit</a>
+                        {%endif%}
+                        <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
+                          data-bs-target="#staticEmailBackdrop{{st.id}}">
+                          Send receipt
+                        </button>
+                      </th>
+                      <!-- Modal -->
+                      <div class="modal fade" id="staticEmailBackdrop{{st.id}}" data-bs-backdrop="static"
+                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog">
-                        <div class="modal-content">
+                          <div class="modal-content">
                             <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Modal view trx</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              <h5 class="modal-title" id="staticBackdropLabel">Email receipt for ID: {{st.id}}</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                            ...
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
+                            <form action="{%url 'sendEmailReceipt' %}" method="post">
+                              {%csrf_token%}
+                              <div class="modal-body">
+                                <label for="id_email_address">Email</label>
+                                {{emailForm.email_address|add_class:"form-control"}}
+                                <input type="number" name="{{ emailForm.receipt_pk.name }}" value="{{ st.id }}" hidden>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Send receipt</button>
+                              </div>
+                            </form>
+                          </div>
                         </div>
-                        </div>
-                    </div>
-
-                    <!-- Modal edit transaction -->
-                    <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Modal edit trx</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                            ...
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Submit</button>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-
-                </tr>
-
-              </tbody>
-            </table>
+                      </div>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
- </div><!--end row-->
+  </div><!--end row-->
 
 
 

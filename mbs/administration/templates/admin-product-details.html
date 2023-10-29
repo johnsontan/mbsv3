@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %} Melon admin panel {%endblock%}
+
+{% block content %}
+<main class="page-content">
+    <div class="d-flex flex-row justify-content-between mb-3">
+        <h4>Product details</h4>
+        <a href="{% url 'adminProductOverview' %}" class="btn btn-info btn-sm">Back</a>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm border-0 overflow-hidden">
+                <div class="card-body">
+                    <div class="mt-2">
+                        <ul class="list-group">
+                            <li class="list-group-item"><span class="fw-semibold">Name:</span> {{product.name}}</li>
+                            <li class="list-group-item"><span class="fw-semibold">Brand:</span> {{product.brand}}</li>
+                            <li class="list-group-item"><span class="fw-semibold">Department:</span> {{product.department}}</li>
+                            <li class="list-group-item"><span class="fw-semibold">Quantity:</span> {{product.qty}}</li>
+                            <li class="list-group-item"><span class="fw-semibold">Category:</span> {{product.category}}</li>
+                            <li class="list-group-item text-wrap"><span class="fw-semibold">Description:</span> {{product.description}}</li>
+                            <li class="list-group-item"><span class="fw-semibold">Created at:</span> {{product.created_at|date:"d-m-Y / H:i:s"}}</li>
+                            <li class="list-group-item"><span class="fw-semibold">Last updated:</span> {{product.last_update|date:"d-m-Y / H:i:s"}}</li>
+                          </ul>
+                    </div>
+                    <hr>
+                    <div class="text-start">
+                        <h5 class="">Product history</h5>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="example" class="table table-striped" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Quantity</th>
+                                                <th>Entry</th>
+                                                <th>Notes</th>
+                                                <th>Date/Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% if productHistory %}
+                                            {% for ph in productHistory %}
+                                            <tr>
+                                                <td>{{ph.id}}</td>
+                                                <td>{{ph.editQty}}</td>
+                                                <td>{{ph.entry}}</td>
+                                                <td class="text-wrap" style="width: 350px;">{{ph.notes}}</td>
+                                                <td>{{ph.created_at|date:"d-m-Y"}}</td>
+                                            </tr>
+                                            {%endfor%}
+                                            {%endif%}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+
+            </div>
+        </div>
+    </div><!--end row-->
+
+
+</main>
+
+{%endblock%}

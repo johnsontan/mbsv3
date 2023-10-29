@@ -1,0 +1,81 @@
+{% extends 'employee-base.html'%}
+
+{% block title %}MBS|employee payslip{%endblock%}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+<main class="page-content">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card">
+                <div class="card-header py-3 bg-transparent d-flex flex-row justify-content-between">
+                    <h5 class="mb-0">Melon -- Apply leave (employee)</h5>
+                    <a href="{% url 'adminEmployeeLeaveOverview'%}" class="btn btn-sm btn-danger">Cancel</a>
+                </div>
+                <div class="card-body">
+                    <div class="border p-3 rounded">
+                        <h6>Balance</h6>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><span class="fw-semibold">Annual leave:</span> {{employeeLeaveProfile.annual_leave}}</li>
+                            <li class="list-group-item"><span class="fw-semibold">Childcare leave:</span> {{employeeLeaveProfile.childcare_leave}}</li>
+                            <li class="list-group-item"><span class="fw-semibold">Maternity leave:</span> {{employeeLeaveProfile.maternity_leave}}</li>
+                            <li class="list-group-item"><span class="fw-semibold">Paternity leave: </span>{{employeeLeaveProfile.paternity_leave}}</li>
+                            <li class="list-group-item"><span class="fw-semibold">Sick leave:</span> {{employeeLeaveProfile.sick_leave}}</li>
+                            <li class="list-group-item"><span class="fw-semibold">Unpaid leave:</span> {{employeeLeaveProfile.unpaid_leave}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="border p-3 rounded">
+                        <form class="row g-3" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="col-12">
+                                <label class="form-label">Leave type</label>
+                                {{form.leave_type|add_class:"form-control"}}
+                                <span class="text-danger">{{form.leave_type.errors}}</span>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label">Start date (not required for entry: add)</label>
+                                {{form.start_date|add_class:"form-control"}}
+                                <span class="text-danger">{{form.start_date.errors}}</span>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label">End date (not required for entry: add)</label>
+                                {{form.end_date|add_class:"form-control"}}
+                                <span class="text-danger">{{form.end_date.errors}}</span>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label">Quantity</label>
+                                {{form.qty|add_class:"form-control"}}
+                                <span class="text-danger">{{form.qty.errors}}</span>
+                            </div>
+                            
+                            <div class="col-12">
+                                <label class="form-label">Picture (not required for entry: add)</label>
+                                {{form.picture|add_class:"form-control"}}
+                                <span class="text-danger">{{form.picture.errors}}</span>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label">Notes</label>
+                                {{form.notes|add_class:"form-control"}}
+                                <span class="text-danger">{{form.notes.errors}}</span>
+                            </div>
+
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary px-4 w-100">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--end row-->
+
+
+</main>
+{%endblock%}

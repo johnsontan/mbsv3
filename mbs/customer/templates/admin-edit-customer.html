@@ -1,0 +1,80 @@
+{% extends 'base.html'%}
+
+{% block title %}MBS|employee payslip{%endblock%}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+<main class="page-content">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card">
+                <div class="card-header py-3 bg-transparent d-flex flex-row justify-content-between">
+                    <h5 class="mb-0">Melon -- Edit customer</h5>
+                    <div>
+                        <a href="#" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#staticForm">Add notes</a>
+                        <a href="{%url 'adminCustomerOverview' %}" class="btn btn-sm btn-danger">Cancel</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="border p-3 rounded">
+                        <form class="row g-3" method="post">
+                            {% csrf_token %}
+                            <div class="col-12">
+                                <label class="form-label">Customer name</label>
+                                {{form.name|add_class:"form-control"}}
+                                <span class="text-danger">{{form.name.errors}}</span>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Customer email</label>
+                                {{form.email|add_class:"form-control"}}
+                                <span class="text-danger">{{form.email.errors}}</span>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Customer phone number</label>
+                                {{form.phone_number|add_class:"form-control"}}
+                                <span class="text-danger">{{form.phone_number.errors}}</span>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Customer credit (read only)</label>
+                                {{form.credit|add_class:"form-control"|attr:"readonly:true"}}
+                                <span class="text-danger">{{form.credit.errors}}</span>
+                            </div>
+
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary px-4 w-100" name="customerSubmit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--end row-->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticForm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Add notes</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post"">
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        <label for="description" class="form-label">Notes</label>
+                        {{notesForm.description|add_class:"form-control"}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" name="notesSubmit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</main>
+{%endblock%}

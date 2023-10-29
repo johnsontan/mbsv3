@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %} Melon admin panel {%endblock%}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+<main class="page-content">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card">
+                <div class="card-header py-3 bg-transparent d-flex flex-row justify-content-between">
+                    <h5 class="mb-0">Melon -- Register frontend banner</h5>
+                    <a href="{% url 'adminFrontendBannerOverview'%}" class="btn btn-sm btn-danger">Cancel</a>
+                </div>
+                <div class="card-body">
+                    <div class="border p-3 rounded">
+                        <form class="row g-3" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="col-12">
+                                <label class="form-label">Banner (500 x 500 px)</label>
+                                {{form.image|add_class:"form-control"}}
+                                <span class="text-danger">{{form.image.errors}}</span>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Description</label>
+                                {{form.description|add_class:"form-control"}}
+                                <span class="text-danger">{{form.description.errors}}</span>
+                            </div>
+                           
+
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary px-4 w-100">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--end row-->
+
+</main>
+
+{%endblock%}

@@ -1,0 +1,78 @@
+{% extends 'employee-base.html' %}
+
+{% block title %} Melon admin panel {%endblock%}
+
+{% block content %}
+{% load widget_tweaks %}
+{% load static %}
+<main class="page-content">
+    <div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+                        <h5 class="mb-0">My Account</h5>
+                        <hr>
+                        <div class="card shadow-none border">
+                            <div class="card-header">
+                                <h6 class="mb-0">USER INFORMATION</h6>
+                            </div>
+                            <div class="card-body">
+                                <form class="row g-3" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="col-6">
+                                        <label class="form-label">Name</label>
+                                        {{profileForm.name|add_class:"form-control"}}
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">Email address</label>
+                                        {{accountForm.email|add_class:"form-control"}}
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">Date of Birth</label>
+                                        {{profileForm.dob|add_class:"form-control"}}
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">Phone number</label>
+                                        {{profileForm.phone_number|add_class:"form-control"}}
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Address</label>
+                                        {{profileForm.address|add_class:"form-control"|attr:"rows:2"}}
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Profile image [PNG/JPG]</label><br>
+                                        {% if profileForm.image.value %}
+                                            <img src="{{profileForm.image.value.url}}" alt="profile image" style="width: 10%; height: auto;">
+                                        {% endif %}
+                                        {{profileForm.image|add_class:"form-control"}}
+                                    </div>
+                                    <hr>
+                                    <span class="fw-bold">Change password</span>
+                                    <div class="col-12">
+                                        <label class="form-label">Old password</label>
+                                        {{passwordForm.old_password|add_class:"form-control"}}
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">New password</label>
+                                        {{ passwordForm.new_password1|add_class:"form-control" }}
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Confirm new password</label>
+                                        {{ passwordForm.new_password2|add_class:"form-control" }}
+                                    </div>
+                                    <div class="text-start">
+                                        <button type="submit" class="btn btn-primary px-4">Save Changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+
+{%endblock%}

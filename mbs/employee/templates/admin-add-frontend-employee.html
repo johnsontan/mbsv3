@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %} Melon admin panel {%endblock%}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+<main class="page-content">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card">
+                <div class="card-header py-3 bg-transparent d-flex flex-row justify-content-between">
+                    <h5 class="mb-0">Melon -- Register frontend employee profile</h5>
+                    <a href="{% url 'adminFrontendEmployeeProfileOverview' %}" class="btn btn-sm btn-danger">Cancel</a>
+                </div>
+                <div class="card-body">
+                    <div class="border p-3 rounded">
+                        <form class="row g-3" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="col-12">
+                                <label class="form-label">Employee name</label>
+                                {{form.employee_name|add_class:"form-control"}}
+                                <span class="text-danger">{{form.employee_name.errors}}</span>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Job title</label>
+                                {{form.job_title|add_class:"form-control"}}
+                                <span class="text-danger">{{form.job_title.errors}}</span>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Profile picture (500px by 500px)</label>
+                                {{form.profile_picture|add_class:"form-control"}}
+                                <span class="text-danger">{{form.profile_picture.errors}}</span>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Description</label>
+                                {{form.description|add_class:"form-control"}}
+                                <span class="text-danger">{{form.description.errors}}</span>
+                            </div>
+
+                           
+
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary px-4 w-100">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--end row-->
+
+</main>
+
+{%endblock%}

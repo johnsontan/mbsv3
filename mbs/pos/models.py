@@ -11,7 +11,7 @@ class SalesTransaction(models.Model):
     NETS = 'nets'
     GRAB = 'grab'
     PACKAGE = 'package'
-    IN_STORE_CREDIT = 'instorecredit'
+    CREDITSALES = 'credit sales'
     REFUND = 'refund'
 
     Payment_Choice = (
@@ -21,7 +21,7 @@ class SalesTransaction(models.Model):
         (NETS, 'nets'),
         (GRAB, 'grab'),
         (PACKAGE, 'package'),
-        (IN_STORE_CREDIT, "in store credit"),
+        (CREDITSALES, "credit sales"),
         (REFUND, 'refund')
     )
 
@@ -40,20 +40,24 @@ class SaleServices(models.Model):
     HAIR = 'hair'
     BEAUTY = 'beauty'
     HEALTH = 'health'
+    HAIRPRODUCT = 'hair product'
+    BEAUTYPRODUCT = 'beauty product'
 
     Department_choice = (
         (HAIR, 'hair'),
         (BEAUTY, 'beauty'),
-        (HEALTH, 'health')
+        (HEALTH, 'health'),
+        (HAIRPRODUCT, 'hair product'),
+        (BEAUTYPRODUCT, 'beauty product'),
     )
     id = models.BigAutoField(primary_key=True)
     department = models.CharField(choices=Department_choice, max_length=200)
     service_name = models.CharField(max_length=220)
     service_price = models.FloatField(default=0.0)
-    sales_transaction = models.ForeignKey(SalesTransaction, on_delete=models.CASCADE)
+    sales_transaction = models.ForeignKey(SalesTransaction, on_delete=models.CASCADE, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-class ServiceImages(models.Model):
-    sale_service = models.ForeignKey(SaleServices, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='serviceimages/')
+# class ServiceImages(models.Model):
+#     sale_service = models.ForeignKey(SaleServices, on_delete=models.CASCADE, blank=True, null=True)
+#     image = models.ImageField(upload_to='serviceimages/')
 

@@ -1,0 +1,191 @@
+{% extends 'base.html'%}{% load jsignature_filters %}
+
+{% block title %}MBS|employee payslip{%endblock%}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+<main class="page-content">
+    <div class="d-flex flex-row justify-content-between mb-3">
+        <h4>Customer profile details</h4>
+        <a href="{% url 'adminCustomerOverview' %}" class="btn btn-info btn-sm">Back</a>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm border-0 overflow-hidden">
+                <div class="card-body">
+                    <div class="text-center mt-4">
+                        <h4 class="mb-1">{{customerDetails.name}}</h4>
+                        <p class="mb-0 text-secondary">{{customerDetails.phone_number}} / {{customerDetails.email}}</p>
+                        <p class="mb-0 text-secondary">Credits: {{customerDetails.credit}}</p>
+                        <div class="mt-4"></div>
+                        <p class="mb-0 text-secondary">Last update: {{customerDetails.last_update|date:"d-m-Y / H:i:s"}} HRS</p>
+                        <p class="mb-0 text-secondary">Created at: {{customerDetails.created_at|date:"d-m-Y / H:i:s"}} HRS</p>
+                    </div>
+                    <hr>
+                    <div class="text-start">
+                        <h5 class="">Credit history</h5>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="example" class="table table-striped" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Amount</th>
+                                                <th>Entry</th>
+                                                <th>Signature</th>
+                                                <th>Date/Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% if creditHistory %}
+                                                {% for ch in creditHistory %}
+                                                    <tr>
+                                                        <td>{{ch.id}}</td>
+                                                        <td>{{ch.amount}}</td>
+                                                        <td>{{ch.entry}}</td>
+                                                        <td>
+                                                            {%if ch.signature %}
+                                                                <img src="{{ch.signature|signature_base64}}" alt="signature" style="width: 8%; height: auto;">
+                                                            {%else%}
+                                                                null
+                                                            {%endif%}
+                                                        </td>
+                                                        <td>{{ch.created_at|date:"d-m-Y"}}</td>
+                                                    </tr>
+                                                {%endfor%}
+                                            {%endif%}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="text-start">
+                        <h5 class="">Notes</h5>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="example2" class="table table-striped" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th class="text-wrap">Description</th>
+                                                <th>Date/Time</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% if noteHistory %}
+                                                {% for nh in noteHistory %}
+                                                    <tr>
+                                                        <td>{{nh.id}}</td>
+                                                        <td class="text-wrap">{{nh.description}}</td>
+                                                        <td>{{nh.created_at|date:"d-m-Y"}}</td>
+                                                        <td><a href="{% url 'adminDeleteNote' pk=nh.id customerpk=customerDetails.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Confirm delete note?')">Delete</a></td>
+                                                    </tr>
+                                                {%endfor%}
+                                            {%endif%}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="text-start">
+                        <h5 class="">Packages</h5>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="example3" class="table table-striped" style="width:100%">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Package</th>
+                                                <th>Balance</th>
+                                                <th>Cost</th>
+                                                <th>Issued at</th>
+                                                <th>Last update</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% if packages %}
+                                            {% for p in packages %}
+                                            <tr>
+                                                <td>{{p.id}}</td>
+                                                <td>{{p.name}}</td>
+                                                <td>{{p.balanceQty}}/{{p.qty}}</td>
+                                                <td>{{p.cost}}</td>
+                                                <td>{{p.created_at|date:"d-m-Y H:i:s"}}</td>
+                                                <td>{{p.last_update|date:"d-m-Y H:i:s"}}</td>
+                                                <td>
+                                                    <a href="{% url 'adminCustomerVoucherDetail' pk=p.id %}" class="text-primary"><i class="bi bi-eye-fill"></i></a>
+                    
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            {%endif%}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-start">
+                        <h5 class="">Transaction</h5>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="example4" class="table table-striped" style="width:100%">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Grand total</th>
+                                                <th>Payment type</th>
+                                                <th>Customer</th>
+                                                <th>Date/Time</th>
+                                                <th>Employee</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% if salesTransactions %}
+                                                {% for st in salesTransactions %}
+                                                <tr>
+                                                    <th>{{st.id }}</th>
+                                                    <th>{{st.grand_total }}</th>
+                                                    <th>{{st.payment_type}}</th>
+                                                    <th>{{st.customer }}</th>
+                                                    <th>{{st.created_at|date:"d-m-Y / H:i:s" }}</th>
+                                                    <th>{{st.user }}</th>
+                                                    <th>
+                                                        <a href="{% url 'adminViewTransactionDetails' pk=st.id %}" class="btn btn-sm btn-primary">View more</a>
+                                                        {% if st.created_at.date == today or st.created_at.date == yesterday %}
+                                                            <a href="{% url 'adminEditTransaction' pk=st.id %}" class="btn btn-sm btn-warning">Edit</a>
+                                                        {%endif%}
+                                                    </th>
+                                                    
+                                                </tr>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div><!--end row-->
+
+</main>
+{% endblock %}

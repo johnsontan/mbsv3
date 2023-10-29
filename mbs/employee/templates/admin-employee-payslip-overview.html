@@ -1,0 +1,55 @@
+{% extends 'base.html'%}
+
+{% block title %}MBS|employee payslip{%endblock%}
+
+{% load widget_tweaks %}
+{% block content %}
+
+<main class="page-content">
+
+    <div class="mt-3">
+        <p class="fw-bold">Employee payslips overview</p>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table align-middle mb-0" id="example">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Employee</th>
+                            <th scope="col">Start date</th>
+                            <th scope="col">End date</th>
+                            <th scope="col">Salary</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if page %}
+                            {% for payslip in page %}
+                            <tr>
+                                <th scope="row">{{payslip.id}}</th>
+                                <td>{{payslip.user}}</td>
+                                <td>{{payslip.period_start_date|date:"d-m-Y"}}</td>
+                                <td>{{payslip.period_end_date|date:"d-m-Y"}}</td>
+                                <td>{{payslip.salary_total}}</td>
+                                <td>
+                                    <a href="{% url 'adminEmployeePayslipUpdate' payslipID=payslip.id %}"
+                                        class="btn btn-sm btn-info">Edit</a>
+                                    <a href="{% url 'adminEmployeePayslipDelete' payslipID=payslip.id %}"
+                                        class="btn btn-sm btn-danger" onclick="return confirm('Confirm delete?')">Delete</a>
+                                </td>
+                            </tr>
+                            {%endfor%}
+                        {%endif%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+   
+
+</main>
+
+{%endblock%}

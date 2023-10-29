@@ -1,0 +1,128 @@
+{% extends 'employee-base.html'%}
+
+{% block title %}MBS|employee payslip{%endblock%}
+
+
+{% block content %}
+{% load static %}
+<main class="page-content">
+    {% load widget_tweaks %}
+    <a class="btn btn-sm btn-info mb-3" href="{% url 'employeePayslipOverview' %}">Back</a>
+    <button onclick="printDiv('print-content')" class="btn btn-sm btn-primary mb-3">Print</button>
+    <div class="card" id="print-content">
+        <div class="card-header bg-gradient-royal"></div>
+        <div class="card-body">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <i class="far fa-building text-danger fa-6x float-start"></i>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-xl-12">
+
+                        <img src="{% static 'assets/images/icons/mbs-icon-lg.png'%}" alt="" style="height: 150px; width: auto;">
+        
+                        <ul class="list-unstyled float-end">
+                            <li style="font-size: 30px;">Melon Beauty Salon</li>
+                            <li>988 Upper Serangoon Rd</li>
+                            <li>#01-24 Star of Kovan</li>
+                            <li>Singapore 534733</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row text-center">
+                    <h3 class="text-uppercase text-center mt-3" style="font-size: 40px;">Employee payslip</h3>
+                    <p>MBS-SG-{{payslip.id}}</p>
+                </div>
+
+                <div class="row mx-3">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Description</th>
+                                <th scope="col">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Basic pay</td>
+                                <td>{{payslip.basic_total}} SGD</td>
+                            </tr>
+                            <tr>
+                                <td>Overtime pay</td>
+                                <td>{{payslip.overtime_total}} SGD</td>
+                            </tr>
+                            <tr>
+                                <td>Commission</td>
+                                <td>{{payslip.commission_total}} SGD</td>
+                            </tr>
+                            <tr>
+                                <td>Deduction (-)</td>
+                                <td>{{payslip.deduction_total}} SGD</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="d-flex flex-row justify-content-end mt-2">
+                    <div class="col-4">
+                        <ul class="list-unstyled text-end me-0">
+    
+                            <li class="d-flex justify-content-between">
+                                <span style="margin-right: 35px;" class="fw-semibold">Employee:</span>
+                                <span>{{payslip.user}}</span>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </div>
+                <hr>
+                <div class="d-flex flex-row justify-content-end">
+                    <div class="col-xl-8" style="margin-left:60px">
+                        <p class="float-end"
+                            style="font-size: 30px; color: red; font-weight: 400;font-family: Arial, Helvetica, sans-serif;">
+                            Salary total:
+                            <span><i class="fas fa-dollar-sign"></i> {{payslip.salary_total}} SGD</span>
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="mt-2 mb-5 d-flex flex-row justify-content-between">
+                    <p class="fw-bold">Start date: <span class="text-muted">{{payslip.period_start_date|date:"d-m-Y"}}</span></p>
+                    <p class="fw-bold">End date: <span class="text-muted">{{payslip.period_end_date|date:"d-m-Y"}}</span></p>
+                </div>
+                <p class="fw-semibold mt-3 fs-9 text-center">This is an electronically generated payslip, hence does not require signature</p>
+            </div>
+
+
+
+        </div>
+        <div class="card-footer bg-gradient-royal"></div>
+    </div>
+</main>
+
+<script>
+    function printDiv(divId) {
+        var printContents = document.getElementById(divId).innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+
+        window.print();
+
+        document.body.innerHTML = originalContents;
+    }
+
+    function testFunction() {
+        alert("Button clicked!");
+    }
+
+</script>
+
+{%endblock%}

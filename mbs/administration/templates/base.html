@@ -6,14 +6,14 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="{% static 'assets/images/favicon-32x32.png' %}" type="image/png" />
+  <link rel="icon" href="{% static 'images/mbs-favicon.png' %}" type="image/png" />
   <!--plugins-->
   <link href="{% static 'assets/plugins/vectormap/jquery-jvectormap-2.0.2.css' %}" rel="stylesheet"/>
   <link href="{% static 'assets/plugins/simplebar/css/simplebar.css" rel="stylesheet' %}" />
   <link href="{% static 'assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css' %}" rel="stylesheet" />
   <link href="{% static 'assets/plugins/metismenu/css/metisMenu.min.css' %}" rel="stylesheet" />
   <!-- Bootstrap CSS -->
-  <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
   <link href="{% static 'assets/css/bootstrap-extended.css' %}" rel="stylesheet" />
   <link href="{% static 'assets/css/style.css' %}" rel="stylesheet" />
   <link href="{% static 'assets/css/icons.css' %}" rel="stylesheet">
@@ -21,6 +21,8 @@
   <link rel="stylesheet" href="{% static 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css' %}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
 
+  <!-- DataTables CSS (Bootstrap 5) -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
   <!-- loader-->
 	<link href="{% static 'assets/css/pace.min.css' %}" rel="stylesheet" />
 
@@ -29,6 +31,11 @@
   <link href="{% static 'assets/css/light-theme.css' %}" rel="stylesheet" />
   <link href="{% static 'assets/css/semi-dark.css' %}" rel="stylesheet" />
   <link href="{% static 'assets/css/header-colors.css' %}" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+  <!-- Or for RTL support -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
 
   <title>{%block title%} {%endblock%}</title>
 </head>
@@ -46,7 +53,13 @@
             </div>
             <div class="top-navbar-right ms-auto">
               <ul class="navbar-nav align-items-center">
-
+                {% if messages %}
+                  <ul class="messages">
+                    {% for message in messages %}
+                      <span class="fs-6 text-white bg-dark p-2" id="messageInfo">[ {{message}} ]</span>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
               <li class="nav-item dropdown dropdown-large">
                 <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
                   <div class="projects">
@@ -56,7 +69,7 @@
                 <div class="dropdown-menu dropdown-menu-end">
                    <div class="row row-cols-3 gx-2">
                       <div class="col">
-                        <a href="ecommerce-orders.html">
+                        <a href="{% url 'startPos'%}">
                          <div class="apps p-2 radius-10 text-center">
                             <div class="apps-icon-box mb-1 text-white bg-gradient-purple">
                               <i class="bi bi-cash-coin"></i>
@@ -67,7 +80,7 @@
                       </div>
 
                       <div class="col">
-                        <a href="javascript:;">
+                        <a href="{% url 'adminCustomerOverview' %}">
                         <div class="apps p-2 radius-10 text-center">
                            <div class="apps-icon-box mb-1 text-white bg-gradient-info">
                             <i class="bi bi-people-fill"></i>
@@ -77,7 +90,7 @@
                       </a>
                      </div>
                      <div class="col">
-                      <a href="ecommerce-products-grid.html">
+                      <a href="{% url 'adminEmployeeOverview' %}">
                       <div class="apps p-2 radius-10 text-center">
                          <div class="apps-icon-box mb-1 text-white bg-gradient-success">
                           <i class="bi bi-person-badge-fill"></i>
@@ -87,12 +100,22 @@
                       </a>
                     </div>
                     <div class="col">
-                      <a href="component-media-object.html">
+                      <a href="{% url 'adminFeedbackOverview' %}">
                       <div class="apps p-2 radius-10 text-center">
                          <div class="apps-icon-box mb-1 text-white bg-gradient-danger">
                           <i class="bi bi-card-heading"></i>
                          </div>
                          <p class="mb-0 apps-name">Feedbacks</p>
+                      </div>
+                      </a>
+                    </div>
+                    <div class="col">
+                      <a href="{% url 'adminIndex' %}">
+                      <div class="apps p-2 radius-10 text-center">
+                         <div class="apps-icon-box mb-1 text-white bg-gradient-royal">
+                          <i class="bi bi-house-fill"></i>
+                         </div>
+                         <p class="mb-0 apps-name">Home</p>
                       </div>
                       </a>
                     </div>
@@ -106,16 +129,28 @@
               <div class="dropdown dropdown-user-setting">
                 <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
                   <div class="user-setting d-flex align-items-center gap-3">
-                    <img src="assets/images/avatars/avatar-1.png" class="user-img" alt="">
+                    {% if request.user.accountprofile.image %}
+                      <img src="{{request.user.accountprofile.image.url}}" class="user-img" alt="profile image">
+                    {% else %}
+                      <img src="" class="user-img" alt="profile image">
+                    {% endif %}
                     <div class="d-none d-sm-block">
-                       <p class="user-name mb-0">Jhon Deo</p>
-                      <small class="mb-0 dropdown-user-designation">HR Manager</small>
+                       <p class="user-name mb-0">
+                        {% if request.user %}
+                          {{request.user.accountprofile.name}}
+                        {%endif%}
+                       </p>
+                      <small class="mb-0 dropdown-user-designation">
+                        {% if request.user %}
+                          {{request.user.role}}
+                        {%endif%}
+                      </small>
                     </div>
                   </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                    <li>
-                      <a class="dropdown-item" href="pages-user-profile.html">
+                      <a class="dropdown-item" href="{%url 'adminProfile'%}">
                          <div class="d-flex align-items-center">
                            <div class=""><i class="bi bi-person-fill"></i></div>
                            <div class="ms-3"><span>Profile</span></div>
@@ -125,10 +160,10 @@
                     
                     <li><hr class="dropdown-divider"></li>
                     <li>
-                      <a class="dropdown-item" href="authentication-signup-with-header-footer.html">
+                      <a class="dropdown-item" href="{% url 'logout' %}">
                          <div class="d-flex align-items-center">
                            <div class=""><i class="bi bi-lock-fill"></i></div>
-                           <div class="ms-3"><span>Logout</span></div>
+                           <div class="ms-3">Logout</div>
                          </div>
                        </a>
                     </li>
@@ -159,11 +194,9 @@
                 <div class="menu-title"><img src="{% static 'assets/images/icons/pos-terminal.png'%}" style="width: 25%; height: auto;">&nbsp;&nbsp;POS</div>
               </a>
               <ul>
-                <li> <a href="index.html"><i class="bi bi-circle"></i>Start POS</a>
+                <li> <a href="{% url 'startPos' %}"><i class="bi bi-circle"></i>Start POS</a>
                 </li>
-                <li> <a href="index2.html"><i class="bi bi-circle"></i>Edit transactions</a>
-                </li>
-                <li> <a href="index2.html"><i class="bi bi-circle"></i>Sales history</a>
+                <li> <a href="{% url 'adminTransactionsOverview' %}"><i class="bi bi-circle"></i>Sales history</a>
                 </li>
 
               </ul>
@@ -176,9 +209,33 @@
                 <div class="menu-title"><img src="{% static 'assets/images/icons/customer-icon.png'%}" style="width: 25%; height: auto;">&nbsp;&nbsp;Customers</div>
               </a>
               <ul>
-                <li> <a href="app-emailbox.html"><i class="bi bi-circle"></i>Register customer</a>
+                <li> <a href="{% url 'adminCreateCustomer' %}"><i class="bi bi-circle"></i>Register customer</a>
                 </li>
-                <li> <a href="app-chat-box.html"><i class="bi bi-circle"></i>View customer profile</a>
+                <li> <a href="{% url 'adminCustomerOverview' %}"><i class="bi bi-circle"></i>Customer overview</a>
+                </li>
+                <li> <a href="{% url 'adminIssueVoucherCustomer' %}"><i class="bi bi-circle"></i>Issue package</a>
+                </li>
+                <li> <a href="{% url 'adminCreditCustomer' %}"><i class="bi bi-circle"></i>Customer credit</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"><i class="bi bi-box"></i>
+                </div>
+                <div class="menu-title"><img src="{% static 'assets/images/icons/employee.png'%}" style="width: 25%; height: auto;">&nbsp;&nbsp;Employee</div>
+              </a>
+              <ul>
+                <li> <a href="{%url 'registration' %}"><i class="bi bi-circle"></i>Register employee</a>
+                </li>
+                <li> <a href="{% url 'adminEmployeeOverview' %}"><i class="bi bi-circle"></i>View employees profile</a>
+                </li>
+                <li> <a href="{% url 'adminInsertEmployeePayslip' %}"><i class="bi bi-circle"></i>Issue payslip</a>
+                <li> <a href="{% url 'adminEmployeePayslipOverview' %}"><i class="bi bi-circle"></i>Payslip overview</a>
+                </li>
+                <li> <a href="{% url 'adminEmployeeLeaveOverview' %}"><i class="bi bi-circle"></i>Leave overview</a>
+                </li>
                 </li>
               </ul>
             </li>
@@ -187,12 +244,12 @@
               <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><i class="bi bi-person-badge-fill"></i>
                 </div>
-                <div class="menu-title"><img src="{% static 'assets/images/icons/employee.png'%}" style="width: 25%; height: auto;">&nbsp;&nbsp;Employee</div>
+                <div class="menu-title"><img src="{% static 'assets/images/icons/inventory.png'%}" style="width: 25%; height: auto;">&nbsp;&nbsp;Inventory</div>
               </a>
               <ul>
-                <li> <a href="form-elements.html"><i class="bi bi-circle"></i>Register employee</a>
+                <li> <a href="{% url 'adminProductRegister' %}"><i class="bi bi-circle"></i>Register product</a>
                 </li>
-                <li> <a href="form-input-group.html"><i class="bi bi-circle"></i>View employees profile</a>
+                <li> <a href="{% url 'adminProductOverview' %}"><i class="bi bi-circle"></i>View inventory</a>
                 </li>
               </ul>
             </li>
@@ -204,7 +261,25 @@
                 <div class="menu-title"><img src="{% static 'assets/images/icons/feedback.png'%}" style="width: 25%; height: auto;">&nbsp;&nbsp;Feedbacks</div>
               </a>
               <ul>
-                <li> <a href="form-elements.html"><i class="bi bi-circle"></i>View all feedbacks</a>
+                <li> <a href="{% url 'adminFeedbackOverview' %}"><i class="bi bi-circle"></i>View all feedbacks</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"><i class="bi bi-aspect-ratio"></i>
+                </div>
+                <div class="menu-title"><img src="{% static 'assets/images/icons/banners.png'%}" style="width: 25%; height: auto;">&nbsp;&nbsp;Banner</div>
+              </a>
+              <ul>
+                <li> <a href="{% url 'adminAddFrontendBanner' %}"><i class="bi bi-circle"></i>Register banner</a>
+                </li>
+                <li> <a href="{% url 'adminFrontendBannerOverview' %}"><i class="bi bi-circle"></i>View banners</a>
+                </li>
+                <li> <a href="{% url 'adminAddFrontendEmployee' %}"><i class="bi bi-circle"></i>Register frontend employee profile</a>
+                </li>
+                <li> <a href="{% url 'adminFrontendEmployeeProfileOverview' %}"><i class="bi bi-circle"></i>View frontend employee profile</a>
                 </li>
               </ul>
             </li>
@@ -215,7 +290,6 @@
        <!--end sidebar -->
 
        <!--start content-->
-          
       {% block content %}
       {% endblock %}
 
@@ -292,7 +366,7 @@
   <!-- Bootstrap bundle JS -->
   <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
   <!--plugins-->
-  <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
   <script src="{% static 'assets/plugins/simplebar/js/simplebar.min.js' %}"></script>
   <script src="{% static 'assets/plugins/metismenu/js/metisMenu.min.js' %}"></script>
   <script src="{% static 'assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js' %}"></script>
@@ -306,10 +380,156 @@
   <script src="{% static 'assets/js/app.js' %}"></script>
   <script src="{% static 'assets/js/index.js' %}"></script>
 
+  <!-- DataTables JavaScript -->
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+  <!-- DataTables Bootstrap 5 JavaScript -->
+  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+  <!--Axios-->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+  <script>
+    $( '#id_user' ).select2( {
+      theme: "bootstrap-5",
+      width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+      placeholder: $( this ).data( 'placeholder' ),
+    } );
+  </script>
+  <script>
+    $( '#id_customer_profile' ).select2( {
+      theme: "bootstrap-5",
+      width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+      placeholder: $( this ).data( 'placeholder' ),
+    } );
+
+    $('#id_customer_profile').on('change', function() {
+        const customerProfileValue = $(this).val().trim();
+    
+        if (customerProfileValue !== '') {
+            // Construct the URL for the GET request
+            const endpointUrl = '/melonadmin/customer/getCustomerProfile/?customer_profile=' + encodeURIComponent(customerProfileValue);
+            // Make an Axios GET request
+            axios.get(endpointUrl)
+            .then(function (response) {
+                // Handle the response here
+                const ccredit = $('#ccredit');
+                ccredit.text('Credit: ' + response.data.c_credit);
+            })
+            .catch(function (error) {
+                // Handle errors here
+                const ccredit = $('#ccredit');
+                ccredit.text('ERROR in getting customer profile');
+            });
+        } else {
+            // Handle the case when customer_profile is empty
+            // You can clear any previous results or show a message here
+            const ccredit = $('#ccredit');
+            ccredit.text('');
+        }
+    });
+  </script>
+
+<script>
+
+  $(document).ready(function() {
+      $('.select-btn2233').each(function() {
+          $(this).on('click', function(event) {
+              event.preventDefault();
+              
+              const frontendId = $(this).data('id');  // Using jQuery's data() method
+  
+              axios.get('/melonadmin/fronendSelect/', {
+                  params: {
+                      frontendId: frontendId
+                  }
+              })
+              .then(response => {
+                  if (response.data.success === 'selected') {
+                      $(this).text('Un-select');
+                  } else if (response.data.success === 'unselected') {
+                      $(this).text('Select');
+                  }
+              })
+              .catch(error => {
+                  console.error('There was an error!', error);
+              });
+          });
+      });
+  });
+  
+  </script>
+  
+
+<script>
+  $( '#id_employeeLeave' ).select2( {
+    theme: "bootstrap-5",
+    width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+    placeholder: $( this ).data( 'placeholder' ),
+  } );
+</script>
+
+<script>
+  $( '#id_customer' ).select2( {
+    theme: "bootstrap-5",
+    width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+    placeholder: $( this ).data( 'placeholder' ),
+  } );
+</script>
+
+<script>
+  $( '#id_package_history' ).select2( {
+    theme: "bootstrap-5",
+    width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+    placeholder: $( this ).data( 'placeholder' ),
+  } );
+</script>
+
+<script>
+  $( '#id_credit_history' ).select2( {
+    theme: "bootstrap-5",
+    width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+    placeholder: $( this ).data( 'placeholder' ),
+  } );
+</script>
+
+<script>
+  $( '#id_employee' ).select2( {
+    theme: "bootstrap-5",
+    width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+    placeholder: $( this ).data( 'placeholder' ),
+  } );
+</script>
+
   <script>
     new PerfectScrollbar(".best-product")
  </script>
 
+<script>
+  new DataTable('#example',{
+    order: [[3, 'desc']]
+  });
+  new DataTable('#example2', {
+    order: [[2, 'desc']]
+  });
+  new DataTable('#example3');
+  new DataTable('#example4');
+</script>
+
+ <script>
+    const messageDiv = document.getElementById("messageInfo")
+    function hideMessageInfo(){
+      messageDiv.style.display = "none";
+    }
+    setTimeout(hideMessageInfo, 3000);
+ </script>
+
+{% block extra_javascript %}{% endblock %}
 
 </body>
 

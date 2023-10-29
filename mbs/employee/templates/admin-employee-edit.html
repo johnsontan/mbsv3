@@ -1,0 +1,64 @@
+{% extends 'base.html'%}
+
+{% block title %}MBS|employee overview{%endblock%}
+
+{% load widget_tweaks %}
+{% block content %}
+<main class="page-content">
+    <div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+                        <h5 class="mb-0">My Account</h5>
+                        <hr>
+                        <div class="card shadow-none border">
+                            <div class="card-header">
+                                <h6 class="mb-0">USER INFORMATION</h6>
+                            </div>
+                            <div class="card-body">
+                                <form class="row g-3" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="col-6">
+                                        <label class="form-label">Name</label>
+                                        {{profileForm.name|add_class:"form-control"}}
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">Email address</label>
+                                        {{accountForm.email|add_class:"form-control"}}
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">Date of Birth</label>
+                                        {{profileForm.dob|add_class:"form-control"}}
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">Phone number</label>
+                                        {{profileForm.phone_number|add_class:"form-control"}}
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Address</label>
+                                        {{profileForm.address|add_class:"form-control"|attr:"rows:2"}}
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Status</label>
+                                        {{accountForm.status|add_class:"form-control"|attr:"rows:2"}}
+                                    </div>
+                                    <hr>
+                                    
+                                    <div class="text-start">
+                                        <button type="submit" class="btn btn-primary px-4">Save Changes</button>
+                                        <a href="{% url 'adminEmployeeOverview'%}" class="btn-info btn px-4 text-light">Cancel</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+
+
+{% endblock %}

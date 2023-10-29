@@ -20,6 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('',include('homepage.urls')),
     path('mbsadmindb/', admin.site.urls),
     path('melonadmin/', include('administration.urls')),
 ]

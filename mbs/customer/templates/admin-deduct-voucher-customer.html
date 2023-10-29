@@ -1,0 +1,64 @@
+{% extends 'base.html'%}
+
+{% block title %}MBS|employee payslip{%endblock%}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+<main class="page-content">
+    <div class="row">
+        <div class="col-lg-12 mx-auto">
+            <div class="card">
+                <div class="card-header py-3 bg-transparent d-flex flex-row justify-content-between">
+                    <h5 class="mb-0">Melon -- Debit/Credit Package quantity</h5>
+                    <a href="{% url 'adminCustomerVoucherDetail' pk=package.id %}" class="btn btn-sm btn-danger">Cancel</a>
+                </div>
+                <div class="card-body">
+                    <div class="border p-3 rounded">
+                        <form class="row g-3" method="post">
+                            {% csrf_token %}
+                            <div class="col-12">
+                                <h6>Package: {{package.name}}</h6>
+                                <h6>Name: {{package.customer_profile.name}}</h6>
+                                <h6>Balance: {{package.balanceQty}}</h6>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Entry</label>
+                                {{form.entry|add_class:"form-control"}}
+                                <span class="text-danger">{{form.entry.errors}}</span>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Quantity</label>
+                                {{form.qty|add_class:"form-control"}}
+                                <span class="text-danger">{{form.qty.errors}}</span>
+                            </div>
+                            <div class="col-12" hidden>
+                                <label class="form-label">Package</label>
+                                {{form.package|add_class:"form-control"}}
+                                <span class="text-danger">{{form.package.errors}}</span>
+                            </div>
+                            
+                            <div class="col-12">
+                                <label class="form-label">Signature</label>
+                                <div class="border-2">{{form.signature}}</div>
+                                
+                                <span class="text-danger">{{form.signature.errors}}</span>
+                            </div>
+                            
+
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary px-4 w-100">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--end row-->
+</main>
+
+{% endblock %}
+
+{% block extra_javascript %}
+   {{form.media}}
+{% endblock %}

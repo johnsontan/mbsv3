@@ -13,19 +13,29 @@
     </div>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-4">
         <div class="col">
-            <div class="card radius-10">
+            <div class="card radius-10 bg-gradient-warning">
                 <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="">
-                    <p class="mb-1">Today revenue</p>
-                    <h4 class="mb-0 text-primary">145</h4>
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Today revenue</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if todayRevenueValue %} {{ todayRevenueValue }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-revenue.png'%}" alt="revenue"
+                                class="icon-badge">
+                        </div>
                     </div>
-                    <div class="ms-auto fs-2 text-primary">
-                        <img src="{% static 'assets/images/icons/pos-revenue.png'%}" alt="revenue" class="icon-badge">
-                    </div>
-                </div>
-                <hr class="my-2">
-                <small class="mb-0"><i class="bi bi-arrow-up"></i> <span>+12.3% from last week</span></small>
+        
+                    <hr class="my-2">
+                    {% if percentageRevenue > 0 %}
+                        <small class="mb-0"><i class="bi bi-arrow-up"></i> <span>+{{percentageRevenue|floatformat:2}}% from yesterday</span></small>
+                    {% elif percentageRevenue < 0 %}
+                        <small class="mb-0"><i class="bi bi-arrow-down"></i> <span>{{percentageRevenue|floatformat:2}}% from yesterday</span></small>
+                    {% elif percentageRevenue == 0 %}
+                        <small class="mb-0"><i class="bi bi-plus-slash-minus"></i> <span>0.0% from yesterday</span></small>
+                    {%endif%}
                 </div>
             </div>
         </div>
@@ -33,15 +43,17 @@
         <div class="col">
             <div class="card radius-10">
                 <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="">
-                    <p class="mb-1">CASH</p>
-                    <h4 class="mb-0 text-primary">145</h4>
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">CASH</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if todayCash %} {{ todayCash }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-cash.png'%}" alt="cash" class="icon-badge">
+                        </div>
                     </div>
-                    <div class="ms-auto fs-2 text-primary">
-                        <img src="{% static 'assets/images/icons/pos-cash.png'%}" alt="revenue" class="icon-badge">
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -49,15 +61,18 @@
         <div class="col">
             <div class="card radius-10">
                 <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="">
-                    <p class="mb-1">PAYNOW</p>
-                    <h4 class="mb-0 text-primary">145</h4>
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">PAYNOW</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if todayPaynow %} {{ todayPaynow }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-paynow.png'%}" alt="paynow"
+                                class="icon-badge">
+                        </div>
                     </div>
-                    <div class="ms-auto fs-2 text-primary">
-                        <img src="{% static 'assets/images/icons/pos-paynow.png'%}" alt="revenue" class="icon-badge">
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -65,15 +80,18 @@
         <div class="col">
             <div class="card radius-10">
                 <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="">
-                    <p class="mb-1">Crdit card</p>
-                    <h4 class="mb-0 text-primary">145</h4>
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Credit card</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if todayCreditCard %} {{ todayCreditCard }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-creditcard.png'%}" alt="credit card"
+                                class="icon-badge">
+                        </div>
                     </div>
-                    <div class="ms-auto fs-2 text-primary">
-                        <img src="{% static 'assets/images/icons/pos-creditcard.png'%}" alt="revenue" class="icon-badge">
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -81,15 +99,17 @@
         <div class="col">
             <div class="card radius-10">
                 <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="">
-                    <p class="mb-1">Nets</p>
-                    <h4 class="mb-0 text-primary">145</h4>
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Nets</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if todayNets %} {{ todayNets }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-nets.png'%}" alt="nets" class="icon-badge">
+                        </div>
                     </div>
-                    <div class="ms-auto fs-2 text-primary">
-                        <img src="{% static 'assets/images/icons/pos-nets.png'%}" alt="revenue" class="icon-badge">
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -97,15 +117,17 @@
         <div class="col">
             <div class="card radius-10">
                 <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="">
-                    <p class="mb-1">Grab</p>
-                    <h4 class="mb-0 text-primary">145</h4>
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Grab</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if todayGrab %} {{ todayGrab }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-grab.png'%}" alt="grab" class="icon-badge">
+                        </div>
                     </div>
-                    <div class="ms-auto fs-2 text-primary">
-                        <img src="{% static 'assets/images/icons/pos-grab.png'%}" alt="revenue" class="icon-badge">
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -113,15 +135,18 @@
         <div class="col">
             <div class="card radius-10">
                 <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="">
-                    <p class="mb-1">Package</p>
-                    <h4 class="mb-0 text-primary">145</h4>
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Package</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if todayPackage %} {{ todayPackage }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-package.png'%}" alt="package"
+                                class="icon-badge">
+                        </div>
                     </div>
-                    <div class="ms-auto fs-2 text-primary">
-                        <img src="{% static 'assets/images/icons/pos-package.png'%}" alt="revenue" class="icon-badge">
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -129,15 +154,18 @@
         <div class="col">
             <div class="card radius-10">
                 <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="">
-                    <p class="mb-1">In-store credit</p>
-                    <h4 class="mb-0 text-primary">145</h4>
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Credit service</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if todayInStoreCredit %} {{ todayInStoreCredit }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-instorecredit.png'%}" alt="credit service"
+                                class="icon-badge">
+                        </div>
                     </div>
-                    <div class="ms-auto fs-2 text-primary">
-                        <img src="{% static 'assets/images/icons/pos-instorecredit.png'%}" alt="revenue" class="icon-badge">
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -145,15 +173,113 @@
         <div class="col">
             <div class="card radius-10">
                 <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="">
-                    <p class="mb-1">REFUND</p>
-                    <h4 class="mb-0 text-primary">145</h4>
-                    </div>
-                    <div class="ms-auto fs-2 text-primary">
-                        <img src="{% static 'assets/images/icons/pos-refund.png'%}" alt="revenue" class="icon-badge">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">REFUND</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if todayRefund %} {{ todayRefund }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-refund.png'%}" alt="refund"
+                                class="icon-badge">
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10 bg-gradient-success">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Beauty department</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if todayBeauty %} {{ todayBeauty }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/makeup.png'%}" alt="beauty"
+                                class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10 bg-gradient-success">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Hair department</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if todayHair %} {{ todayHair }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/hairdresser.png'%}" alt="hair"
+                                class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10 bg-gradient-success">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Health department</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if todayHealth %} {{ todayHealth }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/better-health.png'%}" alt="health"
+                                class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10 bg-gradient-success">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Hair product</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if todayHairProduct %} {{ todayHairProduct }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-products.png'%}" alt="health"
+                                class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10 bg-gradient-success">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Beauty product</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if todayBeautyProduct %} {{ todayBeautyProduct }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-products.png'%}" alt="health"
+                                class="icon-badge">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -170,87 +296,124 @@
             <div id="services-container" class="border border-success p-2 rounded border-3">
                 <span>Services</span>
                 <hr>
-                {% for service_form in sale_service_formset %}
+                <!--Empty form template to reference and copy-->
+                <div id="empty-form" style="display:none;">
                     <div class="service-form">
                         <div class="row">
                             <div class="col">
-                                <label for="{{service_form.department.label}}" class="form-label">{{service_form.department.label}}</label>
-                                {{service_form.department|add_class:"form-control"}}
+                                <label for="{{ sale_service_formset.empty_form.department.label }}" class="form-label">{{ sale_service_formset.empty_form.department.label }}</label>
+                                {{ sale_service_formset.empty_form.department|add_class:"form-control" }}
+                                <span class="fs-6 text-danger">{{ sale_service_formset.empty_form.department.errors }}</span>
                             </div>
-    
+                
                             <div class="col">
-                                <label for="{{service_form.service_name.label}}" class="form-label">{{service_form.service_name.label}}</label>
-                                {{service_form.service_name|add_class:"form-control"}}
+                                <label for="{{ sale_service_formset.empty_form.service_name.label }}" class="form-label">{{ sale_service_formset.empty_form.service_name.label }}</label>
+                                {{ sale_service_formset.empty_form.service_name|add_class:"form-control" }}
+                                <span class="fs-6 text-danger">{{ sale_service_formset.empty_form.service_name.errors }}</span>
                             </div>
-    
+                
                             <div class="col">
-                                <label for="{{service_form.service_price.label}}" class="form-label">{{service_form.service_price.label}}</label>
-                                {{service_form.service_price|add_class:"form-control service-price"}}
+                                <label for="{{ sale_service_formset.empty_form.service_price.label }}" class="form-label">{{ sale_service_formset.empty_form.service_price.label }}</label>
+                                {{ sale_service_formset.empty_form.service_price|add_class:"form-control service-price" }}
+                                <span class="fs-6 text-danger">{{ sale_service_formset.empty_form.service_price.errors }}</span>
                             </div>
-                        </div>
 
-                        {# Nested ServiceImages Formset #}
-                        {{ service_image_formset.management_form }}
-                        <div class="images-container">
-                            {% for image_form in service_image_formset %}
-                                <div class="image-form">
-                                    <label for="{{image_form.image.label}}" class="form-label mt-2">{{image_form.image.label}}</label>
-                                    {{image_form.image|add_class:"form-control"}}
-                                    <button type="button" class="remove-image-btn btn-sm btn-danger m-1">Remove Image</button>
-                                </div>
-                            {% endfor %}
+                            <div class="d-flex flex-row-reverse m-2">
+                                <span class="m-2">Tick to delete this service</span>{{ sale_service_formset.empty_form.DELETE|add_class:"service-delete-field" }}
+                            </div>
+                            <hr>
                         </div>
-                        <div class="d-flex flex-row-reverse">
-                            <button type="button" class="remove-service-btn btn-sm btn-danger">Remove Service</button>
-                            <button type="button" class="add-image-btn btn-sm btn-primary mx-2">Add Image</button>
-                        </div>
-
-                        <hr>
                     </div>
+                </div>
+                
+                {% for service_form in sale_service_formset %}
+                <div class="service-form">
+                    <div class="row">
+                        <div class="col">
+                            <label for="{{service_form.department.label}}"
+                                class="form-label">{{service_form.department.label}}</label>
+                            {{service_form.department|add_class:"form-control"}}
+                            <span class="fs-6 text-danger">{{service_form.department.errors}}</span>
+                        </div>
+
+                        <div class="col">
+                            <label for="{{service_form.service_name.label}}"
+                                class="form-label">{{service_form.service_name.label}}</label>
+                            {{service_form.service_name|add_class:"form-control"}}
+                            <span class="fs-6 text-danger">{{service_form.service_name.errors}}</span>
+                        </div>
+
+                        <div class="col">
+                            <label for="{{service_form.service_price.label}}"
+                                class="form-label">{{service_form.service_price.label}}</label>
+                            {{service_form.service_price|add_class:"form-control service-price"}}
+                            <span class="fs-6 text-danger">{{service_form.service_price.errors}}</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-row-reverse m-2">
+                        <span class="mx-2">Tick to delete this service</span>{{ service_form.DELETE|add_class:"service-delete-field" }}
+                    </div>
+
+                    <hr>
+                </div>
                 {% endfor %}
             </div>
             <button type="button" id="add-service-btn" class="btn my-3 btn-info text-light">Add another service</button>
-            <button type="button" onclick="calculate_total()" id="calculate_grand_total" class="btn mx-2 btn-info text-light">Calculate grand total</button>
-            
+            <button type="button" onclick="calculate_total()" id="calculate_grand_total"
+                class="btn mx-2 btn-info text-light">Calculate grand total</button>
+
             {# SalesTransaction Form #}
             <div>
                 <div class="row">
                     <div class="col">
                         <label for="{{form.grand_total.label}}" class="form-label">Grand total:</label>
-                        {{ form.grand_total|add_class:"form-control"|append_attr:"disabled"}}
+                        {{ form.grand_total|add_class:"form-control"|append_attr:"readonly"}}
+                        <span class="fs-6 text-danger">{{form.grand_total.errors}}</span>
                     </div>
                     <div class="col">
                         <label for="{{form.payment_type.label}}" class="form-label">Payment type:</label>
                         {{ form.payment_type|add_class:"form-control" }}
+                        <span class="fs-6 text-danger">{{form.payment_type.errors}}</span>
                     </div>
                 </div>
 
                 <label for="{{form.user.label}}" class="form-label">Employee:</label>
                 {{form.user|add_class:"form-control"}}
+                <span class="fs-6 text-danger">{{form.user.errors}}</span>
+
+                <label for="customer" class="form-label">Customer: (can leave blank)</label>
+                {{form.customer|add_class:"form-control"}}
+                <span class="fs-6 text-danger">{{form.customer.errors}}</span>
 
                 <div class="row">
                     <div class="col">
-                        <label for="{{form.package_history.label}}" class="form-label">{{form.package_history.label}}:</label>
+                        <label for="{{form.package_history.label}}"
+                            class="form-label">{{form.package_history.label}}:</label>
                         {{form.package_history|add_class:"form-control"}}
+                        <span class="fs-6 text-danger">{{form.package_history.errors}}</span>
                     </div>
                     <div class="col">
-                        <label for="{{form.credit_history.label}}" class="form-label">{{form.credit_history.label}}:</label>
+                        <label for="{{form.credit_history.label}}"
+                            class="form-label">{{form.credit_history.label}}:</label>
                         {{form.credit_history|add_class:"form-control"}}
+                        <span class="fs-6 text-danger">{{form.credit_history.errors}}</span>
                     </div>
                 </div>
 
                 <label for="{{form.personal_remarks.label}}" class="form-label">Personal remarks:</label>
                 {{form.personal_remarks|add_class:"form-control"|attr:"rows:3"}}
-
+                <span class="text-danger fs-6">{{form.personal_remarks.errors}}</span>
                 <label for="{{form.customer_remarks.label}}" class="form-label">Customer remarks:</label>
                 {{form.customer_remarks|add_class:"form-control"|attr:"rows:3"}}
-
+                <span class="text-danger fs-6">{{form.customer_remarks.errors}}</span>
             </div>
-            
-            <button type="submit" class="btn-primary btn my-3 w-100">Transact</button>
+
+            <button type="submit" class="btn-primary btn my-3 w-100" onclick="return confirmTransaction()">Transact</button>
+
         </form>
-        
-        
+
+
 
     </div>
 
@@ -268,51 +431,68 @@
     // Update every second
     setInterval(updateLiveDateTime, 1000);
 
+    function confirmTransaction() {
+        let grandTotalValue = document.getElementById("id_grand_total").value;
+        let paymentTypeValue = document.getElementById("id_payment_type").value;
+        let employeeValue = document.getElementById("select2-id_user-container").getAttribute("title");
 
-    $(document).ready(function() {
-        function testing(){
-            const grandTotalField = document.getElementById('id_grand_total').value = "22";
+        return confirm('Grand total: ' + grandTotalValue + '\nPayment type: ' + paymentTypeValue + '\nEmployee: ' + employeeValue);
+    }
+
+    $(document).on('change', '.service-delete-field', function() {
+        var serviceDiv = $(this).closest('.service-form');
+        if ($(this).is(':checked')) {
+            serviceDiv.hide();
+        } else {
+            serviceDiv.show();
         }
-        // Add SaleService Form
+    });
+
+
+    $(document).ready(function () {
+
         $('#add-service-btn').click(function() {
-            const serviceForms = $('.service-form');
-            const totalServiceForms = serviceForms.length;
-            const emptyServiceFormTemplate = $(serviceForms[0]).prop('outerHTML');
-            const newServiceForm = emptyServiceFormTemplate.replace(/__prefix__/g, totalServiceForms);
+            const totalServiceForms = parseInt($("input[name='saleservices_set-TOTAL_FORMS']").val());
+            const newServiceForm = $('#empty-form .service-form').clone();
+
+            // Update the index in name attributes
+            newServiceForm.find('input, select, textarea').each(function() {
+                const name = $(this).attr('name').replace('__prefix__', totalServiceForms);
+                $(this).attr('name', name);
+
+                // Update the id attributes for input elements
+                const id = $(this).attr('id').replace('__prefix__', totalServiceForms);
+                $(this).attr('id', id);
+            });
+
+            // Update the for attribute for labels
+            newServiceForm.find('label').each(function() {
+                const newFor = $(this).attr('for').replace('__prefix__', totalServiceForms);
+                $(this).attr('for', newFor);
+            });
+
+            // Append the new form to the container
             $('#services-container').append(newServiceForm);
 
             // Update TOTAL_FORMS for SaleServices
             $("input[name='saleservices_set-TOTAL_FORMS']").val(totalServiceForms + 1);
         });
 
-        // Add ServiceImage Form
-        $('#services-container').on('click', '.add-image-btn', function() {
-            const parentServiceForm = $(this).closest('.service-form');
-            const imageForms = parentServiceForm.find('.image-form');
-            const totalImageForms = imageForms.length;
-            const emptyImageFormTemplate = $(imageForms[0]).prop('outerHTML');
-            const newImageForm = emptyImageFormTemplate.replace(/__prefix__/g, totalImageForms);
-            parentServiceForm.find('.images-container').append(newImageForm);
 
-            // Update TOTAL_FORMS for ServiceImages
-            parentServiceForm.find("input[name='serviceimages_set-TOTAL_FORMS']").val(totalImageForms + 1);
-        });
-
-        // Remove SaleService Form
-        $('#services-container').on('click', '.remove-service-btn', function() {
-            $(this).closest('.service-form').remove();
-        });
-
-        // Remove ServiceImage Form
-        $('#services-container').on('click', '.remove-image-btn', function() {
-            $(this).closest('.image-form').remove();
+        //Remove service button
+        $('#services-container').on('click', '.remove-service-btn', function () {
+            const serviceForm = $(this).closest('.service-form');
+            // Set the DELETE checkbox to checked
+            serviceForm.find('input[name$=-DELETE]').prop('checked', true);
+            // Now hide (or remove) the form from the view
+            serviceForm.hide();  // or serviceForm.remove();
         });
 
         // Initial setup
         toggleFields();
 
         // When payment type changes
-        $('#id_payment_type').change(function() {
+        $('#id_payment_type').change(function () {
             toggleFields();
         });
 
@@ -323,38 +503,49 @@
             if (paymentType === 'package') {
                 $('#id_package_history').prop('disabled', false);
             } else {
-                $('#id_package_history').prop('disabled', true);
+                $('#id_package_history').val(null).trigger('change').prop('disabled', true);
             }
 
             // Enable or disable credit history based on payment type
-            if (paymentType === 'instorecredit') {
+            if (paymentType === 'credit sales') {
                 $('#id_credit_history').prop('disabled', false);
             } else {
-                $('#id_credit_history').prop('disabled', true);
+                $('#id_credit_history').val(null).trigger('change').prop('disabled', true);
+
             }
         }
 
 
     });
 
-    function calculate_total(){
-        const servicePriceFields = document.querySelectorAll('.service-price');
+    function calculate_total() {
+        const serviceForms = document.querySelectorAll('.service-form');
         const grandTotalField = document.getElementById('id_grand_total');
-        console.log(servicePriceFields);
-            let total = 0;
-            servicePriceFields.forEach(field => {
-                if (!field.disabled) {
-                    const value = parseFloat(field.value);
+
+        let total = 0;
+
+        serviceForms.forEach(form => {
+            const deleteCheckbox = form.querySelector('.service-delete-field');
+            
+            if (!deleteCheckbox) {
+                console.error('Missing delete checkbox in:', form);
+                return;  // Skip this iteration
+            }
+
+            if (!deleteCheckbox.checked) {
+                const priceField = form.querySelector('.service-price');
+                if (!priceField.disabled) {
+                    const value = parseFloat(priceField.value);
                     if (!isNaN(value)) {
                         total += value;
                     }
                 }
+            }
         });
 
-        // Update the grand total field
         grandTotalField.value = total.toFixed(2);
     }
 
-    
+
 </script>
 {% endblock %}

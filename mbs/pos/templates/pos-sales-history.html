@@ -1,7 +1,468 @@
 {% extends 'base.html' %}
 
 {% block title %} Melon sales history {% endblock %}
+{% load static %}
+{% load widget_tweaks %}
 
 {% block content %}
+
+<main class="page-content">
+    <div class="mt-3">
+        <p class="fw-bold">Transactions overview</p>
+    </div>
+
+    <div>
+        <form method="post">
+            {%csrf_token%}
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 mt-2">
+                        <label for="id_startDate" class="form-label">Start Date</label>
+                        {{form.startDate|add_class:"form-control"}}
+                    </div>
+
+                    <div class="col-lg-6 mt-2">
+                        <label for="id_endDate" class="form-label">End date</label>
+                        {{form.endDate|add_class:"form-control"}}
+                    </div>
+
+                    <div class="col-lg-6 mt-2">
+                        <label for="id_endDate" class="form-label">Employee (Can leave blank)</label>
+                        {{form.employee|add_class:"form-control"}}
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-sm btn-primary mt-2">Submit</button>
+        </form>
+    </div>
+    <hr>
+
+    <div class="container my-3">
+        <div>
+            {% if startDate and endDate%}
+                {% if employee %}
+                    <p class="fw-semibold">Employee: {{employee}}</p>
+                    <p class="fw-semibold">Records: {{startDate}} to {{endDate}}</p>
+                {% else %}
+                    <p class="fw-semibold">Records: {{startDate}} to {{endDate}}</p>
+                {%endif%}
+            {%else%}
+                <p class="fw-semibold">All records</p>
+            {%endif%}
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <p class="text-center">Daily sales</p>
+                <canvas id="myChart"></canvas>
+            </div>
+            <div class="col-lg-6">
+                <p class="text-center">By department</p>
+                <canvas id="myChart2"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-4">
+
+        <div class="col">
+            <div class="card radius-10 bg-gradient-warning">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Today revenue</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if totalRevenue %} {{ totalRevenue }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-revenue.png'%}" alt="revenue"
+                                class="icon-badge">
+                        </div>
+                    </div>
+        
+                    <hr class="my-2">
+                    {% if percentageRevenue > 0 %}
+                        <small class="mb-0"><i class="bi bi-arrow-up"></i> <span>+{{percentageRevenue|floatformat:2}}% from yesterday</span></small>
+                    {% elif percentageRevenue < 0 %}
+                        <small class="mb-0"><i class="bi bi-arrow-down"></i> <span>{{percentageRevenue|floatformat:2}}% from yesterday</span></small>
+                    {% elif percentageRevenue == 0 %}
+                        <small class="mb-0"><i class="bi bi-plus-slash-minus"></i> <span>0.0% from yesterday</span></small>
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">CASH</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if cash %} {{ cash }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-cash.png'%}" alt="cash" class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">PAYNOW</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if paynow %} {{ paynow }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-paynow.png'%}" alt="paynow"
+                                class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Credit card</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if creditCard %} {{ creditCard }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-creditcard.png'%}" alt="credit card"
+                                class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Nets</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if nets %} {{ nets }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-nets.png'%}" alt="nets" class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Grab</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if grab %} {{ grab }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-grab.png'%}" alt="grab" class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Package</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if package %} {{ package }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-package.png'%}" alt="package"
+                                class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Credit sales</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if inStoreCredit %} {{ inStoreCredit }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-instorecredit.png'%}" alt="in store credit"
+                                class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">REFUND</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if refund %} {{ refund }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-refund.png'%}" alt="refund"
+                                class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10 bg-gradient-success">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Beauty department</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if departmentBeauty %} {{ departmentBeauty }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/makeup.png'%}" alt="beauty"
+                                class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10 bg-gradient-success">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Hair department</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if departmentHair %} {{ departmentHair }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/hairdresser.png'%}" alt="hair"
+                                class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10 bg-gradient-success">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Health department</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if departmentHealth %} {{ departmentHealth }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/better-health.png'%}" alt="health"
+                                class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10 bg-gradient-success">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Hair product</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if departmentHairProduct %} {{ departmentHairProduct }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-package.png'%}" alt="health"
+                                class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10 bg-gradient-success">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Beauty product</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if departmentBeautyProduct %} {{ departmentBeautyProduct }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/pos-package.png'%}" alt="health"
+                                class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table align-middle mb-0" id="example">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="col">#ID</th>
+                            <th class="col">Grand total</th>
+                            <th class="col">Payment type</th>
+                            <th class="col">Customer</th>
+                            <th class="col">Date/Time</th>
+                            <th class="col">Employee</th>
+                            <th class="col">Actions</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if salesTransactions %}
+                            {% for st in salesTransactions %}
+                            <tr>
+                                <th>{{st.id }}</th>
+                                <th>{{st.grand_total }}</th>
+                                <th>{{st.payment_type}}</th>
+                                <th>{{st.customer }}</th>
+                                <th>{{st.created_at|date:"d-m-Y / H:i:s" }}</th>
+                                <th>{{st.user }}</th>
+                                <th>
+                                    <a href="{% url 'adminViewTransactionDetails' pk=st.id %}" class="btn btn-sm btn-primary">View more</a>
+                                    {% if st.created_at.date == today or st.created_at.date == yesterday %}
+                                        <a href="{% url 'adminEditTransaction' pk=st.id %}" class="btn btn-sm btn-warning">Edit</a>
+                                    {%endif%}
+                                    <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#staticEmailBackdrop{{st.id}}">
+                                        Send receipt
+                                    </button>
+                                </th>
+                                <!-- Modal -->
+                                <div class="modal fade" id="staticEmailBackdrop{{st.id}}" data-bs-backdrop="static" data-bs-keyboard="false"
+                                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">Email receipt for ID: {{st.id}}</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form action="{%url 'sendEmailReceipt' %}" method="post">
+                                                {%csrf_token%}
+                                                <div class="modal-body">
+                                                    <label for="id_email_address">Email</label>
+                                                    {{emailForm.email_address|add_class:"form-control"}}
+                                                    <input type="number" name="{{ emailForm.receipt_pk.name }}" value="{{ st.id }}" hidden>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Send receipt</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
+
+{% block extra_javascript %}
+<script>
+    const ctx = document.getElementById('myChart');
+    const ctx2 = document.getElementById('myChart2');
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: JSON.parse("{{ dailyLabel|escapejs }}"),
+        datasets: [{
+          label: 'Amount $',
+          data: JSON.parse("{{ dailyData|escapejs }}"),
+          backgroundColor: [
+            'rgb(135,206,235)'
+        ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    new Chart(ctx2, {
+      type: 'pie',
+      data: {
+        labels: JSON.parse("{{ departmentLabel|escapejs }}"),
+        datasets: [{
+          label: 'by department',
+          data: JSON.parse("{{ departmentData|escapejs }}"),
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            'rgb(124, 252, 0)',
+            'rgb(255, 108, 180)',
+        ],
+          borderWidth: 1,
+          hoverOffset: 4,
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
 
 {% endblock %}

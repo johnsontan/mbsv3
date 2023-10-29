@@ -1,0 +1,2355 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+    {% load static %}
+    {% load widget_tweaks %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Melon Beauty Salon Singapore</title>
+    <meta name="description"
+        content="Exquisite Elegance Head down to Melon to discover your hidden style that you never know will suit you! We provide Hair and Beauty services." />
+    <meta name="keywords"
+        content="Melon Beauty Salon Singapore, Melon beauty, Singapore salon, Kovan Salon, Hougang Salon, Melon Singapore, Melon beauty kovan, salon kovan, facial kovan, eye treatment kovan, haircut" />
+    <meta name="author" content="Melon Beauty Salon" />
+
+    <link rel="shortcut icon" href="{% static 'images/mbs-favicon.png' %}">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+
+    <!--Material Icon -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/materialdesignicons.min.css' %}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+        type="text/css">
+
+    <!-- Pe-icon-7 icon -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pe-icon-7-stroke.css' %}">
+
+    <!-- Custom  Css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+
+    <style>
+        .sub-item-service div {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        .outlined-text {
+            color: white;
+            /* Fill color */
+            text-shadow:
+                -1px -1px 0 #000,
+                /* top left */
+                1px -1px 0 #000,
+                /* top right */
+                -1px 1px 0 #000,
+                /* bottom left */
+                1px 1px 0 #000;
+            /* bottom right */
+        }
+
+        .modal-dialog {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- START  NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky sticky-light" id="navbar">
+        <div class="container">
+            <a class="navbar-brand logo text-uppercase" href="#">
+                <img src="{% static 'images/mbs-nav-logo.png' %}" alt="" height="64" />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="mdi mdi-menu"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mx-auto" id="navbar-navlist">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#work">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#client">Lookbook</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#team">Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+
+                <div>
+                    <ul class="top-right text-end list-unstyled list-inline mb-0 nav-social d-none d-lg-block">
+                        <li class="list-inline-item"><a href="https://www.instagram.com/melonbeautysalon/?hl=en"
+                                class="instagram"><i class="bi bi-instagram"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="https://www.tiktok.com/@user261065049698?lang=en"
+                                class="twitter"><i class="bi bi-tiktok"></i></a></li>
+                        <li class="list-inline-item"><a href="https://www.facebook.com/melonbeautysalonoffical/"
+                                class="facebook"><i class="bi bi-facebook"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- END NAVBAR -->
+
+    <!-- START HOME -->
+    <section class="section align-items-center d-flex" id="section"
+        style=" background-size: cover; background-position: center center; position: relative; padding: 280px 0px 270px 0px;">
+        <div class="bg-overlay border border-2">
+            <!-- For lg screens and larger -->
+            <img src="{% static 'images/main_background.png' %}" class="d-block w-100 h-100 img-fluid d-none d-lg-block"
+                alt="landscape" />
+
+            <!-- For screens smaller than lg -->
+            <img src="{% static 'images/main-background2.png' %}"
+                class="d-block w-100 h-100 img-fluid d-lg-none d-block" alt="landscape for small screens" />
+        </div>
+
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-9">
+                    <div class="text-center text-white">
+                        <h1 class="mb-0">
+                            <span href="" class="typewrite" data-period="2000"
+                                data-type='[ "Haircut","Hair/Scalp treatment","Rebonding","Korean C-curl perm", "Down perm", "Purifying facial", "Aromatic age reverse facial", "Co2 peel & oxyglow facial", "Intensive eye treatment", "Eyebrow trim", "Misty eyebrow embroidery", "Ear candling", "Face guasha" ]'>
+                                <span class="wrap"></span>
+                            </span>
+                        </h1>
+                        <div class="home-border my-3 mt-4"></div>
+                        <p class="home-subtitle pt-4 mx-auto">We provide Hair/Beauty services. Discover your untapped
+                            style at Melon! Dive into premium hair and beauty services with Exquisite Elegance.</p>
+                        <div class="pt-4 mt-3 home-button">
+                            <a href="https://wa.link/afgd0j" class="btn btn-dark btn-sm btn-round text-uppercase p-3-">Book now via
+                                Whatsapp&nbsp;&nbsp;
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END HOME -->
+
+    <!-- START SERVICES -->
+    <section class="section" id="services">
+        <div class="container">
+            <div class="row justify-content-center ">
+                <div class="col-lg-8">
+                    <div class="title-box text-center">
+                        <h5 class="sub-title text-primary text-uppercase">Hair / Beauty services</h5>
+                        <h3 class="mt-3 fw-normal">Where Beauty Meets Brilliance</h3>
+                        <div class="title-border"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5 pt-3">
+
+                <!-- Tabs navs -->
+                <ul class="nav nav-tabs nav-fill mb-3" id="ex1" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="ex2-tab-1" data-mdb-toggle="tab" href="#ex2-tabs-1" role="tab"
+                            aria-controls="ex2-tabs-1" aria-selected="true">HAIR SERVICES</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="ex2-tab-2" data-mdb-toggle="tab" href="#ex2-tabs-2" role="tab"
+                            aria-controls="ex2-tabs-2" aria-selected="false">BEAUTY SERVICES</a>
+                    </li>
+                </ul>
+                <!-- Tabs navs -->
+
+                <!-- Tabs content -->
+                <div class="tab-content" id="ex2-content">
+                    <div class="tab-pane fade show active" id="ex2-tabs-1" role="tabpanel" aria-labelledby="ex2-tab-1">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="sub-item-service">
+                                    <div class="c1">
+                                        <h5>Haircut/Wash/Blow</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1">Junior hairstylist haircut</div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$10</div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1">Senior hairstylist Cut</div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$16 - $28</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1">Wash & Blow (men)</div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$15</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1">Wash & Blow (lady)</div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$19 - $23</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1">
+                                        <h5>Color</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1">Basic color</div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$39.9 - $89.9</div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1">Organic low NH3 color</div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$49.9 - $59.9</div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1">Organic NO NH3</div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$69.9 - $129.9</div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1">Bleach</div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$39.9 - $89.9</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1">
+                                        <h5>Perm</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1">Cold perm</div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$59.9</div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1">Hydrating cold perm</div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$89.9</div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1">Digital perm</div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$169.9</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1">
+                                        <h5>Rebonding</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1">Basic rebonding</div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$129.9</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1"><a href="" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-target="#mucotaRebonding" data-bs-toggle="modal">Mucota Rebonding (Japan)</a>
+                                    </div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$169.9+</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1"> <a href="" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#botoxStraight"> Botox straight</a></div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$199.9+</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1">
+                                        <h5>Treatment</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1"> <a href="" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#keratin">Keratin treatment</a>
+                                    </div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$129.9 - $189.9</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1"><a href="" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#QODGoldKeratin">QOD Gold Keratin</a>
+                                    </div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$169.9 - $239.9</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1"><a href="" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#essentialScalp">Essentials scalp
+                                            treatment</a></div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$49.9</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1"><a href="" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#detoxifyScalp">Detoxify scalp
+                                            treatment</a></div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$79.9</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1"><a href="" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#tcmScalp">TCM scalp treatment</a>
+                                    </div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$129.9</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1"><a href="" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#essentailHair">Essentials hair
+                                            treatment</a></div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$39.9</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1"><a href="" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#protienHair">Protien hair
+                                            treatment</a></div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$69.9</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1"><a href="" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#revivifyHair">Revivify hair
+                                            treatment</a></div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$129.9</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="sub-item-service d-flex flex-row justify-content-between">
+                                    <div class="c1"><a href="" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#botoxRepair">Botox repair</a></div>
+                                    <div class="c2"></div>
+                                    <div class="c3">$199.9</div>
+                                </div>
+                            </div>
+
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--BEAUTY-->
+                <div class="tab-pane fade" id="ex2-tabs-2" role="tabpanel" aria-labelledby="ex2-tab-2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="sub-item-service d-flex flex-row justify-content-between">
+                                <div class="c1">
+                                    <h5>Facial</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="sub-item-service d-flex flex-row justify-content-between">
+                                <div class="c1"><a href="" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#organicRefreshing">Organic refreshing
+                                        facial</a></div>
+                                <div class="c2"></div>
+                                <div class="c3">$68</div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div class="sub-item-service d-flex flex-row justify-content-between">
+                                <div class="c1"><a href="" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#purifyingFacial">Purifying facial</a></div>
+                                <div class="c2"></div>
+                                <div class="c3">$88</div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-md-6">
+                            <div class="sub-item-service d-flex flex-row justify-content-between">
+                                <div class="c1"><a href="" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#intensiveHydrating">Intensive hydrating
+                                        facial</a></div>
+                                <div class="c2"></div>
+                                <div class="c3">$108</div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div class="sub-item-service d-flex flex-row justify-content-between">
+                                <div class="c1"><a href="" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#aromaticAgeReverse">Aromatic age reverse
+                                        facial</a></div>
+                                <div class="c2"></div>
+                                <div class="c3">$168</div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div class="sub-item-service d-flex flex-row justify-content-between">
+                                <div class="c1"><a href="" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#organicStemCell">Organic stem cell
+                                        facial</a></div>
+                                <div class="c2"></div>
+                                <div class="c3">$298</div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div class="sub-item-service d-flex flex-row justify-content-between">
+                                <div class="c1"><a href="" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#co2Peel">Co2 peel & oxyglow
+                                        facial</a></div>
+                                <div class="c2"></div>
+                                <div class="c3">$380</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="sub-item-service d-flex flex-row justify-content-between">
+                                <div class="c1">
+                                    <h5>Eye care</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="sub-item-service d-flex flex-row justify-content-between">
+                                <div class="c1"><a href="" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#rejuvenateEye">Rejuvenate eye
+                                        treatment</a></div>
+                                <div class="c2"></div>
+                                <div class="c3">$48</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="sub-item-service d-flex flex-row justify-content-between">
+                                <div class="c1"><a href="" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#intensiveEye">Intensive eye treatment</a>
+                                </div>
+                                <div class="c2"></div>
+                                <div class="c3">$128</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="sub-item-service d-flex flex-row justify-content-between">
+                                <div class="c1">
+                                    <h5>Eyebrow & Eyelash</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="sub-item-service d-flex flex-row justify-content-between">
+                                <div class="c1">Eyebrow trim</div>
+                                <div class="c2"></div>
+                                <div class="c3">$18</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="sub-item-service d-flex flex-row justify-content-between">
+                                <div class="c1">Eye lashes perm</div>
+                                <div class="c2"></div>
+                                <div class="c3">$88</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="sub-item-service d-flex flex-row justify-content-between">
+                                <div class="c1">Misty eyebrow embroidery</div>
+                                <div class="c2"></div>
+                                <div class="c3">$399</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="sub-item-service d-flex flex-row justify-content-between">
+                                <div class="c1">
+                                    <h5>Others</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="sub-item-service d-flex flex-row justify-content-between">
+                                <div class="c1">Ear candling</div>
+                                <div class="c2"></div>
+                                <div class="c3">$18</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="sub-item-service d-flex flex-row justify-content-between">
+                                <div class="c1">Face guasha</div>
+                                <div class="c2"></div>
+                                <div class="c3">$38</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="clearfix"></div>
+                </div>
+                <!-- Tabs content -->
+
+            </div>
+            <!--HAIR MODALS-->
+
+            <!-- Mucota modal -->
+            <div class="modal fade" id="mucotaRebonding" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Mucota rebonding</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-secondary">
+                            <img src="{%static 'images/services/mucotaRebonding_1.png'%}" alt="" class="img-fluid img-thumbnail">
+                            <p class="text-wrap text-secondary">Mucota hair rebonding is a frizzy control treatment that is good at controlling hair frizziness and gives a soft rebonding effect. Even if your hair is damaged, it will help to calm your hair and bring out the natural shine within, lasting up to 4-6 months.</p>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Reduce hair frizziness</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Hair hydration</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Soft rebonding effect</span></li>
+                            </ul>
+
+                            <h6>Process</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">1. Hair wash</div>
+                                    Wash away any impurities
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">2. Application of Mucota lotion</div>
+                                    Breakdown disulphide bonds
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">3. Let your Hair Set In</div>
+                                    Hair goes through the oxidation process
+                                  </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">4. Hair wash & Iron</div>
+                                      Wash off Mucota lotion and blowdry. Using flat iron to lock in Argan treatment oil into the hair follicles.
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">5. Application of Mucota cream</div>
+                                      Additional layer of hair follicles protection
+                                    </div>
+                                  </li>
+
+                              </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botox straight modal -->
+            <div class="modal fade" id="botoxStraight" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Botox straight</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{%static 'images/services/botoxStraight_1.png'%}" alt="" class="img-fluid img-thumbnail">
+                            <p class="text-wrap text-secondary">Botox straight helps to straighten curly, wavy or frizzy hair, while maintaining its natural volume and texture. Moreover, it helps to repair damaged tresses.</p>
+                            <p class="text-wrap text-secondary">Botox straight can be a good option for those who want to achieve a straighter hair look, but prefer to avoid harsh chemicals that may cause hair damage or breakage.</p>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Anti-frizz</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Smooth hair texture</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Natural straight hair</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Long lasting</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Repair damaged tresses</span></li>
+                            </ul>
+
+                            <h6>Process</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">1. Hair wash</div>
+                                    Hair wash with botox straight shampoo
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">2. Apply botox concentrate cream</div>
+                                    To open the hair cuticles
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">3. Apply botox lotion</div>
+                                    Repair hair cortex and cortex cells
+                                  </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">4. Hair wash</div>
+                                      Rinse off the lotion
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">5. Hair iron</div>
+                                      Lock in the benefits into the hair
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">6. Hair botox mask</div>
+                                      Repair and close the hair cuticles
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">7. Rinse</div>
+                                      Rinse off the mask
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">8. Botox lotion</div>
+                                      Additional protective layer for the hair cuticles
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">9. Blowdry</div>
+                                      Blowdry the hair with preferred styling
+                                    </div>
+                                  </li>
+
+                              </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Keratin modal -->
+            <div class="modal fade" id="keratin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Keratin treatment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{%static 'images/services/keratin_1.png'%}" alt="" class="img-fluid img-thumbnail">
+                            <p class="text-wrap text-secondary">Hair keratin is a hair straightening and smoothing treatment that uses a combination of keratin protein and formaldehyde (or other aldehydes) to make hair more manageable, frizz-free, and shiny.</p>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Smooth & shiny hairs</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Anti-frizz</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Strengthen hair</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Reduce split ends</span></li>
+                            </ul>
+
+                            <h6>Process</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">1. Hair wash</div>
+                                    Wash away any impurities
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">2. Application of Keratin Mask</div>
+                                    Breakdown disulphide bonds
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">3. Let your Hair Set In</div>
+                                    Hair goes through the oxidation process
+                                  </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">4. Flat iron</div>
+                                      Make sure that the product penetrates deeper into the cuticles
+                                    </div>
+                                  </li>
+
+                              </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QOD gold keratin modal -->
+            <div class="modal fade" id="QODGoldKeratin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Keratin QOD(Gold) treatment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{%static 'images/services/QODGoldKeratin_1.png'%}" alt="" class="img-fluid img-thumbnail">
+                            <p class="text-wrap text-secondary">QOD Gold uses nano-particles of 24-karat gold to permate the hair, working in tandem with keratin to bring about a robust yet elegant transformation.</p>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Highest quality Brazilian keratin formulas</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Anti-frizz</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Greater shine & smoothness</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;No harmful chemicals</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Relax curls</span></li>
+                            </ul>
+
+                            <h6>Process</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">1. Hair wash</div>
+                                    Wash with QOD gold cleaner to open up the hair cuticles
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">2. Ultima Blue UV light heat</div>
+                                    Dry the hair and kill off any leftover bacterial using blue UV light
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">3. Apply QOD gold lotion</div>
+                                    To repair the hair cuticles and breakdown disulphide bonds
+                                  </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">4. Straightening process</div>
+                                      Using flat iron to lock in all the benefits into your hair
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">5. Hair wash</div>
+                                      Remove the leftover QOD gold lotion with QOD after shampoo and conditioner
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">6. Ultima red UV light heat</div>
+                                      Dry the hair and promote blood circulation with red UV light heat
+                                    </div>
+                                  </li>
+
+                              </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Essential scalp modal -->
+            <div class="modal fade" id="essentialScalp" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Essential scalp treatment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{%static 'images/services/essentialScalp_1.png'%}" alt="" class="img-fluid img-thumbnail">
+                            <p class="text-wrap text-secondary">Essential scalp treatment is to remove dead skin cells and keep your scalp hydrated.</p>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Refreshing & relaxing</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Exfoliate dead skins</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Scalp soothing</span></li>
+                            </ul>
+
+                            <h6>Process</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">1. Essential scalp lotion</div>
+                                    Open up your hair follicles
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">2. Scrub & massage</div>
+                                    Remove excessive build-up on your scalp and promote blood circulation
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">3. Wash</div>
+                                    Wash off all the bacterial and dirt from your scalp and hair
+                                  </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">4. Ultima red UV light heat</div>
+                                      To dry the hair and kill of the leftover bacterial
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">5. Soothing lotion</div>
+                                      Soothing the scalp and an extra layer of scalp protection
+                                    </div>
+                                  </li>
+
+                              </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detoxify scalp modal -->
+            <div class="modal fade" id="detoxifyScalp" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Detoxify scalp treatment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{%static 'images/services/detoxifyScalp_1.png'%}" alt="" class="img-fluid img-thumbnail">
+                            <p class="text-wrap text-secondary">A detoxifying scalp treatment helps to remove impurities, excess oils, and build-up from the scalp, which can contribute to issues like dandruff, dryness, and itching. The treatment involves using a combination of natural ingredients to deeply cleanse and exfoliate the scalp.</p>
+                            <p class="text-wrap text-secondary">
+                                Recommended for people with oily or dandruff-prone scalps, or for those who use a lot of styling products or have been exposed to environmental pollutants.
+                            </p>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Unclog hair follicles</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Eradicate irritation, flaking & redness</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Regulate scalp oil production</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Remove build-up from the scalp</span></li>
+                            </ul>
+
+                            <h6>Process</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">1. Detoxify scalp lotion</div>
+                                    Open up the hair follicles
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">2. Scrub & massage</div>
+                                    Remove excessive build-up from the scalp and promote blood circulation
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">3. Ultima blue UV light heat</div>
+                                    To kill off any germs or bacterial on the scalp & hair
+                                  </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">4. Hair wash</div>
+                                      Wash off all the build-up on the scalp with detoxify shampoo
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">5. Ultima red UV light heat</div>
+                                      To dry the hair and promote blood circulation
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">6. Guasha & apply scalp ampoule</div>
+                                      To relieve leftover tension and apply an additional protection layer for the scalp
+                                    </div>
+                                  </li>
+
+                              </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TCM scalp modal -->
+            <div class="modal fade" id="tcmScalp" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">TCM scalp treatment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{%static 'images/services/tcmScalp_1.png'%}" alt="" class="img-fluid img-thumbnail">
+                            <p class="text-wrap text-secondary">The hair is considered to be an extension of the blood, and acupuncture is used to balance the flow of blood and energy to the scalp and hair follicles. TCM (Traditional Chinese Medicine) scalp treatment is a holistic approach to treating hair and scalp problems by addressing the underlying causes of the issues. It involves the use of natural herbs and massage to stimulate blood flow to the scalp, promote hair growth, and improve the overall health of the scalp and hair.</p>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Stimulate hair follicles & blood vessels</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Herbal extracts</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Fight dandruff & oily scalp</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Promote hair growth</span></li>
+                            </ul>
+
+                            <h6>Process</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">1. Sea salt hair wash</div>
+                                    Deep cleasing of the scalp using sea salt shampoo
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">2. Apply soothing lotion</div>
+                                    Relieves dryness/itchiness and replenishes moisture to scalp
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">3. TCM herbal scalp mask</div>
+                                    Natural herbs to stimulate blood vessels
+                                  </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">4. Lymphatic massage</div>
+                                      Eases head tension and promote blood circulation
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">5. Blue UV light misty steam</div>
+                                      Open the pores for better herbal penetration with blue UV light to kill bacterial
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">6. Hair wash</div>
+                                      Wash off the TCM herbal mask with TCM shampoo
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">7. Ultima blue/red UV light heat</div>
+                                      Dry hair and to kill off leftovers bacterial and promote blood circulation with blue/red UV light
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">8. Scalp ampoule</div>
+                                      Target the damaged areas to give hair the flexibility and resilience
+                                    </div>
+                                  </li>
+
+                              </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Essential hair modal -->
+            <div class="modal fade" id="essentailHair" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Essential hair treatment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{%static 'images/services/essentialHair_1.png'%}" alt="" class="img-fluid img-thumbnail">
+                            <p class="text-wrap text-secondary">Essential hair treatments is designed to address the moisture lost in your hair by replenish the lost moisture in your hair, leaving you with a smooth hair texture.</p>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Hair hydration</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Smooth hair cuticles</span></li>
+                            </ul>
+
+                            <h6>Process</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">1. Hair wash</div>
+                                    Remove excessive dirt from the hair and sclap
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">2. Hydrating hair mask</div>
+                                    The hair mask will open up the hair cuticles and replenish the moisture
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">3. Steam with UV red light</div>
+                                    Locking in in the benefits into your hair and promote blood circulation
+                                  </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">4. Hair wash</div>
+                                      Wash off all the unwanted bacterial and dirt
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">5. Ultima red UV light heat</div>
+                                      To dry the hair and promote blood circulation
+                                    </div>
+                                  </li>
+
+
+                              </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Protien hair modal -->
+            <div class="modal fade" id="protienHair" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Protien hair treatment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{%static 'images/services/protienHair_1.png'%}" alt="" class="img-fluid img-thumbnail">
+                            <p class="text-wrap text-secondary">Protein hair treatment involves the use of protein-based products to improve the health and appearance of the hair. Protein is an essential component of hair, and when hair is damaged due to factors such as heat styling, chemical treatments, or environmental stressors, the protein in the hair can become depleted. Protein hair treatments work by replenishing the protein in the hair, which can help to strengthen and repair the hair shaft.</p>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Anti-irritant</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Manageable hair</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Hair hydration & elasticity</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Replenish the protein in the hair</span></li>
+                            </ul>
+
+                            <h6>Process</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">1. Hair wash</div>
+                                    Wash away any impurities
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">2. Protien hair mask</div>
+                                    Infuse the protein into the hair, thus reinforcing the hair's strength.
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">3. Red UV light steam</div>
+                                    Open up the hair follicles for the protein to penetrate into the hair and promote blood circulation
+                                  </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">4. Hair wash</div>
+                                      Wash off the protein mask with protein shampoo
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">5. Ultima blue UV light</div>
+                                      Dry the hair with blue UV light to kill off leftovers bacterial
+                                    </div>
+                                  </li>
+
+
+                              </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Revivify hair modal -->
+            <div class="modal fade" id="revivifyHair" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Revivify hair treatment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{%static 'images/services/revivifyHair_1.png'%}" alt="" class="img-fluid img-thumbnail">
+                            <p class="text-wrap text-secondary">The Revivify hair treatment breathes new life into damaged locks by deeply penetrating hair follicles, infusing them with moisture, and actively repairing the damage. Utilizing advanced ION technology, the treatment revitalizes the hair's cortex and seals the cuticle, ensuring a smoother finish. Beyond mere restoration, it fortifies your hair with an added layer of protection for enduring brilliance and resilience.</p>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Reduce static electricity</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Restore hair natural PH level</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Repair damaged hair tresses</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Additional hair protection coating</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Long-lasting Brilliance</span></li>
+                            </ul>
+
+                            <h6>Process</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">1. Hair wash</div>
+                                    Wash away any impurities
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">2. Apply keratin lotion</div>
+                                    Helps strengthen hair to prevent breakage, heat damage, and frizz
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">3. Royal mask & Herbal oil</div>
+                                    Infuse essential vitamins, nutrients and almond oils into the hair
+                                  </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">4. O3 misty steam with red UV light</div>
+                                      Dramatically increasing oxygenation of the hair follicles and promote blood circulation
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">5. Hair wash</div>
+                                      Wash off the hair mask with deep conditioning shampoo
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">6. Apply leave-on lotion</div>
+                                      hydrating and moisture benefits to your strands
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">7. Ultima blue UV light heat</div>
+                                      To kill off leftovers bacterial
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">8. Ionization</div>
+                                      Reduces static and smooth split ends. Moreover, is to lock in moisture.
+                                    </div>
+                                  </li>
+
+                              </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botox repair modal -->
+            <div class="modal fade" id="botoxRepair" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Botox repair treatment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{%static 'images/services/botoxRepair_1.png'%}" alt="" class="img-fluid img-thumbnail">
+                            <p class="text-wrap text-secondary">Seeking a rejuvenating hair treatment without the risk of harmful chemicals? Consider hair botox. It's a formaldehyde-free, deep conditioning solution that combats frizz and revives damaged hair. Unlike traditional treatments, hair botox coats each strand with a protective, nourishing layer, enhancing strength and shine. The result? Voluminous, soft hair with restored thickness in thin areas, all without the concerns of chemical damage.</p>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;100% organic product</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Repair chemical damaged hair</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Anti-frizz</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Protective Coating</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Enhanced Shine</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Long-lasting Results</span></li>
+                            </ul>
+
+                            <h6>Process</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">1. Hair wash</div>
+                                    Hair wash with botox repair shampoo
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">2. Apply botox repair gel</div>
+                                    Coating the hair with non-chemical and deep repair conditioning
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">3. Rinse</div>
+                                    Rinse off the botox repair gel
+                                  </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">4. Hair iron</div>
+                                      To seal in the benefits deep within your hair cuticle, apply the botox serum.
+                                    </div>
+                                  </li>
+
+                              </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--END HAIR MODALS-->
+
+            <!--BEAUTY MODALS-->
+
+            <!-- Organic refreshing modal -->
+            <div class="modal fade" id="organicRefreshing" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Organic refreshing facial</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{%static 'images/services/organicFacial_1.png'%}" alt="" class="img-fluid img-thumbnail">
+                            <p class="text-wrap text-secondary">An organic facial cleanses, exfoliates, and moisturizes using natural products tailored to individual skin needs. Common ingredients like aloe vera, chamomile, and green tea ensure a chemical-free experience. It's ideal for sensitive skin or those wary of harsh chemicals.</p>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Skin hydrating</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Skin cleansing</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Natural ingredients</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Sensitive Skin-Friendly</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Relaxation</span></li>
+                            </ul>
+
+                            <h6>Process</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">1. Cleansing</div>
+                                    Remove bacterial and dirt from the surface of the skin using natural ingredients
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">2. Soft peeling</div>
+                                    Elimination of dead skin cells with an expulsion of impurities from pores.
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">3. Soothing lotion</div>
+                                    To boosts elasticity and stimulates collagen production
+                                  </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">4. Refreshing massage</div>
+                                      Promote blood circulation and relieves tension from muscles
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">5. Refreshing facial mask</div>
+                                      Traps the moisture or ingredient in the skin and creates film that helps to hydrate and moisturize
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">6. Protection</div>
+                                      Apply soothing gel and sunblock
+                                    </div>
+                                  </li>
+
+                              </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Purifying facial modal -->
+            <div class="modal fade" id="purifyingFacial" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Purifying facial</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{%static 'images/services/purifyingFacial_1.png'%}" alt="" class="img-fluid img-thumbnail">
+                            <p class="text-wrap text-secondary">A purifying facial delivers deep cleansing and detoxification, targeting impurities and unclogging pores. It enhances skin texture and clarity, diminishes blemishes, and revives the skin's appearance. It's particularly beneficial for oily or acne-prone skin.</p>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Exfoliates dead skins</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Skin hydrating</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Repair dull & congested skin</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Balance the skin's pH levels</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Soothe any redness or irritation caused by the treatment</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Clarity boost</span></li>
+                            </ul>
+
+                            <h6>Process</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">1. Deep cleansing</div>
+                                    Double cleansing with oil-based and water-based solution to ensure bacterial and dirt are remove
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">2. Crystal peel</div>
+                                    Removing the uppermost layers of the skin and excess oil and apply a layer of PH balancing lotion
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">3. Steam</div>
+                                    To open up the pores for better product penetration
+                                  </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">4. Extrusion</div>
+                                      Clearing a clogged or compacted pore manually
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">5. Cold roller</div>
+                                      Stimulate the lymphatic system to get rid of puffiness, toxins, and reduce muscle tension with essential oil
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">6. Detox massage</div>
+                                      Get rid of the toxins underneath the skin and increase blood circulation
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">7. Purifying mask</div>
+                                      Purges pores of impurities to help fight the visible effects of pollution. Suitable for blocked pores, pollutants, or oily skin
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">8. Protection</div>
+                                      Apply soothing lotion and sunblock for skin protection
+                                    </div>
+                                  </li>
+
+                              </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intensive hydrating modal -->
+            <div class="modal fade" id="intensiveHydrating" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Intensive hydrating facial</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{%static 'images/services/intensiveFacial_1.png'%}" alt="" class="img-fluid img-thumbnail">
+                            <p class="text-wrap text-secondary">Intensive hydrating facials, ideal for dry, mature, or dehydrated skin, enhance skin radiance and combat signs of aging. They diminish fine lines, reduce inflammation, and promote a smoother, youthful appearance. While treatments vary based on skin needs, common ingredients like hyaluronic acid, aloe vera, and chamomile provide deep nourishment.</p>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Skin boost of hydration and radiance</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Reduce inflammation</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Reduce blemish and sensitive</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Provide intense moisture to the skin</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Natural Nourishment</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Clarity boost</span></li>
+                            </ul>
+
+                            <h6>Process</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">1. Deep cleansing</div>
+                                    Double cleansing to ensure bacterial and dirt remove with oil-based and water-based solutions
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">2. Soft scrub</div>
+                                    Apply hydrating lotion with soft scrub to clear pores while hydrate the skin
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">3. Steam</div>
+                                    Steam opens up pores and helps for better product penetration
+                                  </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">4. Extrusion</div>
+                                      Remove any product buildup and clear stubborn debris
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">5. Hydrating & Face Massage</div>
+                                      Hydrating lotion with massage to improve skin absorption
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">6. Signature intensive face mask</div>
+                                      Apply hydrating soft mask
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">7. Protection</div>
+                                      Apply sunblock for skin protection
+                                    </div>
+                                  </li>
+
+
+                              </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aromatic age reverse modal -->
+            <div class="modal fade" id="aromaticAgeReverse" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Aromatic age reverse facial</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{%static 'images/services/aromaticAgeReverse_1.png'%}" alt="" class="img-fluid img-thumbnail">
+                            <p class="text-wrap text-secondary">An aromatic age reversal facial targets visible aging signs, such as wrinkles, fine lines, and age spots. It enhances skin texture, tone, and imparts a smoother, radiant, youthful glow. While it's a potent rejuvenation method, results can vary based on skin type, age, and overall health.</p>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Skin detoxification</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Replenish and retain skin moisture</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Skin firming</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Targeted Aging Combat</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Enhanced Texture & Tone</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Radiance Boost</span></li>
+                            </ul>
+
+                            <h6>Process</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">1. Deep cleansing</div>
+                                    Cleansing with oil-based and then followed by a water-based
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">2. Peeling</div>
+                                    Using diamond peel to remove the dead cells and debris. Apply elixir lotion.
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">3. Steam</div>
+                                    Steam opens up pores and helps for better product penetration.
+                                  </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">4. Detoxification</div>
+                                      Cleansing the skin to remove impurities, toxins, and pollutants
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">5. Massage & Guasha</div>
+                                      Improve circulation, reduce inflammation, and relieve pain.
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">6. Ultrasound</div>
+                                      Application of firming ampoule with ultrasound to promotes cellular renewal and repair
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">7. Facial mask</div>
+                                      Application of firming treatment mask
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">8. Protection</div>
+                                      Apply elixir lotion and sunblock
+                                    </div>
+                                  </li>
+
+                              </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Organic stem cell modal -->
+            <div class="modal fade" id="organicStemCell" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Organic stem cell facial</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{%static 'images/services/organicStemCell_1.png'%}" alt="" class="img-fluid img-thumbnail">
+                            <p class="text-wrap text-secondary">
+                                An organic stem cell facial leverages plant-derived stem cells to rejuvenate and nourish the skin. Stem cells, which can transform into various cell types, hold the potential to repair and regenerate skin tissues. This facial uses organic products rich in antioxidants, vitamins, and nutrients, promoting skin renewal and protection.</p>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Stimulate the growth of new cells</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Promote youthful and radiant complexion</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Boost skin absorption</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Prevent ageing</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Deep Nourishment</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Organic Ingredients</span></li>
+                            </ul>
+
+                            <h6>Process</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">1. Deep cleansing</div>
+                                    Double cleansing with oil-based and water-based solution to ensure bacterial and dirt are remove
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">2. Dry cell soft peeling</div>
+                                    Elimination of flaky dead skin cells with an expulsion of impurities from pores.
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">3. Steam</div>
+                                    To open up the pores for better product penetration
+                                  </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">4. Extrusion</div>
+                                      clearing a clogged or compacted pore manually
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">5. Face lifting massage</div>
+                                      Stimulating your facial muscles to help tighten skin, relieve tight muscles, and boost circulation
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">6. Stem cell ampoule with ultrasound</div>
+                                      Stem cell ampoule with ultrasound for restore the natural skin vibrancy
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">7. Stem cell mask</div>
+                                      Promotes cell turnover and increases collagen production to improve skin texture and tone
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">8. Protection</div>
+                                      Apply sunblock for skin protection
+                                    </div>
+                                  </li>
+
+                              </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Co2 Peel oxyglow modal -->
+            <div class="modal fade" id="co2Peel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Co2 peel & oxyglow facial</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{%static 'images/services/co2PeelOxyglow_1.png'%}" alt="" class="img-fluid img-thumbnail">
+                            <p class="text-wrap text-secondary">
+                                The CO2 peel oxyflow facial applies a CO2-rich gel to the skin, followed by a targeted oxygen infusion using a specialized machine. This process enhances blood flow and cell turnover, promoting a radiant and youthful complexion. The added oxygen not only hydrates but also nourishes the skin with essential nutrients and antioxidants.</p>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Reduce fine lines and wrinkles</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Reduce hyperpigmentation, acne, and uneven skin tone</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Stimulates blood flow</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Prevent ageing</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Nourish and hydrate the skin</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Little to no downtime</span></li>
+                            </ul>
+
+                            <h6>Process</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">1. Deep cleansing</div>
+                                    Cleansing with oil-based and then followed by a water-based with exfoliation
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">2. Facial mask</div>
+                                    Application of soothing lotion with Co2 peel mask
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">3. Steam</div>
+                                    Steam opens up pores and helps for better product penetration.
+                                  </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">4. Extrusion</div>
+                                      Remove any product buildup and clear stubborn debris
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">5. Cold roller</div>
+                                      Apply soothing gel with cold roller to get rid of puffiness, toxins, and reduce muscle tension
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">6. Massage & Guasha</div>
+                                      Promote blood circulation & lymphatic drainage
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">7. EGF & Ultrasound</div>
+                                      Apply EGF ampoule with Ultrasound to stimulates collagen and elastin to improve skin texture and elasticity
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">8. Facial mask</div>
+                                      Apply Co2 treatment mask to oxygenate the skin for cell regeneration.
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">8. Protection</div>
+                                      Apply soothing lotion with SPF cream
+                                    </div>
+                                  </li>
+
+                              </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- rejuvenate eye modal -->
+            <div class="modal fade" id="rejuvenateEye" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Rejuvenate eye treatment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{%static 'images/services/rejuvenateEye_1.png'%}" alt="" class="img-fluid img-thumbnail">
+                            <p class="text-wrap text-secondary">
+                                The rejuvenating eye treatment diminishes signs of fatigue, yielding a brighter, smoother, and revitalized eye area.</p>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Lighten dark eye circles</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Reduce eye puffiness</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Eye relaxation</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Improve elasticity</span></li>
+                            </ul>
+
+                            <h6>Process</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">1. Cleansing</div>
+                                    Remove bacterial and dirt from the surface of the skin
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">2. Ampoule skin infusion</div>
+                                    To firm the skin around the eyes using ampoule and infusion machine
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">3. Detox eye massage</div>
+                                    Get rid of the toxins underneath our skin
+                                  </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">4. Soothing eye mask</div>
+                                      Lock in the peptides with our soothing eye mask
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">5. Protection</div>
+                                      Apply eye serum and sunblock for skin protection
+                                    </div>
+                                  </li>
+
+                              </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intensive eye modal -->
+            <div class="modal fade" id="intensiveEye" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Intensive eye treatment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{%static 'images/services/intensiveEye_1.png'%}" alt="" class="img-fluid img-thumbnail">
+                            <p class="text-wrap text-secondary">
+                                This treatment nourishes the delicate eye area with essential nutrients and a cooling sensation, enhancing hydration and moisture. It also boosts blood circulation, diminishing dark circles and fine lines.</p>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Reduce line lines & wrinkles</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Stimulate production of collagen & elastin</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Restore vitality to eye contours</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Reduce puffiness & dark cicles</span></li>
+                                <li class="list-group-item"><i class="bi bi-check2-square"></i><span>&nbsp;&nbsp;Eye relaxation</span></li>
+                            </ul>
+
+                            <h6>Process</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">1. Deep cleansing</div>
+                                    Double cleansing to ensure bacterial and dirt remove.
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">2. Diamond peel</div>
+                                    Remove the dead cells and debris on the outer layer of your skin, leaving smoother, cleaner, brighter skin.
+                                  </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto text-wrap">
+                                    <div class="fw-bold">3. Detoxification</div>
+                                    Detoxification with essential oil to reduce inflammation.
+                                  </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">4. Massage & Guasha</div>
+                                      Apply herbal cream follow by massage & guasha to promote blood circulation & lymphatic drainage
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">5. Steam</div>
+                                      Steam opens up pores and helps for better product penetration.
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">6. Lifting eye mask</div>
+                                      Skin firming to reduce fine lines and wrinkles
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto text-wrap">
+                                      <div class="fw-bold">7. Protection</div>
+                                      Apply eye serum for eye protection.
+                                    </div>
+                                  </li>
+
+                              </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--END BEAUTY MODALS-->
+
+
+    </section>
+    <!-- END SERVICES -->
+
+    <!-- START ABOUT US -->
+    <section class="section bg-light" id="work">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-7">
+                    <div class="title-box">
+                        <h5 class="sub-title text-primary text-uppercase">About us</h5>
+                        <h3 class="mt-2 fw-normal">Our VALUES</h3>
+                        <h6>Quality . Hygiene . Customer Satisfaction. Creativity</h6>
+                        <div class="title-border"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5 pt-3">
+                <div class="col-lg-3">
+                    <div class="work-box work-border text-center p-4">
+                        <div class="work-img">
+                            <img src="images/work/img-2.png" alt="" class="img-fluid">
+                        </div>
+
+                        <div class="work-contain">
+                            <h1 class="work-count text-muted display-2 fw-normal"><img
+                                    src="{% static 'images/quality-aboutus.png' %}" alt="quality"
+                                    style="width: 50%; height: 50%;"></h1>
+                            <div class="work-desc">
+                                <h4 class="f-17 bg-dark text-light">Quality</h4>
+                                <p class="text-muted mt-4 pt-2">Ensuring that products and services offered are of high
+                                    quality, safe, and effective.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="work-box work-border text-center p-4">
+                        <div class="work-img">
+                            <img src="images/work/img-2.png" alt="" class="img-fluid">
+                        </div>
+                        <div class="work-contain">
+                            <h1 class="work-count text-muted display-2 fw-normal"><img
+                                    src="{% static 'images/hygiene-aboutus.png' %}" alt="quality"
+                                    style="width: 50%; height: 50%;"></h1>
+                            <div class="work-desc">
+                                <h4 class="f-17 bg-dark text-light">Hygiene</h4>
+                                <p class="text-muted mt-4 pt-2">Ensuring a clean, sanitized, and hygienic environment
+                                    for both clients and staff.</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="work-box text-center p-4">
+                        <div class="work-img">
+                            <img src="images/work/img-3.png" alt="" class="img-fluid">
+                        </div>
+                        <div class="work-contain">
+                            <h1 class="work-count text-muted display-2 fw-normal"><img
+                                    src="{% static 'images/customer-aboutus.png' %}" alt="quality"
+                                    style="width: 50%; height: 50%;"></h1>
+                            <div class="work-desc">
+                                <h4 class="f-17 bg-dark text-light">Customer Satisfaction</h4>
+                                <p class="text-muted mt-4 pt-2">Prioritizing the needs and satisfaction of clients,
+                                    seeking feedback, and continually striving for improvement.</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="work-box work-border text-center p-4">
+                        <div class="work-img">
+                            <img src="images/work/img-2.png" alt="" class="img-fluid">
+                        </div>
+                        <div class="work-contain">
+                            <h1 class="work-count text-muted display-2 fw-normal"><img
+                                    src="{% static 'images/creativity-aboutus.png' %}" alt="quality"
+                                    style="width: 50%; height: 50%;"></h1>
+                            <div class="work-desc">
+                                <h4 class="f-17 bg-dark text-light">Creativity</h4>
+                                <p class="text-muted mt-4 pt-2">Encouraging individuality and creativity among staff,
+                                    allowing them to offer personalized solutions and styles to clients.</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="container">
+                <h5>Melon Beauty salon history</h5>
+                <p>Melon Beauty Salon was established in 1989, originally opening in a modest storefront at 682 Hougang
+                    Ave 8. It later expanded to Hougang Central Block 811, #01-192. During construction of our Star of
+                    Kovan outlet, we temporarily relocated to 1187 Upper Serangoon Rd, #01-52. By 2021, we had moved to
+                    our permanent location at Star of Kovan. Throughout the years, our core mission has remained
+                    consistent: to offer a one-stop service in a welcoming and comfortable environment where our
+                    customers can be pampered and well taken care of. At Melon Beauty Salon, we exclusively use
+                    all-natural products</p>
+            </div>
+        </div>
+    </section>
+    <!-- END ABOUT US -->
+
+    <!-- START VIDEO SECTION -->
+    <section class="section-lg">
+        <div class="bg-overlay">
+            <img src="{% static 'images/karen-aboutus.png' %}" alt="" class="img-fluid w-100">
+        </div>
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-7">
+                    <div class="title-box">
+                        <div>
+                            <a href="" class="play-shadow" data-bs-toggle="modal"
+                                data-bs-target="#watchvideomodal"><span class="video-play-icon"><i
+                                        class="mdi mdi-play text-center"></i></span></a>
+
+                            <!-- Modal -->
+                            <div class="modal fade bd-example-modal-lg" id="watchvideomodal" data-keyboard="false"
+                                tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg">
+                                    <div class="modal-content home-modal">
+                                        <div class="modal-header border-0">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+
+                                        <iframe src="https://www.youtube.com/embed/xKQeqiW0278?si=If-4L32JZ6f4WEj5"
+                                            title="YouTube video player" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            allowfullscreen id="VisaChipCardVideo" class="video-box"
+                                            height="500"></iframe>
+                                        <!--Browser does not support <video> tag -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="mt-5 outlined-text">Karen @ Founder of Melon Beauty salon
+                        </h3>
+                        <p class="text-white-50 text-uppercase text-center pt-3">A short interview with Karen</p>
+                        <div class="title-border"></div>
+
+                    </div>
+                </div>
+            </div>
+    </section>
+    <!-- END VIDEO SECTION -->
+
+    <!-- START LOOKBOOK -->
+    <section class="section  bg-light" id="client">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-7">
+                    <div class="title-box">
+                        <h5 class="sub-title text-primary text-uppercase">Lookbook</h5>
+                        <h3 class="mt-2 fw-normal">Radiate confidence with every look.</h3>
+                        <div class="title-border"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    {% if banners %}
+                    {% for b in banners %}
+                    <div class="col-lg-3 col-md-4 mt-2">
+                        <img src="{{b.image.url}}" alt="Thumbnail" class="img-thumbnail" data-bs-toggle="modal"
+                            data-bs-target="#imageModal{{b.id}}">
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="imageModal{{b.id}}" tabindex="-1" aria-labelledby="imageModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <img src="{{b.image.url}}" alt="Full Size" class="img-fluid">
+                                    <!-- img-fluid ensures the image scales to the parent element -->
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {%endfor%}
+                    {% endif %}
+
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+    <!-- END LOOKBOOK -->
+
+    <!-- START TEAM -->
+    <section class="section" id="team">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-7">
+                    <div class="title-box">
+                        <h5 class="sub-title text-primary text-uppercase">Meet the team</h5>
+                        <h3 class="mt-2 fw-normal">Our Backbone, Your Heroes: Dive In!</h3>
+                        <div class="title-border"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5 pt-4">
+                {% if members %}
+                    {% for member in members %}
+                        <div class="col-lg-4">
+                            <div class="price-box mt-4">
+                                <img src="{{member.profile_picture.url}}" alt="employee profile" class="img-fluid img-thumbnail rounded-circle">
+                                <h4 class="pricing-title mb-0 text-center mt-2">{{member.employee_name}}</h4>
+                                <p class="text-muted pb-3 text-center">{{member.job_title}}</p>
+                                <hr class="mt-3">
+                                <div class="price-features mt-4 pt-3">
+                                    <p class="text-muted">{{member.description}}</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    {%endfor%}
+                {%endif%}
+  
+
+            </div>
+        </div>
+    </section>
+    <!-- END TEAM -->
+
+    <!-- START CONTACT -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-12">
+                    <div class="title-box">
+                        <h5 class="sub-title text-primary text-uppercase">Contact us</h5>
+                        <h3 class="mt-2 fw-normal">Enquiries / Feedback / Applying for job</h3>
+                        <div class="title-border"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5 pt-4">
+                <div class="col-lg-4">
+                    <div class="contact-content mt-4">
+                        <div class="mt-4 pt-1">
+                            <div class="contact-icon float-start pe-4">
+                                <i class="mdi mdi-phone"></i>
+                            </div>
+
+                            <div class="contact-info">
+                                <h5 class="f-16 mb-0 fw-normal">Phone Number</h5>
+                                <p class="text-muted mb-0 f-14">+65 9660 6383 <a href="https://wa.link/afgd0j"><img
+                                            src="{% static 'images/whatsapp-contact.png'%}" alt=""
+                                            style="height: auto; width: 10%;"> </a></p>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-1">
+                            <div class="contact-icon float-start pe-4">
+                                <i class="mdi mdi-email"></i>
+                            </div>
+
+                            <div class="contact-info">
+                                <h5 class="f-16 mb-0 fw-normal">Email Address</h5>
+                                <p class="text-muted mb-0 f-14">melonbeauty.hair@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-1">
+                            <div class="contact-icon float-start pe-4">
+                                <i class="mdi mdi-map"></i>
+                            </div>
+
+                            <div class="contact-info">
+                                <h5 class="f-16 mb-0 fw-normal">Location</h5>
+                                <p class="text-muted mb-0 f-14">988 Upper Serangoon Rd, #01-24 Star of Kovan, Singapore
+                                    534733</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-1">
+                            <div class="contact-icon float-start pe-4">
+                                <i class="mdi mdi-calendar-range"></i>
+                            </div>
+
+                            <div class="contact-info">
+                                <h5 class="f-16 mb-0 fw-normal">Opening hours (24 HRS format):</h5>
+                                <p class="text-muted mb-0 f-14">Mon - Fri 10:00 HRS - 21:00 HRS</p>
+                                <p class="text-muted mb-0 f-14">Sat - Sun 09:00 HRS - 21:00 HRS</p>
+                                <p class="text-muted mb-0 f-14">Public holidays 10:00 HRS - 21:00 HRS</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    {% if messages %}
+                    <div class="alerts mt-2">
+                        {% for message in messages %}
+                        <p class="bg-light">
+                            {{ message }}
+                        </p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <div class="custom-form mt-4">
+                        <form method="post" action="{% url 'contactUsSubmit' %}">
+                            {% csrf_token %}
+                            <p id="error-msg"></p>
+                            <div id="simple-msg"></div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group mt-2">
+                                        <label for="name" class="form-label">Name</label>
+                                        {{form.name|add_class:"form-control"}}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group mt-2">
+                                        <label for="email" class="form-label">Email</label>
+                                        {{form.email|add_class:"form-control"}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group mt-2">
+                                        <label for="phoneNumber" class="form-label">Phone number</label>
+                                        {{form.phone_number|add_class:"form-control"}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group mt-2">
+                                        <label for="message" class="form-label">Message</label>
+                                        {{form.message|add_class:"form-control"}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group mt-2">
+                                        <label for="message" class="form-label">Message</label>
+                                        {{form.captcha|add_class:"form-control"}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-lg-12 text-right">
+                                    <input type="submit" id="submit" name="send"
+                                        class="submitBnt btn btn-rounded btn-primary" value="Send Message">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <h4>Google map</h4>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15954.769007478137!2d103.887322!3d1.3612995!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da17ff85531c43%3A0x3685572e7ccbd664!2sMelon%20Beauty%20Salon%20(Kovan)!5e0!3m2!1sen!2ssg!4v1697363242421!5m2!1sen!2ssg" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- END CONTACT -->
+
+    <section class="bg-footer">
+        <div class="container">
+
+            <hr class="my-5">
+
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <p class="text-white-50 float-end mb-0">
+                        2023 © Melon Beauty salon
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- bootstrap -->
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <!-- JAVASCRIPTS -->
+    <script src="{% static 'js/smooth-scroll.polyfills.min.js' %}"></script>
+    <script src="{% static 'js/gumshoe.polyfills.min.js' %}"></script>
+    <!-- CUSTOM JS -->
+    <script src="{% static 'js/app.js' %}"></script>
+    <!-- MDB -->
+    <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+
+</body>
+
+</html>
