@@ -40,7 +40,10 @@ def startPos(request):
 
             # Total revenue excluding REFUND
             todayRevenue = SalesTransaction.objects.filter(created_at__contains=today).exclude(payment_type=SalesTransaction.REFUND).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+            todayRevenue = todayRevenue if todayRevenue is not None else 0
+
             yesterdayRevenue = SalesTransaction.objects.filter(created_at__contains=yesterday).exclude(payment_type=SalesTransaction.REFUND).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+            yesterdayRevenue = yesterdayRevenue if yesterdayRevenue is not None else 0
 
             percentageRevenue = 0.0
             if todayRevenue and yesterdayRevenue:
@@ -51,43 +54,63 @@ def startPos(request):
 
             # Breakdown by payment types
             todayCash = SalesTransaction.objects.filter(created_at__contains=today, payment_type=SalesTransaction.CASH).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+            todayCash = todayCash if todayCash is not None else 0
 
             todayPaynow = SalesTransaction.objects.filter(created_at__contains=today, payment_type=SalesTransaction.PAYNOW).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+            todayPaynow = todayPaynow if todayPaynow is not None else 0
 
             todayCreditCard = SalesTransaction.objects.filter(created_at__contains=today, payment_type=SalesTransaction.CREDIT_CARD).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+            todayCreditCard = todayCreditCard if todayCreditCard is not None else 0
 
             todayNets = SalesTransaction.objects.filter(created_at__contains=today, payment_type=SalesTransaction.NETS).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+            todayNets = todayNets if todayNets is not None else 0
 
             todayGrab = SalesTransaction.objects.filter(created_at__contains=today, payment_type=SalesTransaction.GRAB).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+            todayGrab = todayGrab if todayGrab is not None else 0
 
             todayPackage = SalesTransaction.objects.filter(created_at__contains=today, payment_type=SalesTransaction.PACKAGE).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+            todayPackage = todayPackage if todayPackage is not None else 0
 
-            todayInStoreCredit = SalesTransaction.objects.filter(created_at__contains=today, payment_type=SalesTransaction.IN_STORE_CREDIT).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+            todayInStoreCredit = SalesTransaction.objects.filter(created_at__contains=today, payment_type=SalesTransaction.CREDITSALES).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+            todayInStoreCredit = todayInStoreCredit if todayInStoreCredit is not None else 0
 
             todayRefund = SalesTransaction.objects.filter(created_at__contains=today, payment_type=SalesTransaction.REFUND).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+            todayRefund = todayRefund if todayRefund is not None else 0
 
             todayBeauty = SaleServices.objects.filter(created_at__contains=today, department=SaleServices.BEAUTY).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+            todayBeauty = todayBeauty if todayBeauty is not None else 0
 
             todayHair = SaleServices.objects.filter(created_at__contains=today, department=SaleServices.HAIR).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+            todayHair = todayHair if todayHair is not None else 0
 
             todayHealth = SaleServices.objects.filter(created_at__contains=today, department=SaleServices.HEALTH).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+            todayHealth = todayHealth if todayHealth is not None else 0
+
+            todayHairProduct = SaleServices.objects.filter(created_at__contains=today, department=SaleServices.HAIRPRODUCT).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+            todayHairProduct = todayHairProduct if todayHairProduct is not None else 0
+
+            todayBeautyProduct = SaleServices.objects.filter(created_at__contains=today, department=SaleServices.BEAUTYPRODUCT).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+            todayBeautyProduct = todayBeautyProduct if todayBeautyProduct is not None else 0
+
 
             context = {
-                'todayRevenueValue': todayRevenue,
-                'todayCash': todayCash,
-                'todayPaynow': todayPaynow,
-                'todayCreditCard': todayCreditCard,
-                'todayNets': todayNets,
-                'todayGrab': todayGrab,
-                'todayPackage': todayPackage,
-                'todayInStoreCredit': todayInStoreCredit,
-                'todayRefund': todayRefund,
+                'todayRevenueValue': math.ceil(todayRevenue * 100) / 100.0,
+                'todayCash': math.ceil(todayCash * 100) / 100.0,
+                'todayPaynow': math.ceil(todayPaynow * 100) / 100.0,
+                'todayCreditCard': math.ceil(todayCreditCard * 100) / 100.0,
+                'todayNets': math.ceil(todayNets * 100) / 100.0,
+                'todayGrab': math.ceil(todayGrab * 100) / 100.0,
+                'todayPackage': math.ceil(todayPackage * 100) / 100.0,
+                'todayInStoreCredit': math.ceil(todayInStoreCredit * 100) / 100.0,
+                'todayRefund': math.ceil(todayRefund * 100) / 100.0,
                 'form': form,
                 'sale_service_formset': sale_service_formset,
                 'percentageRevenue' : percentageRevenue,
-                'todayBeauty' : todayBeauty,
-                'todayHair' : todayHair,
-                'todayHealth' : todayHealth
+                'todayBeauty': math.ceil(todayBeauty * 100) / 100.0,
+                'todayHair': math.ceil(todayHair * 100) / 100.0,
+                'todayHealth': math.ceil(todayHealth * 100) / 100.0,
+                'todayHairProduct': math.ceil(todayHairProduct * 100) / 100.0,
+                'todayBeautyProduct': math.ceil(todayBeautyProduct * 100) / 100.0,
             }
 
             return render(request, 'pos-startpos.html', context)
@@ -98,7 +121,11 @@ def startPos(request):
 
         # Total revenue excluding REFUND
         todayRevenue = SalesTransaction.objects.filter(created_at__contains=today).exclude(payment_type=SalesTransaction.REFUND).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        todayRevenue = todayRevenue if todayRevenue is not None else 0
+
         yesterdayRevenue = SalesTransaction.objects.filter(created_at__contains=yesterday).exclude(payment_type=SalesTransaction.REFUND).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        yesterdayRevenue = yesterdayRevenue if yesterdayRevenue is not None else 0
+
 
         percentageRevenue = 0.0
         if todayRevenue and yesterdayRevenue:
@@ -109,49 +136,63 @@ def startPos(request):
 
         # Breakdown by payment types
         todayCash = SalesTransaction.objects.filter(created_at__contains=today, payment_type=SalesTransaction.CASH).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        todayCash = todayCash if todayCash is not None else 0
 
         todayPaynow = SalesTransaction.objects.filter(created_at__contains=today, payment_type=SalesTransaction.PAYNOW).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        todayPaynow = todayPaynow if todayPaynow is not None else 0
 
         todayCreditCard = SalesTransaction.objects.filter(created_at__contains=today, payment_type=SalesTransaction.CREDIT_CARD).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        todayCreditCard = todayCreditCard if todayCreditCard is not None else 0
 
         todayNets = SalesTransaction.objects.filter(created_at__contains=today, payment_type=SalesTransaction.NETS).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        todayNets = todayNets if todayNets is not None else 0
 
         todayGrab = SalesTransaction.objects.filter(created_at__contains=today, payment_type=SalesTransaction.GRAB).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        todayGrab = todayGrab if todayGrab is not None else 0
 
         todayPackage = SalesTransaction.objects.filter(created_at__contains=today, payment_type=SalesTransaction.PACKAGE).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        todayPackage = todayPackage if todayPackage is not None else 0
 
         todayInStoreCredit = SalesTransaction.objects.filter(created_at__contains=today, payment_type=SalesTransaction.CREDITSALES).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        todayInStoreCredit = todayInStoreCredit if todayInStoreCredit is not None else 0
 
         todayRefund = SalesTransaction.objects.filter(created_at__contains=today, payment_type=SalesTransaction.REFUND).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        todayRefund = todayRefund if todayRefund is not None else 0
 
         todayBeauty = SaleServices.objects.filter(created_at__contains=today, department=SaleServices.BEAUTY).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+        todayBeauty = todayBeauty if todayBeauty is not None else 0
 
         todayHair = SaleServices.objects.filter(created_at__contains=today, department=SaleServices.HAIR).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+        todayHair = todayHair if todayHair is not None else 0
 
         todayHealth = SaleServices.objects.filter(created_at__contains=today, department=SaleServices.HEALTH).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+        todayHealth = todayHealth if todayHealth is not None else 0
 
         todayHairProduct = SaleServices.objects.filter(created_at__contains=today, department=SaleServices.HAIRPRODUCT).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+        todayHairProduct = todayHairProduct if todayHairProduct is not None else 0
 
         todayBeautyProduct = SaleServices.objects.filter(created_at__contains=today, department=SaleServices.BEAUTYPRODUCT).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+        todayBeautyProduct = todayBeautyProduct if todayBeautyProduct is not None else 0
+
 
         context = {
-            'todayRevenueValue': todayRevenue,
-            'todayCash': todayCash,
-            'todayPaynow': todayPaynow,
-            'todayCreditCard': todayCreditCard,
-            'todayNets': todayNets,
-            'todayGrab': todayGrab,
-            'todayPackage': todayPackage,
-            'todayInStoreCredit': todayInStoreCredit,
-            'todayRefund': todayRefund,
+            'todayRevenueValue': math.ceil(todayRevenue * 100) / 100.0,
+            'todayCash': math.ceil(todayCash * 100) / 100.0,
+            'todayPaynow': math.ceil(todayPaynow * 100) / 100.0,
+            'todayCreditCard': math.ceil(todayCreditCard * 100) / 100.0,
+            'todayNets': math.ceil(todayNets * 100) / 100.0,
+            'todayGrab': math.ceil(todayGrab * 100) / 100.0,
+            'todayPackage': math.ceil(todayPackage * 100) / 100.0,
+            'todayInStoreCredit': math.ceil(todayInStoreCredit * 100) / 100.0,
+            'todayRefund': math.ceil(todayRefund * 100) / 100.0,
             'form': SalesTransactionForm(),
             'sale_service_formset': SaleServiceFormset(queryset=SaleServices.objects.none()),
             'percentageRevenue' : percentageRevenue,
-            'todayBeauty' : todayBeauty,
-            'todayHair' : todayHair,
-            'todayHealth' : todayHealth,
-            'todayHairProduct' : todayHairProduct,
-            'todayBeautyProduct' : todayBeautyProduct,
+            'todayBeauty': math.ceil(todayBeauty * 100) / 100.0,
+            'todayHair': math.ceil(todayHair * 100) / 100.0,
+            'todayHealth': math.ceil(todayHealth * 100) / 100.0,
+            'todayHairProduct': math.ceil(todayHairProduct * 100) / 100.0,
+            'todayBeautyProduct': math.ceil(todayBeautyProduct * 100) / 100.0,
         }
 
         return render(request, 'pos-startpos.html', context)
