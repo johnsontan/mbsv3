@@ -17,7 +17,8 @@
                     <div class="text-center mt-4">
                         <h4 class="mb-1">{{customerDetails.name}}</h4>
                         <p class="mb-0 text-secondary">{{customerDetails.phone_number}} / {{customerDetails.email}}</p>
-                        <p class="mb-0 text-secondary">Credits: {{customerDetails.credit}}</p>
+                        <p class="mb-0 text-secondary">Credits: <p class="mb-0 text-secondary">Credits: {{ customerDetails.credit|floatformat:2 }}</p>
+                    </p>
                         <div class="mt-4"></div>
                         <p class="mb-0 text-secondary">Last update: {{customerDetails.last_update|date:"d-m-Y / H:i:s"}} HRS</p>
                         <p class="mb-0 text-secondary">Created at: {{customerDetails.created_at|date:"d-m-Y / H:i:s"}} HRS</p>
