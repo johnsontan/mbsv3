@@ -4,6 +4,7 @@ from .models import SalesTransaction, SaleServices
 from administration.models import Accounts, AccountProfiles
 from django.forms import BaseInlineFormSet
 from django.forms.utils import ErrorDict
+import math
 
 
 class CustomSaleServiceFormset(BaseInlineFormSet):
@@ -20,6 +21,11 @@ class SaleServiceForm(forms.ModelForm):
     class Meta:
         model = SaleServices
         fields = ['id', 'department', 'service_name', 'service_price']
+
+    def __init__(self, *args, **kwargs):
+        super(SaleServiceForm, self).__init__(*args, **kwargs)
+        # Set the initial value of service_price to None
+        self.fields['service_price'].initial = None
 
     def is_empty(self):
         """Check if the form is effectively empty."""
@@ -57,7 +63,8 @@ class SalesTransactionForm(forms.ModelForm):
         # Check if the formset has been passed to this form's instance
         if hasattr(self, 'formset'):
             total_service_price = self.formset.get_total_service_price()
-
+            grand_total = math.ceil(grand_total)
+            total_service_price = math.ceil(total_service_price)
             # Validate that the grand total equals the total service price
             if grand_total != total_service_price:
                 msg = f"Grand total must be equal to the total service price. Expected {total_service_price}, but got {grand_total}."
