@@ -343,8 +343,8 @@ def adminTransactionsOverview(request):
                 'endDate':endDate,
                 'employee' : employee,
                 'emailForm' : emailForm,
-                'departmentBeautyProduct' : departmentBeautyProduct,
-                'departmentHairProduct' : departmentHairProduct
+                'departmentBeautyProduct' : math.ceil(departmentBeautyProduct * 100) / 100,
+                'departmentHairProduct' : math.ceil(departmentHairProduct * 100) / 100,
 
             }
             return render(request, 'pos-sales-history.html', context)
@@ -470,8 +470,8 @@ def adminTransactionsOverview(request):
             'departmentBeauty':math.ceil(departmentBeauty * 100) /100.0,
             'departmentHealth':math.ceil(departmentHealth * 100) /100.0,
             'emailForm' : emailForm,
-            'departmentHairProduct' : departmentHairProduct,
-            'departmentBeautyProduct' : departmentBeautyProduct,
+            'departmentBeautyProduct' : math.ceil(departmentBeautyProduct * 100) / 100,
+            'departmentHairProduct' : math.ceil(departmentHairProduct * 100) / 100,
 
         }
         return render(request, 'pos-sales-history.html', context)
