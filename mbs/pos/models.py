@@ -42,6 +42,8 @@ class SaleServices(models.Model):
     HEALTH = 'health'
     HAIRPRODUCT = 'hair product'
     BEAUTYPRODUCT = 'beauty product'
+    PACKAGESALES = 'package sales'
+    CREDITSALES = 'credit sales'
 
     Department_choice = (
         (HAIR, 'hair'),
@@ -49,6 +51,8 @@ class SaleServices(models.Model):
         (HEALTH, 'health'),
         (HAIRPRODUCT, 'hair product'),
         (BEAUTYPRODUCT, 'beauty product'),
+        (PACKAGESALES, 'package sales'),
+        (CREDITSALES, 'credit sales'),
     )
     id = models.BigAutoField(primary_key=True)
     department = models.CharField(choices=Department_choice, max_length=200)

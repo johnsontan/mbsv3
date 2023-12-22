@@ -336,6 +336,44 @@
             </div>
         </div>
 
+        <div class="col">
+            <div class="card radius-10 bg-gradient-success">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Package sales</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if packageSales %} {{ packageSales }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/shopping-bag.png'%}" alt="health"
+                                class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10 bg-gradient-success">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Credit sales</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if creditSales %} {{ creditSales }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/shopping-bag.png'%}" alt="health"
+                                class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     </div>
 
@@ -450,6 +488,8 @@
             'rgb(255, 205, 86)',
             'rgb(124, 252, 0)',
             'rgb(255, 108, 180)',
+            'rgb(255, 165, 0)',
+            'rgb(205, 133, 63)',
         ],
           borderWidth: 1,
           hoverOffset: 4,

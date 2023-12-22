@@ -92,6 +92,12 @@ def startPos(request):
             todayBeautyProduct = SaleServices.objects.filter(created_at__contains=today, department=SaleServices.BEAUTYPRODUCT).aggregate(total_revenue=Sum('service_price'))['total_revenue']
             todayBeautyProduct = todayBeautyProduct if todayBeautyProduct is not None else 0
 
+            todayPackageSales = SaleServices.objects.filter(created_at__contains=today, department=SaleServices.PACKAGESALES).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+            todayPackageSales = todayPackageSales if todayPackageSales is not None else 0
+
+            todayCreditSales = SaleServices.objects.filter(created_at__contains=today, department=SaleServices.CREDITSALES).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+            todayCreditSales = todayCreditSales if todayCreditSales is not None else 0
+
 
             context = {
                 'todayRevenueValue': math.ceil(todayRevenue * 100) / 100.0,
@@ -111,6 +117,8 @@ def startPos(request):
                 'todayHealth': math.ceil(todayHealth * 100) / 100.0,
                 'todayHairProduct': math.ceil(todayHairProduct * 100) / 100.0,
                 'todayBeautyProduct': math.ceil(todayBeautyProduct * 100) / 100.0,
+                'todayPackageSales': math.ceil(todayPackageSales * 100) / 100.0,
+                'todayCreditSales': math.ceil(todayCreditSales * 100) / 100.0,
             }
 
             return render(request, 'pos-startpos.html', context)
@@ -174,6 +182,12 @@ def startPos(request):
         todayBeautyProduct = SaleServices.objects.filter(created_at__contains=today, department=SaleServices.BEAUTYPRODUCT).aggregate(total_revenue=Sum('service_price'))['total_revenue']
         todayBeautyProduct = todayBeautyProduct if todayBeautyProduct is not None else 0
 
+        todayPackageSales = SaleServices.objects.filter(created_at__contains=today, department=SaleServices.PACKAGESALES).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+        todayPackageSales = todayPackageSales if todayPackageSales is not None else 0
+
+        todayCreditSales = SaleServices.objects.filter(created_at__contains=today, department=SaleServices.CREDITSALES).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+        todayCreditSales = todayCreditSales if todayCreditSales is not None else 0
+
 
         context = {
             'todayRevenueValue': math.ceil(todayRevenue * 100) / 100.0,
@@ -193,6 +207,8 @@ def startPos(request):
             'todayHealth': math.ceil(todayHealth * 100) / 100.0,
             'todayHairProduct': math.ceil(todayHairProduct * 100) / 100.0,
             'todayBeautyProduct': math.ceil(todayBeautyProduct * 100) / 100.0,
+            'todayPackageSales': math.ceil(todayPackageSales * 100) / 100.0,
+            'todayCreditSales': math.ceil(todayCreditSales * 100) / 100.0,
         }
 
         return render(request, 'pos-startpos.html', context)
@@ -257,6 +273,14 @@ def adminTransactionsOverview(request):
             departmentLabel.append('Beauty product')
             tempBeautyProduct = SaleServices.objects.filter(**filters2, department=SaleServices.BEAUTYPRODUCT).aggregate(total_revenue=Sum('service_price'))['total_revenue']
             departmentData.append(math.ceil(tempBeautyProduct * 100) / 100 if tempBeautyProduct is not None else 0)
+            #Package sales
+            departmentLabel.append('Package sales')
+            tempPackageSales = SaleServices.objects.filter(**filters2, department=SaleServices.PACKAGESALES).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+            departmentData.append(math.ceil(tempPackageSales * 100) / 100 if tempPackageSales is not None else 0)
+            #Credit sales
+            departmentLabel.append('Credit sales')
+            tempCreditSales = SaleServices.objects.filter(**filters2, department=SaleServices.CREDITSALES).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+            departmentData.append(math.ceil(tempCreditSales * 100) / 100 if tempCreditSales is not None else 0)
             
             #Get all different types of payment 
             #total revenue
@@ -301,6 +325,12 @@ def adminTransactionsOverview(request):
             #departmentHealth
             departmentBeautyProduct = SaleServices.objects.filter(**filters2, department=SaleServices.BEAUTYPRODUCT).aggregate(total_revenue=Sum('service_price'))['total_revenue']
 
+            #packageSales
+            packageSales = SaleServices.objects.filter(**filters2, department=SaleServices.PACKAGESALES).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+
+            #creditSales
+            creditSales = SaleServices.objects.filter(**filters2, department=SaleServices.CREDITSALES).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+
             cash = cash if cash is not None else 0
             paynow = paynow if paynow is not None else 0
             creditCard = creditCard if creditCard is not None else 0
@@ -315,6 +345,8 @@ def adminTransactionsOverview(request):
             total_revenue = total_revenue if total_revenue is not None else 0
             departmentHairProduct = departmentHairProduct if departmentHairProduct is not None else 0
             departmentBeautyProduct = departmentBeautyProduct if departmentBeautyProduct is not None else 0
+            packageSales = packageSales if packageSales is not None else 0
+            creditSales = creditSales if creditSales is not None else 0
 
             emailForm = SendEmailReceiptForm()
 
@@ -345,6 +377,8 @@ def adminTransactionsOverview(request):
                 'emailForm' : emailForm,
                 'departmentBeautyProduct' : math.ceil(departmentBeautyProduct * 100) / 100,
                 'departmentHairProduct' : math.ceil(departmentHairProduct * 100) / 100,
+                'packageSales' : math.ceil(packageSales * 100) / 100,
+                'creditSales' : math.ceil(creditSales * 100) / 100,
 
             }
             return render(request, 'pos-sales-history.html', context)
@@ -387,6 +421,14 @@ def adminTransactionsOverview(request):
         departmentLabel.append('Beauty product')
         tempBeautyProduct = SaleServices.objects.filter(department=SaleServices.BEAUTYPRODUCT).aggregate(total_revenue=Sum('service_price'))['total_revenue']
         departmentData.append(math.ceil(tempBeautyProduct * 100) / 100 if tempBeautyProduct is not None else 0)
+        #Package sales
+        departmentLabel.append('Package sales')
+        tempPackageSales = SaleServices.objects.filter(department=SaleServices.PACKAGESALES).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+        departmentData.append(math.ceil(tempPackageSales * 100) / 100 if tempPackageSales is not None else 0)
+        #Credit sales
+        departmentLabel.append('Credit sales')
+        tempCreditSales = SaleServices.objects.filter(department=SaleServices.CREDITSALES).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+        departmentData.append(math.ceil(tempCreditSales * 100) / 100 if tempCreditSales is not None else 0)
 
         #Get all different types of payment 
         #total revenue
@@ -431,6 +473,12 @@ def adminTransactionsOverview(request):
         #departmentHealth
         departmentBeautyProduct = SaleServices.objects.filter(department=SaleServices.BEAUTYPRODUCT).aggregate(total_revenue=Sum('service_price'))['total_revenue']
 
+        #packageSales
+        packageSales = SaleServices.objects.filter(department=SaleServices.PACKAGESALES).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+
+        #creditSales
+        creditSales = SaleServices.objects.filter(department=SaleServices.CREDITSALES).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+
         emailForm = SendEmailReceiptForm()
 
         cash = cash if cash is not None else 0
@@ -447,6 +495,8 @@ def adminTransactionsOverview(request):
         total_revenue = total_revenue if total_revenue is not None else 0
         departmentBeautyProduct = departmentBeautyProduct if departmentBeautyProduct is not None else 0
         departmentHairProduct = departmentHairProduct if departmentHairProduct is not None else 0
+        packageSales = packageSales if packageSales is not None else 0
+        creditSales = creditSales if creditSales is not None else 0
 
         context = {
             'salesTransactions':salesTransactions,
@@ -472,6 +522,8 @@ def adminTransactionsOverview(request):
             'emailForm' : emailForm,
             'departmentBeautyProduct' : math.ceil(departmentBeautyProduct * 100) / 100,
             'departmentHairProduct' : math.ceil(departmentHairProduct * 100) / 100,
+            'packageSales' : math.ceil(packageSales * 100) / 100,
+            'creditSales' : math.ceil(creditSales * 100) / 100,
 
         }
         return render(request, 'pos-sales-history.html', context)

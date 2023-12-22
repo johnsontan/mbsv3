@@ -137,7 +137,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="">
-                            <p class="mb-1">Package</p>
+                            <p class="mb-1">Package service</p>
                             <h4 class="mb-0 text-primary">
                                 $ {% if todayPackage %} {{ todayPackage }} {% else %} 0.00 {% endif %}
                             </h4>
@@ -277,6 +277,44 @@
                         </div>
                         <div class="ms-auto fs-2 text-primary">
                             <img src="{% static 'assets/images/icons/pos-products.png'%}" alt="health"
+                                class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10 bg-gradient-success">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Package sales</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if todayPackageSales %} {{ todayPackageSales }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/shopping-bag.png'%}" alt="health"
+                                class="icon-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card radius-10 bg-gradient-success">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <p class="mb-1">Credit sales</p>
+                            <h4 class="mb-0 text-primary">
+                                $ {% if todayCreditSales %} {{ todayCreditSales }} {% else %} 0.00 {% endif %}
+                            </h4>
+                        </div>
+                        <div class="ms-auto fs-2 text-primary">
+                            <img src="{% static 'assets/images/icons/shopping-bag.png'%}" alt="health"
                                 class="icon-badge">
                         </div>
                     </div>

@@ -69,6 +69,10 @@ class SalesTransactionForm(forms.ModelForm):
             if grand_total != total_service_price:
                 msg = f"Grand total must be equal to the total service price. Expected {total_service_price}, but got {grand_total}."
                 self.add_error('grand_total', msg)
+        
+        check_user = cleaned_data.get('user')
+        if not check_user:
+            self.add_error('user', 'Employee is required.')
 
         return cleaned_data
 
