@@ -393,7 +393,7 @@ def adminTransactionsOverview(request):
         dailyData = []
         dailyDate = timezone.now().date()
         for i in range(14):
-            dailyData.append(SalesTransaction.objects.filter(created_at__contains=dailyDate).aggregate(total_revenue=Sum('grand_total'))['total_revenue'])
+            dailyData.append(SalesTransaction.objects.filter(created_at__contains=dailyDate).exclude(payment_type="credit sales").aggregate(total_revenue=Sum('grand_total'))['total_revenue'])
             dailyLabel.append(dailyDate.strftime('%Y-%m-%d'))
             dailyDate = dailyDate - timedelta(days=1)
         form = SelectDatesForm()
