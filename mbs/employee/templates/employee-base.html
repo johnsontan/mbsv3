@@ -152,6 +152,20 @@
               </ul>
             </li>
 
+            <li>
+              <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"><i class="bi bi-person-badge-fill"></i>
+                </div>
+                <div class="menu-title"><img src="{% static 'assets/images/icons/inventory.png'%}" style="width: 25%; height: auto;">&nbsp;&nbsp;Inventory</div>
+              </a>
+              <ul>
+                <li> <a href="{% url 'adminProductRegister' %}"><i class="bi bi-circle"></i>Register product</a>
+                </li>
+                <li> <a href="{% url 'adminProductOverview' %}"><i class="bi bi-circle"></i>View inventory</a>
+                </li>
+              </ul>
+            </li>
+
           </ul>
           <!--end navigation-->
        </aside>

@@ -349,7 +349,7 @@ def adminTransactionsOverview(request):
             creditSales = creditSales if creditSales is not None else 0
 
             emailForm = SendEmailReceiptForm()
-
+            
             context = {
                 'salesTransactions':salesTransactions,
                 'today' : today,
@@ -480,7 +480,7 @@ def adminTransactionsOverview(request):
         creditSales = SaleServices.objects.filter(department=SaleServices.CREDITSALES).aggregate(total_revenue=Sum('service_price'))['total_revenue']
 
         emailForm = SendEmailReceiptForm()
-
+        print(request.GET.get('page_name'))
         cash = cash if cash is not None else 0
         paynow = paynow if paynow is not None else 0
         creditCard = creditCard if creditCard is not None else 0

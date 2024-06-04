@@ -6,7 +6,7 @@ from .models import Accounts, Product, ProductHistory, ContactForm, FrontendBann
 from pos.models import SalesTransaction
 from pos.forms import SendEmailReceiptForm
 from customer.models import CustomerProfile
-from .decorator import admin_role_required
+from .decorator import admin_role_required, employee_role_required, admin_or_employee_required
 from django.contrib.auth.decorators import login_required
 from datetime import date, timedelta
 from django.db.models import Sum
@@ -71,7 +71,7 @@ def adminProfile(request):
         if accountForm.is_valid():
             accountForm.save()
         else:
-            print("Account Form Errors:", accountForm.errors)
+           print("Account Form Errors:", accountForm.errors)
         if passwordForm.is_valid():
             #Using custom password change implements django form hence have to verify & save the password manually 
             #The custom password change form only make the passwords optional 
@@ -146,12 +146,21 @@ def logout_request(request):
     logout(request)
     return redirect("login")
 
-@admin_role_required
+@admin_or_employee_required
 def adminProductOverview(request):
     products = Product.objects.all()
-    return render(request, 'admin-product-overview.html',{"products":products})
+    if hasattr(request.user, 'role'):
+        if request.user.role == "employee":
+            return render(request, 'employee-product-overview.html',{"products":products})
+        elif request.user.role == "admin":
+            return render(request, 'admin-product-overview.html',{"products":products})
+        else:
+            return redirect('login')
 
-@admin_role_required
+    else:
+        return redirect('login')
+
+@admin_or_employee_required
 def adminProductRegister(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
@@ -161,9 +170,16 @@ def adminProductRegister(request):
         return redirect('adminProductOverview')
     else:   
         form = ProductForm()
-        return render(request, 'admin-add-product.html',{"form":form})
+        if hasattr(request.user, 'role'):
+            if request.user.role == "employee":
+                return render(request, 'employee-add-product.html',{"form":form})
+            elif request.user.role == "admin":
+                return render(request, 'admin-add-product.html',{"form":form})
+            else:
+                return redirect('login')
+
     
-@admin_role_required
+@admin_or_employee_required
 def adminDeleteProduct(request, pk):
     product = Product.objects.filter(id=pk)
     if product:
@@ -174,21 +190,34 @@ def adminDeleteProduct(request, pk):
         messages.success(request, 'Unable to delete product')
         return redirect('adminProductOverview')
     
-@admin_role_required
+@admin_or_employee_required
 def adminProductDetails(request, pk):
     product = Product.objects.filter(id=pk).get()
     if product:
         productHistory = ProductHistory.objects.filter(product_id=product.id)
-        return render(request, 'admin-product-details.html', {"product":product, "productHistory":productHistory})
+        if hasattr(request.user, 'role'):
+            if request.user.role == "employee":
+                return render(request, 'employee-product-details.html', {"product":product, "productHistory":productHistory})
+            elif request.user.role == "admin":
+                return render(request, 'admin-product-details.html', {"product":product, "productHistory":productHistory})
+            else:
+                return redirect('login')
     else:
         return redirect('adminProductOverview')
-    
-@admin_role_required
+
+@admin_or_employee_required
 def adminEditProduct(request, pk):
     if request.method == 'POST':
         product = Product.objects.filter(id=pk).get()
         form = ProductForm(request.POST, request.FILES, instance=product)
         formHistory = ProductHistoryForm(request.POST)
+
+        # Ensure 'accountprofile' is set in formHistory data before creating the form instance
+        post_data = request.POST.copy()
+        if hasattr(request.user, 'accountprofile'):
+            post_data['name'] = request.user.accountprofile.id
+        formHistory = ProductHistoryForm(post_data)
+
         if form.is_valid() and formHistory.is_valid():
             productInstance = form.save(commit=False)
             productHistoryInstance = formHistory.save(commit=False)
@@ -201,19 +230,33 @@ def adminEditProduct(request, pk):
                     messages.success(request, 'Quantity error')
                     return render(request, 'admin-edit-product.html', {"form":form, "formHistory":formHistory})
                 productInstance.qty -= productHistoryInstance.editQty
-            
+
             productHistoryInstance.product = product
             #saving both forms
             productInstance.save()
             productHistoryInstance.save()
             messages.success(request, 'product updated')
             return redirect('adminProductOverview')
+        else:
+            if hasattr(request.user, 'role'):
+                if request.user.role == "employee":
+                    return render(request, 'employee-edit-product.html', {"form": form, "formHistory": formHistory})
+                elif request.user.role == "admin":
+                    return render(request, 'admin-edit-product.html', {"form": form, "formHistory": formHistory})
+                else:
+                    return redirect('login')
     else:
         formHistory = ProductHistoryForm()
         product = Product.objects.filter(id=pk).get()
         form = ProductForm(instance=product)
-        return render(request, 'admin-edit-product.html', {"form":form, "formHistory":formHistory})
-    
+        if hasattr(request.user, 'role'):
+            if request.user.role == "employee":
+                return render(request, 'employee-edit-product.html', {"form":form, "formHistory":formHistory})
+            elif request.user.role == "admin":
+                return render(request, 'admin-edit-product.html', {"form":form, "formHistory":formHistory})
+            else:
+                return redirect('login')
+   
 @admin_role_required
 def adminFeedbackOverview(request):
     feedbacks = ContactForm.objects.all()

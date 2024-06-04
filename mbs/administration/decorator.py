@@ -23,5 +23,23 @@ def role_required(role):
         return _wrapped_view
     return decorator
 
+def roles_required(*roles):
+    def decorator(view_func):
+        @wraps(view_func)
+        def _wrapped_view(request, *args, **kwargs):
+            if request.user.is_authenticated:
+                if hasattr(request.user, 'role') and request.user.role in roles:
+                    return view_func(request, *args, **kwargs)
+                else:
+                    logout(request)  # Log out the user
+                    # Redirect to the login page or any other desired location
+                    return redirect('login')
+            else:
+                logout(request)
+                return redirect('login')
+        return _wrapped_view
+    return decorator
+
 admin_role_required = role_required(Accounts.ADMIN)
 employee_role_required = role_required(Accounts.EMPLOYEE)
+admin_or_employee_required = roles_required(Accounts.ADMIN, Accounts.EMPLOYEE)
