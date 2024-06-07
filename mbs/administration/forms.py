@@ -4,6 +4,8 @@ from .models import Accounts, AccountProfiles, Product, ProductHistory, Frontend
 from PIL import Image
 from io import BytesIO
 from django.contrib.auth.forms import PasswordChangeForm
+from django.core.files.base import ContentFile
+import pillow_heif
 
 class EmailUserCreationForm(UserCreationForm):
     class Meta:
@@ -91,8 +93,54 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         exclude = []
-    
-    description = forms.CharField(widget=forms.Textarea)
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 4, 'cols': 40}),
+        }
+
+    def save(self, *args, **kwargs):
+        instance = super().save(*args, **kwargs)
+
+        # Check if a new image has been uploaded
+        if 'product_image' in self.changed_data:
+            image = Image.open(instance.product_image)
+
+            # Handle HEIC images by converting to JPEG
+            if image.format.lower() == 'heic':
+                heif_file = pillow_heif.read_heif(instance.product_image)
+                image = Image.frombytes(
+                    heif_file.mode,
+                    heif_file.size,
+                    heif_file.data,
+                    "raw",
+                    heif_file.mode,
+                    heif_file.stride,
+                )
+                format = 'JPEG'
+            elif image.format.lower() in ['jpeg', 'jpg']:
+                format = 'JPEG'
+            elif image.format.lower() == 'png':
+                format = 'PNG'
+            else:
+                raise ValueError(f"Unsupported image format: {image.format}")
+
+            # Resize values
+            target_height = 500
+            aspect_ratio = image.width / image.height
+            target_width = int(target_height * aspect_ratio)
+
+            # Resize the image
+            image = image.resize((target_width, target_height), Image.ANTIALIAS)
+
+            # Save the image back to the model
+            temp_image = BytesIO()
+            image.save(temp_image, format=format)
+            temp_image.seek(0)
+
+            instance.product_image.save(instance.product_image.name, ContentFile(temp_image.read()), save=False)
+            temp_image.close()
+
+        instance.save()
+        return instance
 
 class ProductHistoryForm(forms.ModelForm):
     class Meta:

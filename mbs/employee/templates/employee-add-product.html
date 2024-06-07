@@ -1,9 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'employee-base.html' %}
 
-{% block title %} Melon admin panel {%endblock%}
-{% load static %}
-{% load widget_tweaks %}
+{% block title %} Employee payslip {%endblock%}
+
 {% block content %}
+{% load widget_tweaks %}
+{% load static %}
+
 <main class="page-content">
     <div class="row">
         <div class="col-lg-8 mx-auto">
@@ -65,4 +67,6 @@
 
 </main>
 
-{%endblock%}
+
+
+{% endblock %}

@@ -1,8 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'employee-base.html' %}
 
-{% block title %} Melon admin panel {%endblock%}
+{% block title %} Employee payslip {%endblock%}
 
 {% block content %}
+{% load widget_tweaks %}
+{% load static %}
+
 <main class="page-content">
     <div class="d-flex flex-row justify-content-between mb-3">
         <h4>Product details</h4>
@@ -74,4 +77,5 @@
 
 </main>
 
-{%endblock%}
+
+{% endblock %}
