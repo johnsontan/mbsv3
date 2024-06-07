@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-c!+i@o2_+i1@k6ftnaa-hbx3iy^#y_f!s9c*q-ozyhcwvcah0-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -88,8 +88,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'mbsv3',
-        'USER': 'root',
-        'PASSWORD': 'password',
+        'USER': 'mbsuser',
+        'PASSWORD': 'P@ssw0rd123!',
         'HOST': 'localhost',  # Or your database host
         'PORT': '3306',       # Or your database port
     }
@@ -130,7 +130,8 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = '/STATIC/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 MEDIA_URL = '/media/'
 
@@ -160,3 +161,4 @@ TIME_ZONE = 'Asia/Singapore'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
