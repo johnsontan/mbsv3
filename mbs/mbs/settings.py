@@ -181,3 +181,13 @@ LOGGING = {
         },
     },
 }
+
+# Set the maximum upload size (in bytes)
+FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10 MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10 MB
+
+# Optionally, set the maximum size for a file field (in bytes)
+FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440  # 2.5 MB
+
+# Set the maximum number of files that can be uploaded in a single request
+DATA_UPLOAD_MAX_NUMBER_FILES = 10
