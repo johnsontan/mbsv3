@@ -2,7 +2,48 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import Group, Permission
 from datetime import datetime
+from django.forms import ValidationError
+from django.core.exceptions import ValidationError
+from pillow_heif import register_heif_opener, HeifFile
+from PIL import Image
+import io
 
+
+def validate_image_size(image):
+    # Validate file size (30MB max)
+    filesize = image.size
+    if filesize > 30 * 1024 * 1024:  # 30MB limit
+        raise ValidationError("The maximum file size allowed is 30MB.")
+
+    try:
+        # Read file into memory as BytesIO
+        image_file = io.BytesIO(image.read())
+        image.seek(0)  # Rewind file pointer
+
+        # Attempt to open the image
+        try:
+            img = Image.open(image_file)
+
+            # Handle MPO (Multi-Picture Object) by forcing the first frame
+            if img.format == 'MPO':  # Misinterpreted as MPO
+                img.seek(0)  # Force first frame
+                img = img.convert('RGB')  # Convert to RGB explicitly
+                format = 'JPEG'  # Treat it as JPEG
+            else:
+                format = img.format  # Get image format detected by Pillow
+
+        except UnidentifiedImageError:
+            raise ValidationError('Invalid image. Could not identify format.')
+
+        # Supported formats
+        valid_image_formats = ['JPEG', 'PNG']
+        if format.upper() not in valid_image_formats:
+            raise ValidationError('Invalid image format. Supported formats: JPEG, PNG.')
+
+    except Exception as e:
+        raise ValidationError(f'Invalid image. Error: {str(e)}')
+    
+    
 # Create your models here.
 
 class Accounts(AbstractUser):
@@ -82,7 +123,7 @@ class Product(models.Model):
     qty = models.IntegerField()
     brand = models.CharField(max_length=255)
     category = models.CharField(max_length=255)
-    product_image = models.ImageField(upload_to="productImages/", blank=True, null=True)
+    product_image = models.FileField(upload_to='products/', null=True, validators=[validate_image_size]) 
     department = models.CharField(choices=Department_choice, max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     last_update = models.DateTimeField(auto_now=True)
@@ -102,4 +143,11 @@ class ProductHistory(models.Model):
     notes = models.TextField(blank=True, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="productHistory", null=True, blank=True)
     name = models.ForeignKey(AccountProfiles, on_delete=models.DO_NOTHING, related_name="productHistoryName", null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class YoutubeVideos(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    title = models.CharField(max_length=255)
+    thumbnail_url = models.CharField(max_length=255)
+    video_url = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)

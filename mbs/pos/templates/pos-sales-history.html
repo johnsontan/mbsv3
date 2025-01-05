@@ -47,7 +47,7 @@
                     <p class="fw-semibold">Records: {{startDate}} to {{endDate}}</p>
                 {%endif%}
             {%else%}
-                <p class="fw-semibold">All records</p>
+                <p class="fw-semibold">Records: Past 14 days</p>
             {%endif%}
         </div>
         <div class="row">
@@ -56,8 +56,19 @@
                 <canvas id="myChart"></canvas>
             </div>
             <div class="col-lg-6">
-                <p class="text-center">By department [All records]</p>
+                <p class="text-center">By department [Past 14 days]</p>
                 <canvas id="myChart2"></canvas>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-lg-6">
+                <p class="text-center">Monthly total sales [Past 6 months]</p>
+                <canvas id="myChart3"></canvas>
+            </div>
+
+            <div class="col-lg-6">
+                <p class="text-center">Department monthly sales [Past 6 months]</p>
+                <canvas id="myChart4"></canvas>
             </div>
         </div>
     </div>
@@ -452,6 +463,8 @@
 <script>
     const ctx = document.getElementById('myChart');
     const ctx2 = document.getElementById('myChart2');
+    const ctx3 = document.getElementById('myChart3');
+    const ctx4 = document.getElementById('myChart4');
 
     new Chart(ctx, {
       type: 'line',
@@ -503,6 +516,67 @@
         }
       }
     });
+
+    new Chart(ctx3,{
+        type: 'bar',
+        data:{
+            labels: JSON.parse("{{totalSalesMonthLabel|escapejs}}"),
+            datasets:[{
+                label: 'Total sales (SGD)',
+                data: JSON.parse("{{totalSalesMonthData|escapejs}}"),
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                ],
+                borderWidth: 1
+            }]
+        }
+    })
+
+    new Chart(ctx4,{
+        type: 'bar',
+        data:{
+            labels: JSON.parse("{{totalSalesDepartmentLabel|escapejs}}"),
+            datasets:[{
+                label: 'Total sales (SGD)',
+                data: JSON.parse("{{totalSalesDepartmentData|escapejs}}"),
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        indexAxis:'y'
+    })
   </script>
 
 {% endblock %}

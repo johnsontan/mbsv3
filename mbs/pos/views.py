@@ -4,7 +4,7 @@ from .forms import SalesTransactionForm, SaleServiceFormset, SelectDatesForm, Se
 from django.contrib import messages
 from django.db.models.functions import TruncDate
 from django.utils import timezone
-from django.db.models import Sum
+from django.db.models import Sum, Value
 from datetime import timedelta, date, datetime
 from administration.decorator import employee_role_required, admin_role_required
 from django.forms import inlineformset_factory
@@ -13,6 +13,7 @@ import math
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
+from django.db.models.functions import TruncMonth, Coalesce
 
 
 # Create your views here.
@@ -223,6 +224,29 @@ def adminTransactionsOverview(request):
             endDate = form.cleaned_data['endDate']
             employee = form.cleaned_data['employee']
 
+            six_month_ago = timezone.now() - timezone.timedelta(days=6*30)
+            salesTransactionsByMonth = SalesTransaction.objects.filter(created_at__gte=six_month_ago).annotate(month=TruncMonth('created_at')) .values('month').annotate(total_sales=Sum('grand_total')).order_by('month')
+        
+            #List all departments
+            all_departments = dict(SaleServices.Department_choice).keys()
+            salesByDepartment = SaleServices.objects.filter(sales_transaction__created_at__gte=six_month_ago).values('department').annotate(total_sales=Coalesce(Sum('sales_transaction__grand_total'), Value(0.0)))
+            sales_dict = {s['department'] : s['total_sales'] for s in salesByDepartment}
+
+            #Construct chart data (by department) 6 months
+            totalSalesDepartmentLabel = []
+            totalSalesDepartmentData = []
+
+            for i in all_departments:
+                totalSalesDepartmentLabel.append(i.capitalize());
+                totalSalesDepartmentData.append(float(sales_dict.get(i, 0)));
+
+            #Construct chart data (monthly) 6 months
+            totalSalesMonthLabel = []
+            totalSalesMonthData = []
+            for i in salesTransactionsByMonth:
+                totalSalesMonthLabel.append(i['month'].strftime('%b %Y')) #Formate as 'MM YYYY'
+                totalSalesMonthData.append(float(i['total_sales'])) 
+
             # Base query filters
             filters = {
                 'created_at__range': (datetime.combine(startDate, datetime.min.time()), datetime.combine(endDate, datetime.max.time()))
@@ -379,15 +403,44 @@ def adminTransactionsOverview(request):
                 'departmentHairProduct' : math.ceil(departmentHairProduct * 100) / 100,
                 'packageSales' : math.ceil(packageSales * 100) / 100,
                 'creditSales' : math.ceil(creditSales * 100) / 100,
+                'totalSalesDepartmentLabel' : json.dumps(totalSalesDepartmentLabel),
+                'totalSalesDepartmentData' : json.dumps(totalSalesDepartmentData),
+                'totalSalesMonthLabel' : json.dumps(totalSalesMonthLabel),
+                'totalSalesMonthData' : json.dumps(totalSalesMonthData),
 
             }
             return render(request, 'pos-sales-history.html', context)
     else:
         #GET
-        salesTransactions = SalesTransaction.objects.all().order_by('-created_at')
+        # salesTransactions = SalesTransaction.objects.all().order_by('-created_at')
         today = timezone.now().date()
         yesterday = today - timedelta(days=1)
+        two_weeks_ago = timezone.now() - timezone.timedelta(days=15)
+        salesTransactions = SalesTransaction.objects.filter(created_at__gte=two_weeks_ago)
 
+        six_month_ago = timezone.now() - timezone.timedelta(days=6*30)
+        salesTransactionsByMonth = SalesTransaction.objects.filter(created_at__gte=six_month_ago).annotate(month=TruncMonth('created_at')) .values('month').annotate(total_sales=Sum('grand_total')).order_by('month')
+    
+        #List all departments
+        all_departments = dict(SaleServices.Department_choice).keys()
+        salesByDepartment = SaleServices.objects.filter(sales_transaction__created_at__gte=six_month_ago).values('department').annotate(total_sales=Coalesce(Sum('sales_transaction__grand_total'), Value(0.0)))
+        sales_dict = {s['department'] : s['total_sales'] for s in salesByDepartment}
+
+        #Construct chart data (by department) 6 months
+        totalSalesDepartmentLabel = []
+        totalSalesDepartmentData = []
+
+        for i in all_departments:
+            totalSalesDepartmentLabel.append(i.capitalize());
+            totalSalesDepartmentData.append(float(sales_dict.get(i, 0)));
+
+        #Construct chart data (monthly) 6 months
+        totalSalesMonthLabel = []
+        totalSalesMonthData = []
+        for i in salesTransactionsByMonth:
+            totalSalesMonthLabel.append(i['month'].strftime('%b %Y')) #Formate as 'MM YYYY'
+            totalSalesMonthData.append(float(i['total_sales'])) 
+        
         #Construct chart data (daily)
         dailyLabel = []
         dailyData = []
@@ -524,6 +577,10 @@ def adminTransactionsOverview(request):
             'departmentHairProduct' : math.ceil(departmentHairProduct * 100) / 100,
             'packageSales' : math.ceil(packageSales * 100) / 100,
             'creditSales' : math.ceil(creditSales * 100) / 100,
+            'totalSalesMonthLabel' : json.dumps(totalSalesMonthLabel),
+            'totalSalesMonthData' : json.dumps(totalSalesMonthData),
+            'totalSalesDepartmentLabel' : json.dumps(totalSalesDepartmentLabel),
+            'totalSalesDepartmentData' : json.dumps(totalSalesDepartmentData),
 
         }
         return render(request, 'pos-sales-history.html', context)

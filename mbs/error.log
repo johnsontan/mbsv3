@@ -1,0 +1,102 @@
+Internal Server Error: /melonadmin/registerProduct/
+Traceback (most recent call last):
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/base.py", line 204, in _get_response
+    self.check_response(response, callback)
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/base.py", line 332, in check_response
+    raise ValueError(
+ValueError: The view administration.views.adminProductRegister didn't return an HttpResponse object. It returned None instead.
+"POST /melonadmin/registerProduct/ HTTP/1.1" 500 66973
+Internal Server Error: /melonadmin/registerProduct/
+Traceback (most recent call last):
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/base.py", line 204, in _get_response
+    self.check_response(response, callback)
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/base.py", line 332, in check_response
+    raise ValueError(
+ValueError: The view administration.views.adminProductRegister didn't return an HttpResponse object. It returned None instead.
+"POST /melonadmin/registerProduct/ HTTP/1.1" 500 66973
+Internal Server Error: /melonadmin/registerProduct/
+Traceback (most recent call last):
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/base.py", line 204, in _get_response
+    self.check_response(response, callback)
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/base.py", line 332, in check_response
+    raise ValueError(
+ValueError: The view administration.views.adminProductRegister didn't return an HttpResponse object. It returned None instead.
+"POST /melonadmin/registerProduct/ HTTP/1.1" 500 67388
+Internal Server Error: /melonadmin/registerProduct/
+Traceback (most recent call last):
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/base.py", line 204, in _get_response
+    self.check_response(response, callback)
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/base.py", line 332, in check_response
+    raise ValueError(
+ValueError: The view administration.views.adminProductRegister didn't return an HttpResponse object. It returned None instead.
+"POST /melonadmin/registerProduct/ HTTP/1.1" 500 66976
+Internal Server Error: /melonadmin/registerProduct/
+Traceback (most recent call last):
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/base.py", line 204, in _get_response
+    self.check_response(response, callback)
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/base.py", line 332, in check_response
+    raise ValueError(
+ValueError: The view administration.views.adminProductRegister didn't return an HttpResponse object. It returned None instead.
+"POST /melonadmin/registerProduct/ HTTP/1.1" 500 67391
+Internal Server Error: /melonadmin/registerProduct/
+Traceback (most recent call last):
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/base.py", line 204, in _get_response
+    self.check_response(response, callback)
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/base.py", line 332, in check_response
+    raise ValueError(
+ValueError: The view administration.views.adminProductRegister didn't return an HttpResponse object. It returned None instead.
+"POST /melonadmin/registerProduct/ HTTP/1.1" 500 67402
+Internal Server Error: /melonadmin/registerProduct/
+Traceback (most recent call last):
+  File "/Users/forsaken/Downloads/mbsv3/mbs/administration/forms.py", line 144, in save
+    raise ValueError(f"Unsupported image format: {format}")
+ValueError: Unsupported image format: MPO
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/forsaken/Downloads/mbsv3/mbs/administration/decorator.py", line 32, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/forsaken/Downloads/mbsv3/mbs/administration/views.py", line 171, in adminProductRegister
+    form.save()
+  File "/Users/forsaken/Downloads/mbsv3/mbs/administration/forms.py", line 175, in save
+    raise ValueError(f"Failed to process image: {str(e)}")
+ValueError: Failed to process image: Unsupported image format: MPO
+"POST /melonadmin/registerProduct/ HTTP/1.1" 500 90726
+Internal Server Error: /melonadmin/registerProduct/
+Traceback (most recent call last):
+  File "/Users/forsaken/Downloads/mbsv3/mbs/administration/forms.py", line 157, in save
+    raise ValueError(f"Unsupported image format: {format}")
+ValueError: Unsupported image format: MPO
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/forsaken/Downloads/mbsv3/mbsenv/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/forsaken/Downloads/mbsv3/mbs/administration/decorator.py", line 32, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/forsaken/Downloads/mbsv3/mbs/administration/views.py", line 171, in adminProductRegister
+    form.save()
+  File "/Users/forsaken/Downloads/mbsv3/mbs/administration/forms.py", line 188, in save
+    raise ValueError(f"Failed to process image: {str(e)}")
+ValueError: Failed to process image: Unsupported image format: MPO
+"POST /melonadmin/registerProduct/ HTTP/1.1" 500 91056

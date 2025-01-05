@@ -26,6 +26,11 @@
                                 <span class="text-danger">{{form.name.errors}}</span>
                             </div>
                             <div class="col-12">
+                                <label class="form-label">Customer status</label>
+                                {{form.status|add_class:"form-control"}}
+                                <span class="text-danger">{{form.status.errors}}</span>
+                            </div>
+                            <div class="col-12">
                                 <label class="form-label">Customer email</label>
                                 {{form.email|add_class:"form-control"}}
                                 <span class="text-danger">{{form.email.errors}}</span>

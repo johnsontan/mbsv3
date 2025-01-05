@@ -32,6 +32,7 @@ urlpatterns = [
     path('fronendSelect/', views.handle_frontend_select, name='handleFrontendSelect'),
     path('editFrontendBanner/<int:pk> ', views.adminEditFrontendBanner, name='adminEditFrontendBanner'),
     path('deleteFrontendBanner/<int:pk> ', views.adminDeleteFrontendBanner, name='adminDeleteFrontendBanner'),
+    path('youtubevideos/update', views.adminUpdateYouTubeVideos, name='adminUpdateYouTubeVideos'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

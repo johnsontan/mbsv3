@@ -2,6 +2,7 @@ from django import forms
 from django.forms import inlineformset_factory
 from .models import SalesTransaction, SaleServices
 from administration.models import Accounts, AccountProfiles
+from customer.models import CustomerProfile
 from django.forms import BaseInlineFormSet
 from django.forms.utils import ErrorDict
 import math
@@ -53,7 +54,8 @@ class SalesTransactionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['user'].queryset = Accounts.objects.filter(role='employee')
+        self.fields['user'].queryset = Accounts.objects.filter(role='employee', status='active')
+        self.fields['customer'].queryset = CustomerProfile.objects.filter(status='active')
 
     def clean(self):
         # Get the cleaned data from the base clean method

@@ -1,11 +1,18 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import Accounts, AccountProfiles, Product, ProductHistory, FrontendBanner
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 from io import BytesIO
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.files.base import ContentFile
 import pillow_heif
+import logging
+from PIL import Image
+from django.core.files.base import ContentFile
+from pillow_heif import register_heif_opener, open_heif
+import io
+
+logger = logging.getLogger(__name__)
 
 class EmailUserCreationForm(UserCreationForm):
     class Meta:
@@ -100,47 +107,84 @@ class ProductForm(forms.ModelForm):
     def save(self, *args, **kwargs):
         instance = super().save(*args, **kwargs)
 
-        # Check if a new image has been uploaded
-        if 'product_image' in self.changed_data:
-            image = Image.open(instance.product_image)
+        # Process the image only if it was uploaded or changed
+        if 'product_image' in self.changed_data and instance.product_image:
+            try:
+                # Register HEIF support in Pillow
+                register_heif_opener()
 
-            # Handle HEIC images by converting to JPEG
-            if image.format.lower() == 'heic':
-                heif_file = pillow_heif.read_heif(instance.product_image)
-                image = Image.frombytes(
-                    heif_file.mode,
-                    heif_file.size,
-                    heif_file.data,
-                    "raw",
-                    heif_file.mode,
-                    heif_file.stride,
+                # Read the file into memory as bytes
+                image_bytes = instance.product_image.read()
+                image_file = io.BytesIO(image_bytes)  # Convert to BytesIO for compatibility
+
+                try:
+                    # Attempt to open image with Pillow
+                    img = Image.open(image_file)
+
+                    # Handle MPO (Multi-Picture Object) files
+                    if img.format == 'MPO':
+                        img.seek(0)  # Force the first frame
+                        img = img.convert('RGB')  # Convert to RGB
+                        format = 'JPEG'  # Treat MPO as JPEG
+                    else:
+                        format = img.format  # Get format detected by Pillow
+
+                except UnidentifiedImageError:
+                    # Handle HEIC/HEIF files as a fallback
+                    try:
+                        heif_file = open_heif(image_file)  # Process HEIF
+                        img = Image.frombytes(
+                            heif_file.mode,
+                            heif_file.size,
+                            heif_file.data,
+                            "raw",
+                            heif_file.mode,
+                            heif_file.stride,
+                        )
+                        format = 'JPEG'  # Convert HEIC/HEIF to JPEG
+                    except Exception as e:
+                        raise ValueError(f"Error processing image: {str(e)}")
+
+                # Supported formats
+                supported_formats = ['JPEG', 'PNG']
+                if format.upper() not in supported_formats:
+                    raise ValueError(f"Unsupported image format: {format}")
+
+                # Resize and compress
+                max_size = 2000  # Max dimensions (width/height)
+                quality = 70     # Compression quality (%)
+
+                # Resize if needed
+                if img.height > max_size or img.width > max_size:
+                    aspect_ratio = img.width / img.height
+                    if img.width > img.height:
+                        new_width = max_size
+                        new_height = int(max_size / aspect_ratio)
+                    else:
+                        new_height = max_size
+                        new_width = int(max_size * aspect_ratio)
+                    img = img.resize((new_width, new_height), Image.ANTIALIAS)
+
+                # Save compressed image
+                temp_image = io.BytesIO()
+                img.save(temp_image, format=format, quality=quality)
+                temp_image.seek(0)
+
+                # Save back to model
+                instance.product_image.save(
+                    instance.product_image.name.split('.')[0] + f'.{format.lower()}',
+                    ContentFile(temp_image.read()),
+                    save=False
                 )
-                format = 'JPEG'
-            elif image.format.lower() in ['jpeg', 'jpg']:
-                format = 'JPEG'
-            elif image.format.lower() == 'png':
-                format = 'PNG'
-            else:
-                raise ValueError(f"Unsupported image format: {image.format}")
+                temp_image.close()
 
-            # Resize values
-            target_height = 500
-            aspect_ratio = image.width / image.height
-            target_width = int(target_height * aspect_ratio)
-
-            # Resize the image
-            image = image.resize((target_width, target_height), Image.ANTIALIAS)
-
-            # Save the image back to the model
-            temp_image = BytesIO()
-            image.save(temp_image, format=format)
-            temp_image.seek(0)
-
-            instance.product_image.save(instance.product_image.name, ContentFile(temp_image.read()), save=False)
-            temp_image.close()
+            except Exception as e:
+                logger.error(f"Failed to process image: {str(e)}")
+                raise ValueError(f"Failed to process image: {str(e)}")
 
         instance.save()
         return instance
+
 
 class ProductHistoryForm(forms.ModelForm):
     class Meta:

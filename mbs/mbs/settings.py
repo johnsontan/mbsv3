@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-c!+i@o2_+i1@k6ftnaa-hbx3iy^#y_f!s9c*q-ozyhcwvcah0-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -124,7 +124,7 @@ AUTH_USER_MODEL = 'administration.Accounts'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Singapore'
 
 USE_I18N = True
 
@@ -183,11 +183,8 @@ LOGGING = {
 }
 
 # Set the maximum upload size (in bytes)
-FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10 MB
-DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10 MB
-
-# Optionally, set the maximum size for a file field (in bytes)
-FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440  # 2.5 MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 31457280  # 10 MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = 31457280  # 10 MB
 
 # Set the maximum number of files that can be uploaded in a single request
 DATA_UPLOAD_MAX_NUMBER_FILES = 10

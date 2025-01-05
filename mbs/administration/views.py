@@ -2,7 +2,7 @@ import math
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib import messages
-from .models import Accounts, Product, ProductHistory, ContactForm, FrontendBanner
+from .models import Accounts, Product, ProductHistory, ContactForm, FrontendBanner, YoutubeVideos
 from pos.models import SalesTransaction
 from pos.forms import SendEmailReceiptForm
 from customer.models import CustomerProfile
@@ -14,6 +14,7 @@ from .forms import FrontEndBannerForm
 from PIL import Image
 from django.core.files.base import ContentFile
 import io
+import requests
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
 
@@ -164,19 +165,41 @@ def adminProductOverview(request):
 def adminProductRegister(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
+
+        # Handle valid form submission
         if form.is_valid():
             form.save()
-            messages.success(request, 'Product registered')
-        return redirect('adminProductOverview')
-    else:   
-        form = ProductForm()
-        if hasattr(request.user, 'role'):
-            if request.user.role == "employee":
-                return render(request, 'employee-add-product.html',{"form":form})
-            elif request.user.role == "admin":
-                return render(request, 'admin-add-product.html',{"form":form})
+            messages.success(request, 'Product registered successfully!')
+            return redirect('adminProductOverview')  # Redirect after success
+
+        # Handle invalid form submission (RENDER TEMPLATE)
+        else:
+            print(form.errors)  # Debugging
+            messages.error(request, 'Form submission failed. Please correct the errors.')
+
+            # Re-render the form with errors based on user role
+            if hasattr(request.user, 'role'):
+                if request.user.role == "employee":
+                    return render(request, 'employee-add-product.html', {"form": form})
+                elif request.user.role == "admin":
+                    return render(request, 'admin-add-product.html', {"form": form})
             else:
-                return redirect('login')
+                return redirect('login')  # Redirect if no valid role
+
+    # Handle GET requests (SHOW EMPTY FORM)
+    else:
+        form = ProductForm()
+
+    # Handle rendering based on user role
+    if hasattr(request.user, 'role'):
+        if request.user.role == "employee":
+            return render(request, 'employee-add-product.html', {"form": form})
+        elif request.user.role == "admin":
+            return render(request, 'admin-add-product.html', {"form": form})
+
+    # Redirect to login if no valid role
+    return redirect('login')
+
 
     
 @admin_or_employee_required
@@ -393,3 +416,55 @@ def adminDeleteFrontendBanner(request, pk):
         messages.success(request, 'Frontend banner deleted')
         return redirect('adminFrontendBannerOverview')
 
+@admin_role_required
+def adminUpdateYouTubeVideos(request):
+    API_KEY = 'AIzaSyBEU5WIAmGTRzDrPhN1NLnKBGOpupQBgFc'  # Replace with your API Key
+    CHANNEL_ID = 'UC6sZSwgahzSM3htoVgwv8CA'    # Replace with your Channel ID
+    MAX_RESULTS = 3  # Number of videos to fetch
+
+    # YouTube API URL
+    url = f"https://www.googleapis.com/youtube/v3/search?key={API_KEY}&channelId={CHANNEL_ID}&part=snippet,id&order=date&maxResults={MAX_RESULTS}"
+
+    try:
+        # Make request to YouTube API
+        response = requests.get(url)
+        response.raise_for_status()
+        data = response.json()
+
+        extracted_video = []
+        for i in data.get('items', []):
+            titleTemp = i['snippet']['title']
+            thumbnailTemp = i['snippet']['thumbnails']['medium']['url']
+            videoIdTemp = i['id'].get('videoId')
+            extracted_video.append({
+                'title': titleTemp,
+                'thumbnail': thumbnailTemp,
+                'url': f"https://www.youtube.com/watch?v={videoIdTemp}"
+            })
+
+        #Delete all youtube videos 
+        YoutubeVideos.objects.all().delete()    
+
+        #Insert new YouTube videos
+        new_videos = [
+            YoutubeVideos(
+                title=video['title'],
+                thumbnail_url=video['thumbnail'],
+                video_url=video['url']
+            ) for video in extracted_video
+        ]
+
+        YoutubeVideos.objects.bulk_create(new_videos)
+        # Add success message
+        messages.success(request, "YouTube videos updated successfully!")
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+
+    except requests.exceptions.RequestException as e:
+        # Add error message for request exceptions
+        messages.error(request, f"Failed to fetch YouTube videos: {str(e)}")
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+
+    except Exception as e:
+        # Add general error message
+        messages.error(request, f"An error occurred: {str(e)}")
+        return redirect(request.META.get('HTTP_REFERER', '/'))

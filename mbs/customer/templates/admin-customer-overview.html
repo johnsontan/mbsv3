@@ -19,7 +19,7 @@
                             <th>Customer Name</th>
                             <th>Email</th>
                             <th>Phone number</th>
-                            <th>Created at</th>
+                            <th>Status</th>
                             <th>Last update</th>
                             <th>Actions</th>
                         </tr>
@@ -32,7 +32,7 @@
                                 <td>{{customer.name}}</td>
                                 <td>{{customer.email}}</td>
                                 <td>{{customer.phone_number}}</td>
-                                <td>{{customer.created_at|date:"d-m-Y H:i:s"}}</td>
+                                <td>{{customer.status}}</td>
                                 <td>{{customer.last_update|date:"d-m-Y H:i:s"}}</td>
                                 <td>
                                     <a href="{% url 'adminUserDetails' pk=customer.id %}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="View detail" aria-label="Views"><i class="bi bi-eye-fill"></i></a>

@@ -4,11 +4,20 @@ from jsignature.fields import JSignatureField
 
 # Create your models here.
 class CustomerProfile(models.Model):
+    ACTIVE = 'active'
+    INACTIVE = 'inactive'
+
+    Status_choice = (
+        (ACTIVE, 'active'),
+        (INACTIVE, 'inactive')
+    )
+
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=255)
     email = models.EmailField(null=True, blank=True)
     phone_number = models.IntegerField()
     credit = models.FloatField(default=0.0)
+    status = models.CharField(null=False, blank=False, max_length=150, choices=Status_choice, default=ACTIVE)
     created_at = models.DateTimeField(auto_now_add=True)
     last_update = models.DateTimeField(auto_now=True)
 
