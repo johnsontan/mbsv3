@@ -9,7 +9,6 @@ import pillow_heif
 import logging
 from PIL import Image
 from django.core.files.base import ContentFile
-from pillow_heif import register_heif_opener, open_heif
 import io
 
 logger = logging.getLogger(__name__)
@@ -110,12 +109,9 @@ class ProductForm(forms.ModelForm):
         # Process the image only if it was uploaded or changed
         if 'product_image' in self.changed_data and instance.product_image:
             try:
-                # Reject unsupported formats early
+                # Reject unsupported formats early (MPO)
                 if instance.product_image.name.lower().endswith('.mpo'):
                     raise ValueError("MPO format is not supported.")
-
-                # Register HEIF support
-                register_heif_opener()
 
                 # Read image into memory
                 image_bytes = instance.product_image.read()
@@ -127,17 +123,7 @@ class ProductForm(forms.ModelForm):
                     img = Image.open(image_file)
                     format = img.format
                 except UnidentifiedImageError:
-                    # Try HEIF/HEIC fallback
-                    heif_file = open_heif(image_file)
-                    img = Image.frombytes(
-                        heif_file.mode,
-                        heif_file.size,
-                        heif_file.data,
-                        "raw",
-                        heif_file.mode,
-                        heif_file.stride,
-                    )
-                    format = 'JPEG'  # Treat HEIF/HEIC as JPEG
+                    raise ValueError("Invalid image format.")
 
                 # Validate supported formats
                 supported_formats = ['JPEG', 'PNG']
@@ -145,8 +131,8 @@ class ProductForm(forms.ModelForm):
                     raise ValueError(f"Unsupported image format: {format}")
 
                 # Resize and compress
-                max_size = 2000
-                quality = 70
+                max_size = 2000  # Max dimensions (width/height)
+                quality = 70     # Compression quality (%)
 
                 if img.height > max_size or img.width > max_size:
                     aspect_ratio = img.width / img.height

@@ -150,6 +150,7 @@ def logout_request(request):
 @admin_or_employee_required
 def adminProductOverview(request):
     products = Product.objects.all()
+
     if hasattr(request.user, 'role'):
         if request.user.role == "employee":
             return render(request, 'employee-product-overview.html',{"products":products})

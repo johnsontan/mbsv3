@@ -4,8 +4,7 @@ from django.contrib.auth.models import Group, Permission
 from datetime import datetime
 from django.forms import ValidationError
 from django.core.exceptions import ValidationError
-from pillow_heif import register_heif_opener, HeifFile
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 import io
 
 
@@ -16,30 +15,25 @@ def validate_image_size(image):
         raise ValidationError("The maximum file size allowed is 30MB.")
 
     try:
+        # Reject MPO files based on file extension
+        if image.name.lower().endswith('.mpo'):
+            raise ValidationError('MPO format is not supported.')
+
         # Read file into memory as BytesIO
         image_file = io.BytesIO(image.read())
         image.seek(0)  # Rewind file pointer
 
         # Attempt to open the image
-        try:
-            img = Image.open(image_file)
-
-            # Handle MPO (Multi-Picture Object) by forcing the first frame
-            if img.format == 'MPO':  # Misinterpreted as MPO
-                img.seek(0)  # Force first frame
-                img = img.convert('RGB')  # Convert to RGB explicitly
-                format = 'JPEG'  # Treat it as JPEG
-            else:
-                format = img.format  # Get image format detected by Pillow
-
-        except UnidentifiedImageError:
-            raise ValidationError('Invalid image. Could not identify format.')
+        img = Image.open(image_file)
+        format = img.format  # Get format detected by Pillow
 
         # Supported formats
         valid_image_formats = ['JPEG', 'PNG']
         if format.upper() not in valid_image_formats:
             raise ValidationError('Invalid image format. Supported formats: JPEG, PNG.')
 
+    except UnidentifiedImageError:
+        raise ValidationError('Invalid image. Could not identify format.')
     except Exception as e:
         raise ValidationError(f'Invalid image. Error: {str(e)}')
     
@@ -123,7 +117,7 @@ class Product(models.Model):
     qty = models.IntegerField()
     brand = models.CharField(max_length=255)
     category = models.CharField(max_length=255)
-    product_image = models.FileField(upload_to='products/', null=True, validators=[validate_image_size]) 
+    product_image = models.FileField(upload_to='productImages/', null=True, validators=[validate_image_size]) 
     department = models.CharField(choices=Department_choice, max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     last_update = models.DateTimeField(auto_now=True)
