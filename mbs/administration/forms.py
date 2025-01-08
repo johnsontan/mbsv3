@@ -110,51 +110,44 @@ class ProductForm(forms.ModelForm):
         # Process the image only if it was uploaded or changed
         if 'product_image' in self.changed_data and instance.product_image:
             try:
-                # Register HEIF support in Pillow
+                # Reject unsupported formats early
+                if instance.product_image.name.lower().endswith('.mpo'):
+                    raise ValueError("MPO format is not supported.")
+
+                # Register HEIF support
                 register_heif_opener()
 
-                # Read the file into memory as bytes
+                # Read image into memory
                 image_bytes = instance.product_image.read()
-                image_file = io.BytesIO(image_bytes)  # Convert to BytesIO for compatibility
+                image_file = io.BytesIO(image_bytes)
+                image_file.seek(0)  # Reset pointer
 
+                # Attempt to open the image
                 try:
-                    # Attempt to open image with Pillow
                     img = Image.open(image_file)
-
-                    # Handle MPO (Multi-Picture Object) files
-                    if img.format == 'MPO':
-                        img.seek(0)  # Force the first frame
-                        img = img.convert('RGB')  # Convert to RGB
-                        format = 'JPEG'  # Treat MPO as JPEG
-                    else:
-                        format = img.format  # Get format detected by Pillow
-
+                    format = img.format
                 except UnidentifiedImageError:
-                    # Handle HEIC/HEIF files as a fallback
-                    try:
-                        heif_file = open_heif(image_file)  # Process HEIF
-                        img = Image.frombytes(
-                            heif_file.mode,
-                            heif_file.size,
-                            heif_file.data,
-                            "raw",
-                            heif_file.mode,
-                            heif_file.stride,
-                        )
-                        format = 'JPEG'  # Convert HEIC/HEIF to JPEG
-                    except Exception as e:
-                        raise ValueError(f"Error processing image: {str(e)}")
+                    # Try HEIF/HEIC fallback
+                    heif_file = open_heif(image_file)
+                    img = Image.frombytes(
+                        heif_file.mode,
+                        heif_file.size,
+                        heif_file.data,
+                        "raw",
+                        heif_file.mode,
+                        heif_file.stride,
+                    )
+                    format = 'JPEG'  # Treat HEIF/HEIC as JPEG
 
-                # Supported formats
+                # Validate supported formats
                 supported_formats = ['JPEG', 'PNG']
                 if format.upper() not in supported_formats:
                     raise ValueError(f"Unsupported image format: {format}")
 
                 # Resize and compress
-                max_size = 2000  # Max dimensions (width/height)
-                quality = 70     # Compression quality (%)
+                max_size = 2000
+                quality = 70
 
-                # Resize if needed
                 if img.height > max_size or img.width > max_size:
                     aspect_ratio = img.width / img.height
                     if img.width > img.height:
@@ -170,7 +163,7 @@ class ProductForm(forms.ModelForm):
                 img.save(temp_image, format=format, quality=quality)
                 temp_image.seek(0)
 
-                # Save back to model
+                # Update model image
                 instance.product_image.save(
                     instance.product_image.name.split('.')[0] + f'.{format.lower()}',
                     ContentFile(temp_image.read()),
