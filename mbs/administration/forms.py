@@ -5,7 +5,6 @@ from PIL import Image, UnidentifiedImageError
 from io import BytesIO
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.files.base import ContentFile
-import pillow_heif
 import logging
 from PIL import Image
 from django.core.files.base import ContentFile
