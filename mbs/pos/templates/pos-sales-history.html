@@ -80,7 +80,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="">
-                            <p class="mb-1">Today revenue</p>
+                            <p class="mb-1">Total revenue</p>
                             <h4 class="mb-0 text-primary">
                                 $ {% if totalRevenue %} {{ totalRevenue }} {% else %} 0.00 {% endif %}
                             </h4>
@@ -461,10 +461,16 @@
 
 {% block extra_javascript %}
 <script>
+    console.log('Chart object:', typeof Chart);
+  </script>
+  
+<script>
     const ctx = document.getElementById('myChart');
     const ctx2 = document.getElementById('myChart2');
     const ctx3 = document.getElementById('myChart3');
     const ctx4 = document.getElementById('myChart4');
+
+    console.log('Chart.js version:', Chart.version);
 
     new Chart(ctx, {
       type: 'line',
@@ -513,7 +519,10 @@
           y: {
             beginAtZero: true
           }
-        }
+        },
+        responsive: true, // Ensures it adjusts to container size
+        maintainAspectRatio: true, // Keeps aspect ratio
+        aspectRatio: 1, // Ratio of width to height (1 means square)
       }
     });
 

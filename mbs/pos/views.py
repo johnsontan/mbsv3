@@ -27,7 +27,7 @@ def startPos(request):
         if form.is_valid():
             sales_transaction = form.save()
             sale_service_formset.instance = sales_transaction
-            print(sale_service_formset)
+
             if sale_service_formset.is_valid():
                 sale_services = sale_service_formset.save()
 
@@ -444,96 +444,123 @@ def adminTransactionsOverview(request):
         #Construct chart data (daily)
         dailyLabel = []
         dailyData = []
-        dailyDate = timezone.now().date()
-        for i in range(14):
-            dailyData.append(SalesTransaction.objects.filter(created_at__contains=dailyDate).exclude(payment_type="credit sales").aggregate(total_revenue=Sum('grand_total'))['total_revenue'])
-            dailyLabel.append(dailyDate.strftime('%Y-%m-%d'))
-            dailyDate = dailyDate - timedelta(days=1)
+        dailyDate = timezone.now().date()  # Start with today's date
+
+        for i in range(16):  # Loop for the past 15 days
+            # Use created_at__date to filter by the exact date
+            total_revenue = SalesTransaction.objects.filter(
+                created_at__date=dailyDate
+            ).exclude(payment_type="credit sales").aggregate(
+                total_revenue=Sum('grand_total')
+            )['total_revenue'] or 0  # Fallback to 0 if no records found
+
+            dailyData.append(total_revenue)  # Append the revenue for the day
+            dailyLabel.append(dailyDate.strftime('%Y-%m-%d'))  # Append the formatted date
+            dailyDate -= timedelta(days=1)  # Move to the previous day
+
+        
         form = SelectDatesForm()
 
         #Construct chart data (department)
         departmentLabel = []
         departmentData = []
-        #Hair
+        # Hair
         departmentLabel.append('Hair')
-        tempHair = SaleServices.objects.filter(department=SaleServices.HAIR).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+        tempHair = SaleServices.objects.filter(
+            department=SaleServices.HAIR, created_at__gte=two_weeks_ago
+        ).aggregate(total_revenue=Sum('service_price'))['total_revenue']
         departmentData.append(math.ceil(tempHair * 100) / 100 if tempHair is not None else 0)
-        #Beauty
+
+        # Beauty
         departmentLabel.append('Beauty')
-        tempBeauty = SaleServices.objects.filter(department=SaleServices.BEAUTY).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+        tempBeauty = SaleServices.objects.filter(
+            department=SaleServices.BEAUTY, created_at__gte=two_weeks_ago
+        ).aggregate(total_revenue=Sum('service_price'))['total_revenue']
         departmentData.append(math.ceil(tempBeauty * 100) / 100 if tempBeauty is not None else 0)
-        #Health
+
+        # Health
         departmentLabel.append('Health')
-        tempHealth = SaleServices.objects.filter(department=SaleServices.HEALTH).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+        tempHealth = SaleServices.objects.filter(
+            department=SaleServices.HEALTH, created_at__gte=two_weeks_ago
+        ).aggregate(total_revenue=Sum('service_price'))['total_revenue']
         departmentData.append(math.ceil(tempHealth * 100) / 100 if tempHealth is not None else 0)
-        #HairProduct
+
+        # Hair Product
         departmentLabel.append('Hair product')
-        tempHairProduct = SaleServices.objects.filter(department=SaleServices.HAIRPRODUCT).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+        tempHairProduct = SaleServices.objects.filter(
+            department=SaleServices.HAIRPRODUCT, created_at__gte=two_weeks_ago
+        ).aggregate(total_revenue=Sum('service_price'))['total_revenue']
         departmentData.append(math.ceil(tempHairProduct * 100) / 100 if tempHairProduct is not None else 0)
-        #BeautyProduct
+
+        # Beauty Product
         departmentLabel.append('Beauty product')
-        tempBeautyProduct = SaleServices.objects.filter(department=SaleServices.BEAUTYPRODUCT).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+        tempBeautyProduct = SaleServices.objects.filter(
+            department=SaleServices.BEAUTYPRODUCT, created_at__gte=two_weeks_ago
+        ).aggregate(total_revenue=Sum('service_price'))['total_revenue']
         departmentData.append(math.ceil(tempBeautyProduct * 100) / 100 if tempBeautyProduct is not None else 0)
-        #Package sales
+
+        # Package Sales
         departmentLabel.append('Package sales')
-        tempPackageSales = SaleServices.objects.filter(department=SaleServices.PACKAGESALES).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+        tempPackageSales = SaleServices.objects.filter(
+            department=SaleServices.PACKAGESALES, created_at__gte=two_weeks_ago
+        ).aggregate(total_revenue=Sum('service_price'))['total_revenue']
         departmentData.append(math.ceil(tempPackageSales * 100) / 100 if tempPackageSales is not None else 0)
-        #Credit sales
+
+        # Credit Sales
         departmentLabel.append('Credit sales')
-        tempCreditSales = SaleServices.objects.filter(department=SaleServices.CREDITSALES).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+        tempCreditSales = SaleServices.objects.filter(
+            department=SaleServices.CREDITSALES, created_at__gte=two_weeks_ago
+        ).aggregate(total_revenue=Sum('service_price'))['total_revenue']
         departmentData.append(math.ceil(tempCreditSales * 100) / 100 if tempCreditSales is not None else 0)
 
-        #Get all different types of payment 
-        #total revenue
-        total_revenue = SalesTransaction.objects.all().aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        # Payment types with two-week filtering
+        total_revenue = SalesTransaction.objects.filter(created_at__gte=two_weeks_ago).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
 
-        #cash
-        cash = SalesTransaction.objects.filter(payment_type=SalesTransaction.CASH).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        cash = SalesTransaction.objects.filter(payment_type=SalesTransaction.CASH, created_at__gte=two_weeks_ago).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        paynow = SalesTransaction.objects.filter(payment_type=SalesTransaction.PAYNOW, created_at__gte=two_weeks_ago).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        creditCard = SalesTransaction.objects.filter(payment_type=SalesTransaction.CREDIT_CARD, created_at__gte=two_weeks_ago).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        nets = SalesTransaction.objects.filter(payment_type=SalesTransaction.NETS, created_at__gte=two_weeks_ago).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        grab = SalesTransaction.objects.filter(payment_type=SalesTransaction.GRAB, created_at__gte=two_weeks_ago).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        package = SalesTransaction.objects.filter(payment_type=SalesTransaction.PACKAGE, created_at__gte=two_weeks_ago).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        inStoreCredit = SalesTransaction.objects.filter(payment_type=SalesTransaction.CREDITSALES, created_at__gte=two_weeks_ago).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        refund = SalesTransaction.objects.filter(payment_type=SalesTransaction.REFUND, created_at__gte=two_weeks_ago).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        
+        # departmentHair
+        departmentHair = SaleServices.objects.filter(
+            department=SaleServices.HAIR, created_at__gte=two_weeks_ago
+        ).aggregate(total_revenue=Sum('service_price'))['total_revenue']
 
-        #paynow
-        paynow = SalesTransaction.objects.filter(payment_type=SalesTransaction.PAYNOW).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        # departmentBeauty
+        departmentBeauty = SaleServices.objects.filter(
+            department=SaleServices.BEAUTY, created_at__gte=two_weeks_ago
+        ).aggregate(total_revenue=Sum('service_price'))['total_revenue']
 
-        #credit card
-        creditCard = SalesTransaction.objects.filter(payment_type=SalesTransaction.CREDIT_CARD).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        # departmentHealth
+        departmentHealth = SaleServices.objects.filter(
+            department=SaleServices.HEALTH, created_at__gte=two_weeks_ago
+        ).aggregate(total_revenue=Sum('service_price'))['total_revenue']
 
-        #Nets
-        nets = SalesTransaction.objects.filter(payment_type=SalesTransaction.NETS).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        # departmentHairProduct
+        departmentHairProduct = SaleServices.objects.filter(
+            department=SaleServices.HAIRPRODUCT, created_at__gte=two_weeks_ago
+        ).aggregate(total_revenue=Sum('service_price'))['total_revenue']
 
-        #grab
-        grab = SalesTransaction.objects.filter(payment_type=SalesTransaction.GRAB).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        # departmentBeautyProduct
+        departmentBeautyProduct = SaleServices.objects.filter(
+            department=SaleServices.BEAUTYPRODUCT, created_at__gte=two_weeks_ago
+        ).aggregate(total_revenue=Sum('service_price'))['total_revenue']
 
-        #package
-        package = SalesTransaction.objects.filter(payment_type=SalesTransaction.PACKAGE).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
+        # packageSales
+        packageSales = SaleServices.objects.filter(
+            department=SaleServices.PACKAGESALES, created_at__gte=two_weeks_ago
+        ).aggregate(total_revenue=Sum('service_price'))['total_revenue']
 
-        #in store credit
-        inStoreCredit = SalesTransaction.objects.filter(payment_type=SalesTransaction.CREDITSALES).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
-
-        #refund
-        refund = SalesTransaction.objects.filter(payment_type=SalesTransaction.REFUND).aggregate(total_revenue=Sum('grand_total'))['total_revenue']
-
-        #departmentHair
-        departmentHair = SaleServices.objects.filter(department=SaleServices.HAIR).aggregate(total_revenue=Sum('service_price'))['total_revenue']
-
-        #departmentBeauty
-        departmentBeauty = SaleServices.objects.filter(department=SaleServices.BEAUTY).aggregate(total_revenue=Sum('service_price'))['total_revenue']
-
-        #departmentHealth
-        departmentHealth = SaleServices.objects.filter(department=SaleServices.HEALTH).aggregate(total_revenue=Sum('service_price'))['total_revenue']
-
-        #departmentHairProduct
-        departmentHairProduct = SaleServices.objects.filter(department=SaleServices.HAIRPRODUCT).aggregate(total_revenue=Sum('service_price'))['total_revenue']
-
-        #departmentHealth
-        departmentBeautyProduct = SaleServices.objects.filter(department=SaleServices.BEAUTYPRODUCT).aggregate(total_revenue=Sum('service_price'))['total_revenue']
-
-        #packageSales
-        packageSales = SaleServices.objects.filter(department=SaleServices.PACKAGESALES).aggregate(total_revenue=Sum('service_price'))['total_revenue']
-
-        #creditSales
-        creditSales = SaleServices.objects.filter(department=SaleServices.CREDITSALES).aggregate(total_revenue=Sum('service_price'))['total_revenue']
+        # creditSales
+        creditSales = SaleServices.objects.filter(
+            department=SaleServices.CREDITSALES, created_at__gte=two_weeks_ago
+        ).aggregate(total_revenue=Sum('service_price'))['total_revenue']
 
         emailForm = SendEmailReceiptForm()
-        print(request.GET.get('page_name'))
         cash = cash if cash is not None else 0
         paynow = paynow if paynow is not None else 0
         creditCard = creditCard if creditCard is not None else 0
@@ -667,7 +694,7 @@ def adminEditTransaction(request, pk):
 def generateTransactionReceipt(request, pk):
     saleServices = SaleServices.objects.filter(sales_transaction=pk)
     saleTransaction = SalesTransaction.objects.filter(id=pk).get()
-    print(saleTransaction.id)
+
     context = {
         'today' : timezone.now().date(),
         'saleServices' : saleServices,
@@ -706,6 +733,5 @@ def send_email_receipt(request):
         )
         return redirect('adminTransactionsOverview')
     else:
-        print('hhh')
         return redirect('adminTransactionsOverview')
 
