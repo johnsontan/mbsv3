@@ -9,7 +9,7 @@ from jsignature.forms import JSignatureField
 class CustomerProfileForm(forms.ModelForm):
     class Meta:
         model = CustomerProfile
-        exclude = []
+        exclude = ['status']
 
     def clean(self):
         cleaned_data = super().clean()

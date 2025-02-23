@@ -1,4 +1,4 @@
-#!/Users/forsaken/Downloads/mbsv3/mbsenv/bin/python3
+#!/home/chiangkiatl/mbsv3/mbsenv/bin/python3.10
 # -*- coding: utf-8 -*-
 import re
 import sys
