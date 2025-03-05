@@ -10,13 +10,15 @@ from .decorator import admin_role_required, employee_role_required, admin_or_emp
 from django.contrib.auth.decorators import login_required
 from datetime import date, timedelta
 from django.db.models import Sum
-from .forms import FrontEndBannerForm
+from .forms import FrontEndBannerForm, CustomPasswordResetForm
 from PIL import Image
 from django.core.files.base import ContentFile
 import io
 import requests
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordResetCompleteView
+from django.urls import reverse_lazy
 
 
 # Create your views here.
@@ -469,3 +471,18 @@ def adminUpdateYouTubeVideos(request):
         # Add general error message
         messages.error(request, f"An error occurred: {str(e)}")
         return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+class CustomPasswordResetView(PasswordResetView):
+    template_name = 'authentication-password-reset.html' 
+    form_class = CustomPasswordResetForm
+    success_url = reverse_lazy('login')
+    email_template_name = 'password-reset-email.html'
+    subject_template_name = 'password-reset-subject.txt'
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'authentication-confirm-password-reset.html' 
+    success_url = reverse_lazy('login')
+
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    success_url = reverse_lazy('login') 

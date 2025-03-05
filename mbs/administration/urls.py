@@ -33,6 +33,9 @@ urlpatterns = [
     path('editFrontendBanner/<int:pk> ', views.adminEditFrontendBanner, name='adminEditFrontendBanner'),
     path('deleteFrontendBanner/<int:pk> ', views.adminDeleteFrontendBanner, name='adminDeleteFrontendBanner'),
     path('youtubevideos/update', views.adminUpdateYouTubeVideos, name='adminUpdateYouTubeVideos'),
+    path('password-reset/', views.CustomPasswordResetView.as_view(), name='password_reset'),
+    path('reset/<uidb64>/<token>', views.CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done', views.CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

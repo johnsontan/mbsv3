@@ -747,3 +747,43 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.10/dist-packages/django/http/request.py", line 150, in get_host
     raise DisallowedHost(msg)
 django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '/home/chiangkiatl/mbsv3/mbs/mbs.sock:'. The domain name provided is not valid according to RFC 1034/1035.
+Internal Server Error: /melonadmin/employee/employee-apply-leave
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/django/core/handlers/base.py", line 204, in _get_response
+    self.check_response(response, callback)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/django/core/handlers/base.py", line 332, in check_response
+    raise ValueError(
+ValueError: The view employee.views.employeeApplyLeave didn't return an HttpResponse object. It returned None instead.
+"POST /melonadmin/employee/employee-apply-leave HTTP/1.1" 500 67527
+Internal Server Error: /melonadmin/employee/employee-apply-leave
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/forsaken/Downloads/mbsv3/mbs/administration/decorator.py", line 15, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/forsaken/Downloads/mbsv3/mbs/employee/views.py", line 278, in employeeApplyLeave
+    if form.is_valid():
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/django/forms/forms.py", line 201, in is_valid
+    return self.is_bound and not self.errors
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/django/forms/forms.py", line 196, in errors
+    self.full_clean()
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/django/forms/forms.py", line 434, in full_clean
+    self._clean_form()
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/django/forms/forms.py", line 455, in _clean_form
+    cleaned_data = self.clean()
+  File "/Users/forsaken/Downloads/mbsv3/mbs/employee/forms.py", line 94, in clean
+    if self.employee_leave_profile:
+AttributeError: 'EmployeeLeaveHistoryForm' object has no attribute 'employee_leave_profile'
+"POST /melonadmin/employee/employee-apply-leave HTTP/1.1" 500 91648
+Internal Server Error: /melonadmin/password-reset/
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+TypeError: View.as_view() takes 1 positional argument but 2 were given
+"GET /melonadmin/password-reset/ HTTP/1.1" 500 61210

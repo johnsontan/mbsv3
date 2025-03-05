@@ -272,35 +272,26 @@ def adminEmployeeLeaveDetail(request, pk):
 
 @employee_role_required
 def employeeApplyLeave(request):
+    employeeLeaveProfile = EmployeeLeave.objects.filter(user=request.user).get()
+
     if request.method == 'POST':
-        form = EmployeeLeaveHistoryForm(request.POST, request.FILES)
-        employeeLeaveProfile = EmployeeLeave.objects.filter(user=request.user).get()
+        form = EmployeeLeaveHistoryForm(request.POST, request.FILES, employee_leave_profile=employeeLeaveProfile)
         if form.is_valid():
             formInstance = form.save(commit=False)
             formInstance.employeeLeave = employeeLeaveProfile
             formInstance.status = EmployeeLeaveHistory.PENDING
             formInstance.entry = EmployeeLeaveHistory.SUBSTRACT
-
-            #check if balance is sufficent to deduct 
-            if formInstance.leave_type == 'annual leave' and employeeLeaveProfile.annual_leave - formInstance.qty < 0:
-                form.add_error('leave_type', 'Insufficient annual leave')
-            elif formInstance.leave_type == 'childcare leave' and employeeLeaveProfile.childcare_leave - formInstance.qty < 0:
-                form.add_error('leave_type', 'Insufficient childcare leave')
-            elif formInstance.leave_type == 'maternity leave' and employeeLeaveProfile.maternity_leave - formInstance.qty < 0:
-                form.add_error('leave_type', 'Insufficient maternity leave')
-            elif formInstance.leave_type == 'paternity leave' and employeeLeaveProfile.paternity_leave - formInstance.qty < 0:
-                form.add_error('leave_type', 'Insufficient paternity leave')
-            elif formInstance.leave_type == 'sick leave' and employeeLeaveProfile.sick_leave - formInstance.qty < 0:
-                form.add_error('leave_type', 'Insufficient sick leave')
-            elif formInstance.leave_type == 'unpaid leave' and employeeLeaveProfile.unpaid_leave - formInstance.qty < 0:
-                form.add_error('leave_type', 'Insufficient unpaid leave')
-
-            if form.errors:  # Check if there are any errors in the form
-                    # If there are errors, render the form again with the error messages
-                return render(request, 'employee-apply-leave.html', {"form": form, "employeeLeaveProfile":employeeLeaveProfile})
+            
             formInstance.save()
             messages.success(request, 'Leave applied, awaiting for approval')
-            return redirect('employeeIndex')            
+            return redirect('employeeIndex')
+        else:
+            # If the form is not valid, render the form again with errors
+            print("Form errors:", form.errors)
+            return render(request, 'employee-apply-leave.html', {
+                "form": form, 
+                "employeeLeaveProfile": employeeLeaveProfile
+            })        
     else:
         form = EmployeeLeaveHistoryForm()
         employeeLeaveProfile = EmployeeLeave.objects.filter(user=request.user).get()

@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordResetForm
 from .models import Accounts, AccountProfiles, Product, ProductHistory, FrontendBanner
 from PIL import Image, UnidentifiedImageError
 from io import BytesIO
@@ -9,6 +9,8 @@ import logging
 from PIL import Image
 from django.core.files.base import ContentFile
 import io
+from django.utils.translation import gettext_lazy as _
+
 
 logger = logging.getLogger(__name__)
 
@@ -173,3 +175,10 @@ class FrontEndBannerForm(forms.ModelForm):
     class Meta:
         model = FrontendBanner
         exclude = []
+
+class CustomPasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(
+        max_length=254,
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter your email address'}),
+        label=_("Email Address")
+    )
